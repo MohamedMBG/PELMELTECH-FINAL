@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" fill="none">
+  <!-- Textured blueprint canvas background -->
+  <rect width="800" height="600" fill="#fcfcf9" />
+  
+  <!-- Subtle coordinate grid lines (architectural draft) -->
+  <defs>
+    <pattern id="draftGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" stroke="#f1f5f9" stroke-width="1" />
+      <circle cx="0" cy="0" r="1.5" fill="#cbd5e1" />
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#draftGrid)" />
+
+  <!-- Water Body: Winding River (creates a realistic geography sketch) -->
+  <path d="M 0 500 C 150 480, 220 400, 300 280 C 360 180, 480 150, 520 120 C 580 80, 680 120, 800 80 L 800 0 L 0 0 Z" fill="#ecfeff" stroke="#a5f3fc" stroke-width="2" opacity="0.6"/>
+  <!-- River Label -->
+  <path id="riverTextPath" d="M 100 485 C 200 440, 300 320, 400 220" fill="none" stroke="none" />
+  <text font-family="monospace" font-size="9" fill="#0e7490" tracking="2" opacity="0.6" font-style="italic">
+    <textPath href="#riverTextPath" startOffset="30%">PRECISION CHANNEL RIVER</textPath>
+  </text>
+
+  <!-- Park/Green Zones -->
+  <path d="M 50 120 C 120 120, 160 160, 150 220 C 140 280, 70 300, 50 250 Z" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5" />
+  <text x="70" y="200" font-family="sans-serif" font-size="8" font-weight="bold" fill="#15803d" opacity="0.6" letter-spacing="1">DISTRICT PARK</text>
+
+  <!-- Road Network: Organic and gridded city street sketch -->
+  <g stroke="#cbd5e1" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+    <!-- Main Avenues (Double lines for highway sketch) -->
+    <!-- Freeway 101 -->
+    <path d="M -20 380 Q 250 350, 480 480 T 820 520" stroke="#94a3b8" stroke-width="12" fill="none" />
+    <path d="M -20 380 Q 250 350, 480 480 T 820 520" stroke="#f8fafc" stroke-width="8" fill="none" />
+
+    <!-- Avenues -->
+    <path d="M 280 -20 L 280 620" stroke="#94a3b8" stroke-width="8" fill="none" />
+    <path d="M 520 -20 L 520 620" stroke="#94a3b8" stroke-width="8" fill="none" />
+    
+    <!-- Organic winding street -->
+    <path d="M 50 50 C 200 80, 250 180, 450 180 C 600 180, 680 250, 750 400" stroke="#cbd5e1" stroke-width="8" fill="none" />
+    
+    <!-- Gridded streets -->
+    <path d="M 280 150 L 520 150" stroke="#e2e8f0" stroke-width="6" />
+    <path d="M 280 230 L 520 230" stroke="#e2e8f0" stroke-width="6" />
+    <path d="M 280 310 L 520 310" stroke="#e2e8f0" stroke-width="6" />
+    <path d="M 280 390 L 415 390" stroke="#e2e8f0" stroke-width="6" />
+    
+    <path d="M 360 150 L 360 450" stroke="#e2e8f0" stroke-width="6" />
+    <path d="M 440 150 L 440 450" stroke="#e2e8f0" stroke-width="6" />
+
+    <!-- Roundabout Structure -->
+    <circle cx="440" cy="310" r="24" fill="#f8fafc" stroke="#94a3b8" stroke-width="6" />
+  </g>
+
+  <!-- Bridge structural markings on the river -->
+  <path d="M 270 235 L 290 235 M 270 245 L 290 245" stroke="#475569" stroke-width="2" />
+  <path d="M 510 112 L 530 112 M 510 120 L 530 120" stroke="#475569" stroke-width="2" />
+
+  <!-- Dotted path representing route navigation -->
+  <path d="M 280 150 L 360 150 L 360 310 L 416 310" stroke="#00e5ff" stroke-width="3.5" stroke-dasharray="4,5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+  <!-- Target: PelmelTech Showroom & Production Hub -->
+  <!-- Located at (440, 310) inside the roundabout / block structure -->
+  <g transform="translate(440, 310)">
+    <!-- Radial concentric target lines -->
+    <circle cx="0" cy="0" r="50" stroke="#00e5ff" stroke-width="1" stroke-dasharray="3,6" opacity="0.5" />
+    <circle cx="0" cy="0" r="32" stroke="#ff007f" stroke-width="1.5" stroke-dasharray="10,4" fill="none" />
+    <circle cx="0" cy="0" r="16" stroke="#ff007f" stroke-width="0.75" fill="none" />
+    
+    <!-- Crosshairs -->
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="#ff007f" stroke-width="0.75" />
+    <line x1="-40" y1="0" x2="40" y2="0" stroke="#ff007f" stroke-width="0.75" />
+    
+    <!-- Hub Solid Core -->
+    <circle cx="0" cy="0" r="5" fill="#0f172a" />
+  </g>
+
+  <!-- Technical Hand-Drawn Annotations -->
+  <!-- Leader lines & text labels -->
+  <path d="M 440 260 L 440 200 L 470 200" stroke="#ff007f" stroke-width="0.75" fill="none" />
+  <text x="475" y="204" font-family="monospace" font-size="10" font-weight="bold" fill="#ff007f">PELMELTECH HUB (BLOCK 88)</text>
+  
+  <path d="M 330 150 L 300 130" stroke="#475569" stroke-width="0.75" fill="none" opacity="0.6"/>
+  <text x="180" y="125" font-family="monospace" font-size="8" fill="#475569" opacity="0.7">ENTRANCE A (WEST GATE)</text>
+
+  <!-- Compass Rose -->
+  <g transform="translate(720, 80)" opacity="0.7">
+    <circle cx="0" cy="0" r="24" stroke="#0f172a" stroke-width="1" fill="none" />
+    <line x1="0" y1="-28" x2="0" y2="28" stroke="#0f172a" stroke-width="0.5" />
+    <line x1="-28" y1="0" x2="28" y2="0" stroke="#0f172a" stroke-width="0.5" />
+    <!-- North Point pointer -->
+    <polygon points="0,-22 -4,-4 0,-8 4,-4" fill="#ff007f" />
+    <text x="-3" y="-30" font-family="monospace" font-size="9" font-weight="bold" fill="#0f172a">N</text>
+  </g>
+
+  <!-- Title & Blueprint Info Box in bottom right -->
+  <g transform="translate(530, 480)" opacity="0.85">
+    <rect width="240" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="6" />
+    <line x1="0" y1="30" x2="240" y2="30" stroke="#cbd5e1" stroke-width="1" />
+    
+    <text x="12" y="20" font-family="monospace" font-size="10" font-weight="bold" fill="#0f172a">PELMELTECH • SITE PLAN</text>
+    
+    <text x="12" y="46" font-family="monospace" font-size="8" fill="#475569">COORD: 34.0522° N, 118.2437° W</text>
+    <text x="12" y="58" font-family="monospace" font-size="8" fill="#475569">SCALE: 1 : 12,500 (DRAFT)</text>
+    <text x="12" y="72" font-family="monospace" font-size="8" fill="#ff007f" font-weight="bold">TARGET LOCATION: HIGH-SPEED UNIT</text>
+  </g>
+
+  <!-- Highway badge -->
+  <g transform="translate(180, 360)">
+    <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#00e5ff" />
+    <text x="0" y="4" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0f172a" text-anchor="middle">101</text>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" opacity="0.03" fill="currentColor">
+  <defs>
+    <pattern id="halftone" width="80" height="80" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <!-- Diagonal rows of dots of increasing sizes to simulate a print gradient -->
+      <circle cx="10" cy="10" r="1" />
+      <circle cx="30" cy="10" r="1.5" />
+      <circle cx="50" cy="10" r="2" />
+      <circle cx="70" cy="10" r="2.5" />
+      
+      <circle cx="10" cy="30" r="1.5" />
+      <circle cx="30" cy="30" r="2" />
+      <circle cx="50" cy="30" r="2.5" />
+      <circle cx="70" cy="30" r="3" />
+      
+      <circle cx="10" cy="50" r="2" />
+      <circle cx="30" cy="50" r="2.5" />
+      <circle cx="50" cy="50" r="3" />
+      <circle cx="70" cy="50" r="3.5" />
+      
+      <circle cx="10" cy="70" r="2.5" />
+      <circle cx="30" cy="70" r="3" />
+      <circle cx="50" cy="70" r="3.5" />
+      <circle cx="70" cy="70" r="4" />
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#halftone)" />
+</svg>
