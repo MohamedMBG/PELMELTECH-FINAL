@@ -1,357 +1,596 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { FormEvent } from "react";
 import Image from "next/image";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Mail,
-  MessageCircle,
-  Phone,
-  RotateCcw,
-  X,
+  Shirt, Box, Maximize2, Gift, Scissors, Tag, Flame, Package, Layers,
+  ThumbsUp, HelpCircle, RotateCcw, Phone, Mail, MessageCircle,
+  Printer, Ruler, Factory, Wrench, Zap, ScanLine, Droplet, PenLine,
+  CheckCircle2, Send,
+  type LucideIcon,
 } from "lucide-react";
-import { getProductPath, type Product } from "@/lib/products";
-import { useLanguage, type Translations } from "@/i18n";
+import {
+  PELMELBOT_CONTACT,
+  PELMELBOT_PRICE_KEYWORDS,
+  PELMELBOT_SAV_KEYWORDS,
+  PELMELBOT_TREE,
+  type PelmelBotOption,
+} from "@/data/pelmelbot";
+import styles from "./PelmelBot.module.css";
 
-type Message = { id: string; sender: "bot" | "user"; text: string };
-type Choice = { label: string; next: NodeId };
-type Cta = { label: string; href: string; external?: boolean; icon?: "message" | "mail" | "phone" };
-
-type ChatNode = {
-  id: NodeId;
-  response?: string;
-  choices?: Choice[];
-  ctas?: Cta[];
+const ICON_MAP: Record<string, LucideIcon> = {
+  shirt: Shirt,
+  box: Box,
+  maximize: Maximize2,
+  gift: Gift,
+  scissors: Scissors,
+  tag: Tag,
+  flame: Flame,
+  package: Package,
+  layers: Layers,
+  thumbsUp: ThumbsUp,
+  helpCircle: HelpCircle,
+  rotateCcw: RotateCcw,
+  phone: Phone,
+  mail: Mail,
+  messageCircle: MessageCircle,
+  printer: Printer,
+  ruler: Ruler,
+  factory: Factory,
+  wrench: Wrench,
+  zap: Zap,
+  scanLine: ScanLine,
+  droplet: Droplet,
+  penLine: PenLine,
+  checkCircle: CheckCircle2,
+  send: Send,
 };
 
-type Snapshot = {
-  currentNodeId: NodeId;
-  messages: Message[];
-  selectedOption: string | null;
-};
+type ChatEvent =
+  | {
+      id: string;
+      type: "message";
+      sender: "bot" | "user";
+      text: string;
+    }
+  | {
+      id: string;
+      type: "options";
+      stepId: string;
+      options: PelmelBotOption[];
+      disabled: boolean;
+    };
 
-type NodeId =
-  | "root" | "machines" | "machine-standard" | "machine-large-format" | "machine-event"
-  | "machine-industrial" | "machine-plotters" | "materials" | "material-banners"
-  | "material-panels" | "material-posters" | "material-vinyl" | "material-rollups"
-  | "consumables" | "consumable-ink" | "consumable-toner" | "consumable-paper"
-  | "consumable-parts" | "consumable-maintenance" | "quote" | "quote-result" | "contact";
+const BOT_DELAY = 520;
 
-function buildChatNodes(t: Translations): Record<NodeId, ChatNode> {
-  const bot = t.pelmelBot;
-  const whatsappMessage = encodeURIComponent(bot.whatsAppMessage);
-
-  const contactCtas: Cta[] = [
-    { label: bot.ctas.whatsApp, href: `https://wa.me/15550123456?text=${whatsappMessage}`, external: true, icon: "message" },
-    { label: bot.ctas.contactPage, href: "/contact" },
-    { label: bot.ctas.email, href: "mailto:projects@pelmeltech.com", icon: "mail" },
-    { label: bot.ctas.phone, href: "tel:+15550123456", icon: "phone" },
-  ];
-
-  const recCtas = (name: string): Cta[] => [
-    { label: bot.ctas.viewProduct, href: getProductPath({ name: name as Product["name"] }) },
-    { label: bot.ctas.requestQuote, href: "/contact" },
-    { label: bot.ctas.contactSales, href: `https://wa.me/15550123456?text=${whatsappMessage}`, external: true, icon: "message" },
-  ];
-
-  const compactCtas = (name: string): Cta[] => [
-    { label: bot.ctas.viewProduct, href: getProductPath({ name: name as Product["name"] }) },
-    { label: bot.ctas.requestQuote, href: "/contact" },
-  ];
-
-  const consumableCtas = (name: string): Cta[] => [
-    { label: bot.ctas.viewProduct, href: getProductPath({ name: name as Product["name"] }) },
-    { label: bot.ctas.requestAvailability, href: "/contact" },
-    { label: bot.ctas.contactPelmelTech, href: `https://wa.me/15550123456?text=${whatsappMessage}`, external: true, icon: "message" },
-  ];
-
-  const machineIds: NodeId[] = ["machine-standard", "machine-large-format", "machine-event", "machine-industrial", "machine-plotters"];
-  const materialIds: NodeId[] = ["material-banners", "material-panels", "material-posters", "material-vinyl", "material-rollups"];
-  const consumableIds: NodeId[] = ["consumable-ink", "consumable-toner", "consumable-paper", "consumable-parts", "consumable-maintenance"];
-  const quoteIds: NodeId[] = ["quote-result", "quote-result", "quote-result", "quote-result"];
-
-  const recKeys: (keyof typeof bot.recommendations)[] = ["standardPrinter", "largeFormat", "event", "industrial", "plotter"];
-  const matRecKeys: (keyof typeof bot.recommendations)[] = ["banner", "panel", "poster", "vinyl", "rollup"];
-  const conRecKeys: (keyof typeof bot.recommendations)[] = ["ink", "toner", "paper", "parts", "maintenance"];
-  const recProducts = ["ApexJet Office Pro 420", "WidePro LX 1600", "EventSnap Photo Printer", "ProductionLine X9", "PlanMaster CAD Plotter"];
-  const matProducts = ["Titan Industrial Mesh", "AluCore Rigid Panels", "Premium Photo Paper Roll", "Precision Wall Vinyl", "Apex Retractable Stand"];
-  const conProducts = ["CMYK Eco-Solvent Ink Set", "Office Toner Twin Pack", "Premium Photo Paper Roll", "Precision Printhead Module", "Printer Maintenance Kit"];
-
-  const nodes: Record<NodeId, ChatNode> = {
-    root: { id: "root", choices: bot.rootChoices.map((label, i) => ({ label, next: (["machines", "materials", "consumables", "quote", "contact"] as NodeId[])[i] })) },
-    machines: { id: "machines", response: bot.machineQuestion, choices: bot.machineChoices.map((label, i) => ({ label, next: machineIds[i] })) },
-    materials: { id: "materials", response: bot.materialQuestion, choices: bot.materialChoices.map((label, i) => ({ label, next: materialIds[i] })) },
-    consumables: { id: "consumables", response: bot.consumableQuestion, choices: bot.consumableChoices.map((label, i) => ({ label, next: consumableIds[i] })) },
-    quote: { id: "quote", response: bot.quoteQuestion, choices: bot.quoteChoices.map((label, i) => ({ label, next: quoteIds[i] })) },
-    "quote-result": { id: "quote-result", response: bot.quoteResult, ctas: contactCtas },
-    contact: { id: "contact", response: bot.contactResponse, ctas: contactCtas },
-    "machine-standard": { id: "machine-standard", response: bot.recommendations.standardPrinter, ctas: recCtas(recProducts[0]) },
-    "machine-large-format": { id: "machine-large-format", response: bot.recommendations.largeFormat, ctas: recCtas(recProducts[1]) },
-    "machine-event": { id: "machine-event", response: bot.recommendations.event, ctas: recCtas(recProducts[2]) },
-    "machine-industrial": { id: "machine-industrial", response: bot.recommendations.industrial, ctas: recCtas(recProducts[3]) },
-    "machine-plotters": { id: "machine-plotters", response: bot.recommendations.plotter, ctas: recCtas(recProducts[4]) },
-    "material-banners": { id: "material-banners", response: bot.recommendations.banner, ctas: compactCtas(matProducts[0]) },
-    "material-panels": { id: "material-panels", response: bot.recommendations.panel, ctas: compactCtas(matProducts[1]) },
-    "material-posters": { id: "material-posters", response: bot.recommendations.poster, ctas: compactCtas(matProducts[2]) },
-    "material-vinyl": { id: "material-vinyl", response: bot.recommendations.vinyl, ctas: compactCtas(matProducts[3]) },
-    "material-rollups": { id: "material-rollups", response: bot.recommendations.rollup, ctas: compactCtas(matProducts[4]) },
-    "consumable-ink": { id: "consumable-ink", response: bot.recommendations.ink, ctas: consumableCtas(conProducts[0]) },
-    "consumable-toner": { id: "consumable-toner", response: bot.recommendations.toner, ctas: consumableCtas(conProducts[1]) },
-    "consumable-paper": { id: "consumable-paper", response: bot.recommendations.paper, ctas: consumableCtas(conProducts[2]) },
-    "consumable-parts": { id: "consumable-parts", response: bot.recommendations.parts, ctas: consumableCtas(conProducts[3]) },
-    "consumable-maintenance": { id: "consumable-maintenance", response: bot.recommendations.maintenance, ctas: consumableCtas(conProducts[4]) },
-  };
-
-  return nodes;
+function normalizeText(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "");
 }
 
-const HELLOS = [
-  "Hello", "Bonjour", "Hola", "Hallo", "Ciao",
-  "Olá", "Merhaba", "Salam", "أهلا", "Namaste",
-  "Konnichiwa", "Annyeong", "Ni hao", "Sawadee",
-  "Jambo", "Zdravstvuyte", "Cześć", "Xin chào",
-  "Saluton", "Kamusta", "Szia", "Shalom", "Selamat",
-];
+function detectPriorityStep(value: string) {
+  const normalized = normalizeText(value);
+  const hasPrice = PELMELBOT_PRICE_KEYWORDS.some((keyword) =>
+    normalized.includes(normalizeText(keyword)),
+  );
+  if (hasPrice) return "PRIX";
 
-function CtaIcon({ icon }: { icon?: Cta["icon"] }) {
-  if (icon === "message") return <MessageCircle size={14} strokeWidth={2.2} />;
-  if (icon === "mail") return <Mail size={14} strokeWidth={2.2} />;
-  if (icon === "phone") return <Phone size={14} strokeWidth={2.2} />;
-  return <ArrowRight size={14} strokeWidth={2.2} className="rtl:rotate-180" />;
+  const hasSav = PELMELBOT_SAV_KEYWORDS.some((keyword) =>
+    normalized.includes(normalizeText(keyword)),
+  );
+  if (hasSav) return "SAV";
+
+  return null;
+}
+
+function splitLines(text: string) {
+  const lines = text.split("\n");
+  return lines.map((line, index) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
+}
+
+function ContactBlock({ text }: { text: string }) {
+  const lines = text.split("\n").filter(Boolean);
+
+  return (
+    <div className={styles.contactBlock}>
+      {lines.map((line, i) => {
+        if (line.startsWith("Téléphone :")) {
+          const num = line.replace("Téléphone : ", "");
+          return (
+            <a
+              key={`phone-${i}`}
+              href={`tel:${num.replace(/\s/g, "")}`}
+              className={styles.contactRow}
+            >
+              <Phone size={14} aria-hidden="true" className={styles.contactIcon} />
+              <span>{num}</span>
+            </a>
+          );
+        }
+        if (line.startsWith("Email :")) {
+          const email = line.replace("Email : ", "");
+          return (
+            <a
+              key={`email-${i}`}
+              href={`mailto:${email}`}
+              className={styles.contactRow}
+            >
+              <Mail size={14} aria-hidden="true" className={styles.contactIcon} />
+              <span>{email}</span>
+            </a>
+          );
+        }
+        if (line.startsWith("WhatsApp :")) {
+          const num = line.replace("WhatsApp : ", "");
+          return (
+            <a
+              key={`wa-${i}`}
+              href={PELMELBOT_CONTACT.whatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contactRow}
+            >
+              <MessageCircle size={14} aria-hidden="true" className={styles.contactIcon} />
+              <span>{num}</span>
+            </a>
+          );
+        }
+        return <span key={`line-${i}`}>{line}</span>;
+      })}
+    </div>
+  );
+}
+
+function RecommendationContent({ text }: { text: string }) {
+  const lines = text.split("\n").filter(Boolean);
+  const nameMatch = lines[0]?.match(/recommande (?:la |le |l')(.+)\./);
+  const machineName = nameMatch?.[1] ?? lines[0];
+  const descriptionLines = lines.slice(1);
+
+  return (
+    <div className={styles.recCard}>
+      <div className={styles.recHeader}>
+        <CheckCircle2 size={14} aria-hidden="true" />
+        <span>Recommandation</span>
+      </div>
+      <p className={styles.recTitle}>{machineName}</p>
+      <div className={styles.recDesc}>
+        {descriptionLines.map((line, i) => (
+          <span key={`rec-${i}`}>
+            {line}
+            {i < descriptionLines.length - 1 ? <br /> : null}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MessageContent({ text }: { text: string }) {
+  const isRecommendation = text.startsWith("Je vous recommande");
+  const hasContact = text.includes("Téléphone :");
+
+  if (isRecommendation) {
+    return <RecommendationContent text={text} />;
+  }
+
+  if (hasContact) {
+    const parts = text.split("\n\n");
+    const mainText = parts[0];
+    const contactText = parts.slice(1).join("\n\n");
+    return (
+      <>
+        <div className={styles.messageText}>{splitLines(mainText)}</div>
+        <ContactBlock text={contactText} />
+      </>
+    );
+  }
+
+  return <>{splitLines(text)}</>;
+}
+
+function getMessageClass(text: string) {
+  if (text.startsWith("Je vous recommande")) return styles.bubbleRec;
+  if (text.includes("Téléphone :")) return styles.bubbleContact;
+  return "";
+}
+
+function OptionIcon({ name }: { name?: string }) {
+  if (!name) return null;
+  const Icon = ICON_MAP[name];
+  if (!Icon) return null;
+  return <Icon size={15} aria-hidden="true" className={styles.optionIcon} />;
 }
 
 export default function PelmelBot() {
-  const { t, dir } = useLanguage();
-  const chatNodes = buildChatNodes(t);
-
-  const welcomeMessage: Message = { id: "welcome", sender: "bot", text: t.pelmelBot.welcome };
-
   const [isOpen, setIsOpen] = useState(false);
-  const [currentNodeId, setCurrentNodeId] = useState<NodeId>("root");
-  const [messages, setMessages] = useState<Message[]>([welcomeMessage]);
-  const [history, setHistory] = useState<Snapshot[]>([]);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const messageCounter = useRef(0);
-  const [helloIndex, setHelloIndex] = useState(0);
-  const prevLocaleRef = useRef(t.pelmelBot.welcome);
+  const [showBadge, setShowBadge] = useState(false);
+  const [events, setEvents] = useState<ChatEvent[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [inputEnabled, setInputEnabled] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [activeStep, setActiveStep] = useState("WELCOME");
 
-  useEffect(() => {
-    if (prevLocaleRef.current !== t.pelmelBot.welcome) {
-      prevLocaleRef.current = t.pelmelBot.welcome;
-      handleReset();
+  const messageIndexRef = useRef(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fallbackCountRef = useRef(0);
+  const windowRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+
+  const canUseContactLinks = useMemo(
+    () => activeStep === "CONTACT_MANAGER" || activeStep === "PRIX" || activeStep === "SAV" || activeStep === "FALLBACK_2",
+    [activeStep],
+  );
+
+  const createId = (prefix: string) => {
+    messageIndexRef.current += 1;
+    return `pelmelbot-${prefix}-${messageIndexRef.current}`;
+  };
+
+  const disableOpenOptions = () => {
+    setEvents((items) =>
+      items.map((item) =>
+        item.type === "options" && !item.disabled ? { ...item, disabled: true } : item,
+      ),
+    );
+  };
+
+  const clearPendingBotResponse = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
-  }, [t.pelmelBot.welcome]);
+  };
+
+  const renderStep = (stepId: string, reset = false) => {
+    const step = PELMELBOT_TREE[stepId];
+    if (!step) return;
+
+    clearPendingBotResponse();
+    setActiveStep(stepId);
+    setInputEnabled(false);
+    setIsTyping(true);
+
+    if (reset) {
+      fallbackCountRef.current = 0;
+      setInputValue("");
+      setEvents([]);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setEvents((items) => [
+        ...items,
+        {
+          id: createId("bot"),
+          type: "message",
+          sender: "bot",
+          text: step.message,
+        },
+        ...(step.options.length
+          ? [
+              {
+                id: createId("options"),
+                type: "options" as const,
+                stepId,
+                options: step.options,
+                disabled: false,
+              },
+            ]
+          : []),
+      ]);
+      setInputEnabled(Boolean(step.enableInput));
+      setIsTyping(false);
+    }, BOT_DELAY);
+  };
+
+  const openChat = () => {
+    setIsOpen(true);
+    setShowBadge(false);
+    if (events.length === 0 && !isTyping) {
+      renderStep("WELCOME", true);
+    }
+  };
+
+  const closeChat = () => {
+    setIsOpen(false);
+    launcherRef.current?.focus();
+  };
+
+  const handleOption = (option: PelmelBotOption) => {
+    disableOpenOptions();
+    setInputEnabled(false);
+    setInputValue("");
+    setEvents((items) => [
+      ...items,
+      {
+        id: createId("user"),
+        type: "message",
+        sender: "user",
+        text: option.label,
+      },
+    ]);
+
+    if (option.next === "WELCOME") {
+      renderStep("WELCOME", true);
+      return;
+    }
+
+    renderStep(option.next);
+  };
+
+  const handleInputSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const value = inputValue.trim();
+    if (!value || !inputEnabled) return;
+
+    setEvents((items) => [
+      ...items,
+      {
+        id: createId("user"),
+        type: "message",
+        sender: "user",
+        text: value,
+      },
+    ]);
+    setInputValue("");
+    setInputEnabled(false);
+
+    const priorityStep = detectPriorityStep(value);
+    if (priorityStep) {
+      renderStep(priorityStep);
+      return;
+    }
+
+    fallbackCountRef.current += 1;
+    renderStep(fallbackCountRef.current >= 2 ? "CONTACT_MANAGER" : "FALLBACK_2");
+  };
 
   useEffect(() => {
     if (isOpen) return;
-    const interval = setInterval(() => {
-      setHelloIndex((i) => (i + 1) % HELLOS.length);
-    }, 2000);
-    return () => clearInterval(interval);
+
+    const badgeTimer = setTimeout(() => setShowBadge(true), 5000);
+    return () => clearTimeout(badgeTimer);
   }, [isOpen]);
 
-  const currentNode = chatNodes[currentNodeId];
-  const canGoBack = history.length > 0;
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [events, isTyping]);
 
-  const createMessageId = () => {
-    messageCounter.current += 1;
-    return `pelmelbot-${messageCounter.current}`;
-  };
+  useEffect(() => {
+    if (!inputEnabled) return;
+    inputRef.current?.focus();
+  }, [inputEnabled]);
 
-  const handleChoice = (choice: Choice) => {
-    const nextNode = chatNodes[choice.next];
-    const nextMessages: Message[] = [{ id: createMessageId(), sender: "user", text: choice.label }];
-    if (nextNode.response) {
-      nextMessages.push({ id: createMessageId(), sender: "bot", text: nextNode.response });
-    }
-    setHistory((items) => [...items, { currentNodeId, messages, selectedOption }]);
-    setSelectedOption(choice.label);
-    setCurrentNodeId(choice.next);
-    setMessages((items) => [...items, ...nextMessages]);
-  };
+  useEffect(() => {
+    if (!isOpen) return;
 
-  const handleBack = () => {
-    const previous = history[history.length - 1];
-    if (!previous) return;
-    setCurrentNodeId(previous.currentNodeId);
-    setMessages(previous.messages);
-    setSelectedOption(previous.selectedOption);
-    setHistory((items) => items.slice(0, -1));
-  };
+    const keyHandler = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeChat();
+        return;
+      }
 
-  const handleReset = () => {
-    setCurrentNodeId("root");
-    setMessages([{ id: "welcome", sender: "bot", text: t.pelmelBot.welcome }]);
-    setHistory([]);
-    setSelectedOption(null);
-  };
+      if (event.key !== "Tab" || !windowRef.current) return;
+
+      const focusable = Array.from(
+        windowRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", keyHandler);
+    windowRef.current?.querySelector<HTMLElement>("button, input, a")?.focus();
+
+    return () => document.removeEventListener("keydown", keyHandler);
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => clearPendingBotResponse();
+  }, []);
 
   return (
-    <div className="fixed bottom-5 z-[60] sm:bottom-6" style={{ right: dir === "rtl" ? "auto" : "1rem", left: dir === "rtl" ? "1rem" : "auto", insetInlineEnd: dir === "rtl" ? "auto" : undefined }}>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.section
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            aria-label="PelmelBot chat panel"
-            className="fixed inset-x-3 bottom-[6.5rem] flex h-[min(680px,calc(100dvh-8rem))] flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-2xl shadow-black/[0.12] sm:w-[390px]"
-            style={{ left: dir === "rtl" ? "1.5rem" : "auto", right: dir === "rtl" ? "auto" : "1.5rem" }}
-          >
-            <header className="flex items-center justify-between gap-3 border-b border-black/[0.06] px-4 py-3">
-              <div className="flex min-w-0 items-center gap-3">
-                <div className="relative h-10 w-10 shrink-0 rounded-xl overflow-hidden shadow-lg shadow-magenta/15">
-                  <Image src="/images/pelmeltech/activated_bot.png" alt="PelmelBot" fill className="object-cover" sizes="40px" />
-                </div>
-                <div className="min-w-0">
-                  <h2 className="text-sm font-extrabold tracking-tight text-on-surface">PelmelBot</h2>
-                  <p className="truncate text-xs text-on-surface-variant">{t.pelmelBot.subtitle}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1">
-                <button type="button" onClick={handleBack} disabled={!canGoBack} aria-label="Go back" className="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface disabled:cursor-not-allowed disabled:opacity-35">
-                  <ArrowLeft size={16} strokeWidth={2.2} />
-                </button>
-                <button type="button" onClick={handleReset} aria-label="Start over" className="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface">
-                  <RotateCcw size={15} strokeWidth={2.2} />
-                </button>
-                <button type="button" onClick={() => setIsOpen(false)} aria-label="Close PelmelBot" className="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface">
-                  <X size={17} strokeWidth={2.2} />
-                </button>
-              </div>
-            </header>
-
-            <div className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-surface-container-low/35 px-4 py-4">
-              {messages.map((message) => (
-                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[84%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                    message.sender === "user"
-                      ? "rounded-br-md rtl:rounded-br-2xl rtl:rounded-bl-md bg-on-surface text-white"
-                      : "rounded-bl-md rtl:rounded-bl-2xl rtl:rounded-br-md border border-black/[0.06] bg-white text-on-surface shadow-sm shadow-black/[0.03]"
-                  }`}>
-                    {message.text}
-                  </div>
-                </div>
-              ))}
+    <div className={styles.widget} dir="ltr">
+      <div
+        ref={windowRef}
+        className={`${styles.window} ${isOpen ? styles.windowOpen : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Assistant PelmelTech"
+      >
+        <header className={styles.header}>
+          <div className={styles.headerIdentity}>
+            <Image
+              src="/images/pelmeltech/logo_pelmeltech.png"
+              alt="PelmelTech"
+              width={42}
+              height={42}
+              className={styles.headerLogo}
+            />
+            <div className={styles.headerText}>
+              <p className={styles.headerName}>PelmelBot</p>
+              <p className={styles.headerStatus}>
+                <span aria-hidden="true" className={styles.statusDot} />
+                En ligne - Assistant PelmelTech
+              </p>
             </div>
+          </div>
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={closeChat}
+            aria-label="Fermer le chat PelmelBot"
+          >
+            ×
+          </button>
+        </header>
 
-            <footer className="border-t border-black/[0.06] bg-white p-4">
-              {selectedOption && currentNodeId !== "root" && (
-                <p className="mb-3 text-[11px] font-semibold text-on-surface-variant">
-                  {t.pelmelBot.selected} <span className="text-on-surface">{selectedOption}</span>
-                </p>
-              )}
-
-              {currentNode.choices && (
-                <div className="grid gap-2">
-                  {currentNode.choices.map((choice) => (
+        <div
+          className={styles.messages}
+          role="log"
+          aria-live="polite"
+          aria-label="Messages du chat"
+        >
+          {events.map((item) => {
+            if (item.type === "options") {
+              return (
+                <div className={styles.options} key={item.id}>
+                  {item.options.map((option) => (
                     <button
-                      key={choice.label}
                       type="button"
-                      onClick={() => handleChoice(choice)}
-                      className="group flex min-h-11 w-full items-center justify-between gap-3 rounded-xl border border-black/[0.08] bg-white px-4 py-2.5 text-start text-sm font-semibold text-on-surface transition-all hover:border-magenta/30 hover:bg-magenta/5 active:scale-[0.99]"
+                      key={`${item.id}-${option.label}`}
+                      disabled={item.disabled || isTyping}
+                      onClick={() => handleOption(option)}
+                      className={styles.optionButton}
                     >
-                      <span>{choice.label}</span>
-                      <ArrowRight size={15} strokeWidth={2.2} className="shrink-0 text-on-surface-variant transition-colors group-hover:text-magenta rtl:rotate-180" />
+                      <OptionIcon name={option.icon} />
+                      <span>{option.label}</span>
                     </button>
                   ))}
                 </div>
-              )}
+              );
+            }
 
-              {currentNode.ctas && (
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {currentNode.ctas.map((cta, index) => {
-                    const className = index === 0
-                      ? "flex min-h-11 items-center justify-center gap-2 rounded-xl bg-magenta px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-magenta/15 transition-all hover:bg-magenta-dark active:scale-[0.99]"
-                      : "flex min-h-11 items-center justify-center gap-2 rounded-xl border border-black/[0.08] bg-white px-4 py-2.5 text-sm font-bold text-on-surface transition-all hover:border-cyan/40 hover:bg-cyan/5 active:scale-[0.99]";
-
-                    if (cta.external || cta.href.startsWith("mailto:") || cta.href.startsWith("tel:")) {
-                      return (
-                        <a key={cta.label} href={cta.href} target={cta.external ? "_blank" : undefined} rel={cta.external ? "noopener noreferrer" : undefined} className={className}>
-                          <CtaIcon icon={cta.icon} />
-                          <span>{cta.label}</span>
-                        </a>
-                      );
-                    }
-
-                    return (
-                      <Link key={cta.label} href={cta.href} className={className}>
-                        <CtaIcon icon={cta.icon} />
-                        <span>{cta.label}</span>
-                      </Link>
-                    );
-                  })}
+            return (
+              <div
+                key={item.id}
+                className={`${styles.messageRow} ${
+                  item.sender === "user" ? styles.userRow : styles.botRow
+                }`}
+              >
+                {item.sender === "bot" ? (
+                  <Image
+                    src="/images/pelmeltech/activated_bot.png"
+                    alt=""
+                    width={28}
+                    height={28}
+                    aria-hidden="true"
+                    className={styles.avatar}
+                  />
+                ) : null}
+                <div
+                  className={`${styles.bubble} ${
+                    item.sender === "bot" ? getMessageClass(item.text) : ""
+                  }`}
+                >
+                  {item.sender === "bot" ? (
+                    <MessageContent text={item.text} />
+                  ) : (
+                    splitLines(item.text)
+                  )}
                 </div>
-              )}
-            </footer>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
-      <div className="relative">
-        <AnimatePresence>
-          {!isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 8, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 6, scale: 0.9 }}
-              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute bottom-full mb-3 flex justify-end"
-              style={{ right: dir === "rtl" ? "auto" : 0, left: dir === "rtl" ? 0 : "auto" }}
-            >
-              <div className="rounded-full border border-black/[0.06] bg-white px-5 py-2.5 shadow-lg shadow-black/[0.06] overflow-hidden min-w-[120px] text-center">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={helloIndex}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                    className="block text-sm font-bold tracking-tight text-on-surface"
-                  >
-                    {HELLOS[helloIndex]} 👋
-                  </motion.span>
-                </AnimatePresence>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            );
+          })}
 
-        <motion.button
-          type="button"
-          onClick={() => setIsOpen((value) => !value)}
-          aria-label={isOpen ? "Close PelmelBot" : "Open PelmelBot"}
-          aria-expanded={isOpen}
-          whileHover={{ scale: 1.08, y: -2 }}
-          whileTap={{ scale: 0.92 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className="relative h-16 w-16 rounded-full shadow-xl shadow-black/15 overflow-hidden"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={isOpen ? "active" : "idle"}
-              initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotate: 30 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-            >
+          {isTyping ? (
+            <div className={`${styles.messageRow} ${styles.botRow}`} aria-label="PelmelBot écrit">
               <Image
-                src={isOpen ? "/images/pelmeltech/activated_bot.png" : "/images/pelmeltech/not_activated_bot.png"}
-                alt="PelmelBot"
-                fill
-                className="object-cover"
-                sizes="64px"
-                priority
+                src="/images/pelmeltech/activated_bot.png"
+                alt=""
+                width={28}
+                height={28}
+                aria-hidden="true"
+                className={styles.avatar}
               />
-            </motion.div>
-          </AnimatePresence>
-        </motion.button>
+              <div className={`${styles.bubble} ${styles.typingBubble}`}>
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          ) : null}
+          <div ref={endRef} />
+        </div>
+
+        <form className={styles.inputArea} onSubmit={handleInputSubmit}>
+          {canUseContactLinks ? (
+            <div className={styles.contactLinks} aria-label="Coordonnées PelmelTech">
+              <a href={PELMELBOT_CONTACT.whatsAppUrl} target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={13} aria-hidden="true" />
+                WhatsApp
+              </a>
+              <a href={`tel:${PELMELBOT_CONTACT.phonePrimary.replace(/\s/g, "")}`}>
+                <Phone size={13} aria-hidden="true" />
+                Appeler
+              </a>
+              <a href={`mailto:${PELMELBOT_CONTACT.email}`}>
+                <Mail size={13} aria-hidden="true" />
+                Email
+              </a>
+            </div>
+          ) : null}
+          <div className={styles.inputLine}>
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+              disabled={!inputEnabled}
+              placeholder={
+                inputEnabled
+                  ? "Décrivez votre besoin..."
+                  : "Saisie disponible uniquement pour « Autre »"
+              }
+              aria-label="Décrire votre besoin"
+              className={styles.input}
+            />
+            <button
+              type="submit"
+              disabled={!inputEnabled || inputValue.trim().length === 0}
+              aria-label="Envoyer votre message"
+              className={styles.sendButton}
+            >
+              <Send size={15} aria-hidden="true" />
+              <span className={styles.sendLabel}>Envoyer</span>
+            </button>
+          </div>
+        </form>
       </div>
+
+      <button
+        ref={launcherRef}
+        type="button"
+        className={styles.launcher}
+        onClick={isOpen ? closeChat : openChat}
+        aria-label={isOpen ? "Fermer l'assistant PelmelTech" : "Ouvrir l'assistant PelmelTech"}
+        aria-expanded={isOpen}
+      >
+        <Image
+          src={isOpen ? "/images/pelmeltech/activated_bot.png" : "/images/pelmeltech/not_activated_bot.png"}
+          alt=""
+          width={66}
+          height={66}
+          aria-hidden="true"
+          className={styles.launcherImage}
+        />
+        <span className={`${styles.badge} ${showBadge && !isOpen ? styles.badgeVisible : ""}`}>
+          1
+        </span>
+      </button>
     </div>
   );
 }
