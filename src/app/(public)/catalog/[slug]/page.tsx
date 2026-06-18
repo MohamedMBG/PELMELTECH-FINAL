@@ -59,7 +59,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <span className="mb-4 block text-xs font-bold uppercase tracking-[0.18em] text-magenta">
                 {t.productDetail.technicalFiche}
               </span>
-              <h1 className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-on-surface md:text-6xl">
+              <h1 className="max-w-2xl text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-on-surface md:text-6xl">
                 {product.name}
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-on-surface-variant md:text-lg">

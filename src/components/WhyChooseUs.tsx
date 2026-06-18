@@ -107,7 +107,7 @@ export default function WhyChooseUs() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-32 overflow-hidden relative bg-white">
+    <section className="section-y-lg overflow-hidden relative bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(226,0,116,0.012)_0%,transparent_70%)]" />
 
       <div className="relative max-w-[1280px] mx-auto px-4 md:px-16">
@@ -116,7 +116,7 @@ export default function WhyChooseUs() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, ease }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <motion.span
             className="text-magenta text-[11px] font-bold tracking-[0.25em] uppercase mb-4 block"
@@ -148,14 +148,14 @@ export default function WhyChooseUs() {
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-2 mb-12 sm:mb-16 lg:mb-20">
           {t.whyChooseUs.reasons.map((reason, i) => (
             <ReasonCard key={i} reason={reason} index={i} icon={ICONS[i]} />
           ))}
         </div>
 
         <motion.div
-          className="mx-auto h-px mb-16 bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent"
+          className="mx-auto h-px mb-10 lg:mb-16 bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent"
           initial={{ width: 0, opacity: 0 }}
           whileInView={{ width: "100%", opacity: 1 }}
           viewport={{ once: true, margin: "-40px" }}

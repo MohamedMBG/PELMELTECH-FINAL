@@ -32,6 +32,15 @@
 
 html {
   scroll-behavior: smooth;
+  /* Offset in-page anchors for the fixed header (h-16 mobile / h-20 desktop) */
+  scroll-padding-top: 4.5rem;
+  /* Prevent iOS/Android from auto-inflating font sizes on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (min-width: 1024px) {
+  html { scroll-padding-top: 5.5rem; }
 }
 
 body {
@@ -39,6 +48,38 @@ body {
   color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Global horizontal-scroll guard. `clip` (not `hidden`) does not create a
+     scroll container, so position: sticky keeps working. */
+  overflow-x: clip;
+}
+
+/* Media never overflows its container by default */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+}
+
+/* Consistent, premium vertical rhythm. Mobile-first; restores the original
+   desktop scale at lg so existing desktop layouts are preserved.
+   --pt/--pb let a section override one side (e.g. when it sits flush). */
+.section-y { padding-top: 4rem; padding-bottom: 4rem; }
+.section-y-lg { padding-top: 5rem; padding-bottom: 5rem; }
+
+@media (min-width: 640px) {
+  .section-y { padding-top: 5rem; padding-bottom: 5rem; }
+  .section-y-lg { padding-top: 6rem; padding-bottom: 6rem; }
+}
+
+@media (min-width: 1024px) {
+  .section-y { padding-top: 6rem; padding-bottom: 6rem; }      /* = py-24 */
+  .section-y-lg { padding-top: 8rem; padding-bottom: 8rem; }   /* = py-32 */
+}
+
+/* Consistent, accessible keyboard focus ring. `:where()` keeps specificity at
+   0 so component-level focus styles (e.g. PelmelBot) always win. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-magenta);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 ::selection {

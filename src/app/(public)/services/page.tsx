@@ -45,13 +45,13 @@ export default function ServicesPage() {
 
   return (
     <>
-      <section className="relative py-24 px-4 md:px-16 overflow-hidden">
+      <section className="relative section-y px-4 md:px-16 overflow-hidden">
         <AnimatedBackground />
         <div className="max-w-[1280px] mx-auto relative z-10">
           <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
             {t.services.tag}
           </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6">
             {t.services.title}
           </h1>
           <p className="text-lg text-on-surface-variant max-w-xl leading-relaxed">
@@ -60,7 +60,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-16 bg-surface-container-low">
+      <section className="section-y px-4 md:px-16 bg-surface-container-low">
         <div className="max-w-[1280px] mx-auto">
           <SectionHeader
             title={t.services.title}
@@ -70,7 +70,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-16 bg-white border-b border-black/5">
+      <section className="section-y px-4 md:px-16 bg-white border-b border-black/5">
         <div className="max-w-[1280px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
@@ -108,7 +108,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-16 bg-surface-container-low overflow-hidden">
+      <section className="section-y px-4 md:px-16 bg-surface-container-low overflow-hidden">
         <div className="max-w-[1280px] mx-auto">
           <SectionHeader
             title={t.process.title}

@@ -42,7 +42,7 @@ export default function HomeHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[calc(100dvh-80px)] flex items-center overflow-hidden"
+      className="relative min-h-[calc(100svh-4rem)] lg:min-h-[calc(100dvh-80px)] flex items-center overflow-hidden"
     >
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -66,8 +66,8 @@ export default function HomeHero() {
       />
 
       <motion.div style={{ opacity: opacityFade }} className="w-full">
-        <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-20 py-10 lg:py-0">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
+        <div className="max-w-[1400px] w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 sm:py-12 lg:py-0">
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 xl:gap-14 items-center">
             {/* Image Column */}
             <div className="lg:col-span-6 relative order-2 lg:order-1">
               <motion.div
@@ -81,7 +81,7 @@ export default function HomeHero() {
                 animate={{ clipPath: "inset(0% round 20px)" }}
                 transition={{ duration: 1.5, delay: 0.1, ease }}
               >
-                <div className="relative rounded-[20px] overflow-hidden aspect-[3/4] shadow-2xl shadow-black/10">
+                <div className="relative rounded-[20px] overflow-hidden aspect-[4/3] sm:aspect-[16/10] lg:aspect-[3/4] shadow-2xl shadow-black/10">
                   <motion.div
                     className="absolute -inset-[12%] will-change-transform"
                     style={{ y: imageY, scale: imageScale }}
@@ -102,9 +102,9 @@ export default function HomeHero() {
                     initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ duration: 0.9, delay: 1.5, ease }}
-                    className="absolute bottom-5 left-5 right-5 z-10"
+                    className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 z-10"
                   >
-                    <div className="bg-white/85 backdrop-blur-2xl rounded-2xl px-6 py-4 shadow-xl shadow-black/[0.06] border border-white/40">
+                    <div className="bg-white/85 backdrop-blur-2xl rounded-2xl px-4 py-3.5 sm:px-6 sm:py-4 shadow-xl shadow-black/[0.06] border border-white/40">
                       <div className="flex items-center justify-between">
                         {STATS.map((stat, i) => (
                           <motion.div
@@ -118,14 +118,14 @@ export default function HomeHero() {
                             }}
                             className={
                               i > 0
-                                ? "border-s border-on-surface/[0.06] ps-5"
+                                ? "border-s border-on-surface/[0.06] ps-3 sm:ps-5"
                                 : ""
                             }
                           >
-                            <span className="block text-lg font-extrabold text-on-surface tracking-tight leading-none">
+                            <span className="block text-base sm:text-lg font-extrabold text-on-surface tracking-tight leading-none">
                               {stat.value}
                             </span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] uppercase text-on-surface-variant/45 mt-1.5">
+                            <span className="block text-[9px] font-bold tracking-[0.18em] uppercase text-on-surface-variant/45 mt-1.5">
                               {stat.label}
                             </span>
                           </motion.div>
@@ -155,7 +155,7 @@ export default function HomeHero() {
                 initial={{ opacity: 0, x: -14 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.25, ease }}
-                className="flex items-center gap-3 mb-8 lg:mb-12"
+                className="flex items-center gap-3 mb-6 lg:mb-12"
               >
                 <motion.span
                   className="w-2 h-2 rounded-full bg-magenta"
@@ -171,7 +171,7 @@ export default function HomeHero() {
                 </span>
               </motion.div>
 
-              <div className="mb-8 lg:mb-10" style={{ perspective: "900px" }}>
+              <div className="mb-6 lg:mb-10" style={{ perspective: "900px" }}>
                 <h1>
                   {HEADLINE.map((line, i) => (
                     <span key={i} className="block overflow-hidden">
@@ -183,7 +183,7 @@ export default function HomeHero() {
                           delay: 0.3 + i * 0.1,
                           ease,
                         }}
-                        className={`block text-[clamp(2.5rem,5.8vw,5.25rem)] font-extrabold tracking-[-0.04em] leading-[1.08] ${
+                        className={`block text-[clamp(2.25rem,5.8vw,5.25rem)] font-extrabold tracking-[-0.04em] leading-[1.08] ${
                           line.accent ? "text-magenta" : "text-on-surface"
                         }`}
                         style={{ transformOrigin: "center bottom", willChange: "transform" }}
@@ -195,7 +195,7 @@ export default function HomeHero() {
                 </h1>
               </div>
 
-              <div className="flex items-center gap-3 mb-7">
+              <div className="flex items-center gap-3 mb-5 lg:mb-7">
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -214,7 +214,7 @@ export default function HomeHero() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.05, ease }}
-                className="text-[15px] md:text-base text-on-surface-variant leading-[1.85] max-w-[400px] mb-10"
+                className="text-[15px] md:text-base text-on-surface-variant leading-[1.8] max-w-[400px] mb-8 lg:mb-10"
               >
                 {t.hero.description}
               </motion.p>

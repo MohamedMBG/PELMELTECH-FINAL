@@ -37,9 +37,9 @@ export default function CatalogPreview() {
   }, []);
 
   return (
-    <section className="py-24 bg-background">
+    <section className="section-y bg-background">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}

@@ -11,10 +11,10 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="relative py-24 px-4 md:px-16 overflow-hidden">
+      <section className="relative section-y px-4 md:px-16 overflow-hidden">
         <AnimatedBackground />
         <div className="max-w-[1280px] mx-auto relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">
             {t.contact.heroTitle}
           </h1>
           <p className="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -23,7 +23,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="pb-24 px-4 md:px-16">
+      <section className="pb-16 sm:pb-20 lg:pb-24 px-4 md:px-16">
         <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7">
             <ContactForm />
@@ -109,7 +109,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-surface-container-low">
+      <section className="section-y bg-surface-container-low">
         <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <motion.div

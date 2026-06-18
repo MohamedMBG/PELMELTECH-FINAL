@@ -26,13 +26,13 @@ export default function CTASection({
   const label = primaryLabel || t.cta.startConsultation;
 
   return (
-    <section className="py-24 px-4 md:px-16 bg-background">
+    <section className="section-y px-4 md:px-16 bg-background">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="max-w-[1280px] mx-auto relative bg-white shadow-xl p-8 md:p-20 rounded-3xl border border-black/5 overflow-hidden"
+        className="max-w-[1280px] mx-auto relative bg-white shadow-xl p-8 sm:p-12 md:p-20 rounded-3xl border border-black/5 overflow-hidden"
       >
         <div className="absolute -right-24 -bottom-24 w-[300px] h-[300px] bg-cyan/6 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute -left-24 -top-24 w-[300px] h-[300px] bg-magenta/6 rounded-full blur-[100px] pointer-events-none" />

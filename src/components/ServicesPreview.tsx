@@ -65,9 +65,9 @@ export default function ServicesPreview() {
   const service = items[current];
 
   return (
-    <section className="py-28 bg-background overflow-hidden">
+    <section className="section-y-lg bg-background overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14 px-0 md:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 lg:mb-14 px-0 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

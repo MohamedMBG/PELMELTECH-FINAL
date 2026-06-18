@@ -14,14 +14,14 @@ export default function InvestorSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-24 bg-on-surface relative overflow-hidden">
+    <section className="section-y bg-on-surface relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-magenta/4 rounded-full blur-[160px]" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan/4 rounded-full blur-[160px]" />
       </div>
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 30 }}

@@ -56,7 +56,7 @@ function StackingCard({ service, index, total }: { service: ServiceItem; index: 
       className={`mb-6 md:mb-0 ${isLast ? "" : "md:h-[520px]"}`}
     >
       <motion.div
-        className="md:sticky mx-auto rounded-3xl overflow-hidden bg-white will-change-transform relative"
+        className="md:sticky mx-auto max-md:w-full! rounded-3xl overflow-hidden bg-white will-change-transform relative"
         style={{
           top: stickyTop,
           width: `${cardWidth}%`,
@@ -147,7 +147,7 @@ function StackingCard({ service, index, total }: { service: ServiceItem; index: 
         {/* Smooth dim overlay — darkens as card gets buried */}
         {!isLast && (
           <motion.div
-            className="absolute inset-0 bg-black pointer-events-none rounded-3xl"
+            className="absolute inset-0 bg-black pointer-events-none rounded-3xl hidden md:block"
             style={{ opacity: dimOverlay }}
           />
         )}

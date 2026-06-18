@@ -59,7 +59,7 @@ export default function InvestorsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-24 px-4 md:px-16 overflow-hidden">
+      <section className="relative section-y px-4 md:px-16 overflow-hidden">
         <AnimatedBackground />
         <div className="max-w-[1280px] mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -68,7 +68,7 @@ export default function InvestorsPage() {
               <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
                 Partnership & Investment
               </span>
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6">
                 Scale with{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan">
                   PelmelTech
@@ -115,7 +115,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 bg-white border-y border-black/5">
+      <section className="py-14 sm:py-16 lg:py-20 bg-white border-y border-black/5">
         <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {INVESTOR_STATS.map((stat, i) => (
@@ -126,7 +126,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* Opportunities */}
-      <section id="opportunities" className="py-24 px-4 md:px-16 bg-surface-container-low">
+      <section id="opportunities" className="section-y px-4 md:px-16 bg-surface-container-low">
         <div className="max-w-[1280px] mx-auto">
           <SectionHeader
             title="Why PelmelTech"
@@ -159,7 +159,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* Partnership Tiers */}
-      <section className="py-24 px-4 md:px-16 bg-white">
+      <section className="section-y px-4 md:px-16 bg-white">
         <div className="max-w-[1280px] mx-auto">
           <SectionHeader
             title="Partnership Tiers"
@@ -208,9 +208,9 @@ export default function InvestorsPage() {
       </section>
 
       {/* ESG */}
-      <section className="py-24 px-4 md:px-16 bg-surface-container-low">
+      <section className="section-y px-4 md:px-16 bg-surface-container-low">
         <div className="max-w-[1280px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -329,12 +329,12 @@ export default function InvestorsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-4 md:px-16">
+      <section className="section-y px-4 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-[1280px] mx-auto bg-gradient-to-br from-on-surface via-on-surface to-on-surface/90 p-12 md:p-20 rounded-3xl text-center"
+          className="max-w-[1280px] mx-auto bg-gradient-to-br from-on-surface via-on-surface to-on-surface/90 p-8 sm:p-12 md:p-20 rounded-3xl text-center"
         >
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
             Let&apos;s Build Together

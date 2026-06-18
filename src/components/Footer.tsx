@@ -9,8 +9,8 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="w-full pt-24 pb-12 bg-white border-t border-black/5">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-4 md:px-16 max-w-[1280px] mx-auto mb-20">
+    <footer className="w-full pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 bg-white border-t border-black/5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 px-4 md:px-16 max-w-[1280px] mx-auto mb-12 sm:mb-16 lg:mb-20">
         <div className="space-y-6">
           <Image
             src="/images/pelmeltech/logo_pelmeltech.png"

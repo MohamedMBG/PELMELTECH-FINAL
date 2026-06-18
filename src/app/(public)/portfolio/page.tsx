@@ -12,10 +12,10 @@ export default function PortfolioPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-24 px-4 md:px-16 overflow-hidden">
+      <section className="relative section-y px-4 md:px-16 overflow-hidden">
         <AnimatedBackground />
         <div className="max-w-[1280px] mx-auto relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-6">
             Crafting Visual Impact
           </h1>
           <p className="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
@@ -26,7 +26,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="py-24 px-4 md:px-16 bg-white">
+      <section className="section-y px-4 md:px-16 bg-white">
         <div className="max-w-[1280px] mx-auto">
           <SectionHeader
             label="Craftsmanship"
@@ -55,7 +55,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-24 bg-surface-container-low border-y border-black/5">
+      <section className="section-y bg-surface-container-low border-y border-black/5">
         <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {STATS.map((stat, i) => (
@@ -66,7 +66,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="section-y bg-white overflow-hidden">
         <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <SectionHeader
             label="Endorsements"
@@ -109,7 +109,7 @@ export default function PortfolioPage() {
         </div>
 
         <div className="max-w-[1280px] mx-auto px-4 md:px-16">
-          <div className="mt-20 flex flex-wrap justify-center gap-12 opacity-40 hover:opacity-100 transition-all duration-700">
+          <div className="mt-12 lg:mt-20 flex flex-wrap justify-center gap-8 sm:gap-12 opacity-40 hover:opacity-100 transition-all duration-700">
             {[
               { icon: CheckCircle, label: "ISO 9001 Certified" },
               { icon: Leaf, label: "FSC Certified" },

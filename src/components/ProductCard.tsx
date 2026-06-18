@@ -28,7 +28,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         product.badgeColor === "cyan" ? "hover:shadow-lg hover:shadow-cyan/8" : "hover:shadow-lg hover:shadow-magenta/8"
       }`}
     >
-      <div className="h-52 rounded-2xl bg-surface-container-low relative overflow-hidden flex items-center justify-center border border-black/5">
+      <div className="h-44 sm:h-52 rounded-2xl bg-surface-container-low relative overflow-hidden flex items-center justify-center border border-black/5">
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -45,7 +45,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         )}
       </div>
 
-      <div className="p-4">
+      <div className="px-1.5 pt-4 pb-1">
         <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-on-surface-variant/60 mb-1 block">
           {product.subcategory}
         </span>

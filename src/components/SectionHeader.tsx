@@ -17,7 +17,7 @@ export default function SectionHeader({ label, title, description, labelColor = 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`mb-16 ${center ? "text-center" : ""}`}
+      className={`mb-10 sm:mb-12 lg:mb-16 ${center ? "text-center" : ""}`}
     >
       {label && (
         <span className={`text-xs font-bold tracking-[0.2em] uppercase mb-4 block ${

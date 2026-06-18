@@ -105,7 +105,7 @@ export default function ProcessSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-32 overflow-hidden relative bg-white">
+    <section className="section-y-lg overflow-hidden relative bg-white">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(226,0,116,0.015)_0%,transparent_70%)]" />
       <div
         className="absolute inset-0 opacity-30"
@@ -121,7 +121,7 @@ export default function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, ease }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <motion.span
             className="text-cyan-dark text-[11px] font-bold tracking-[0.25em] uppercase mb-4 block"

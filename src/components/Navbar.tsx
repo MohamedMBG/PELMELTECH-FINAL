@@ -81,17 +81,17 @@ export default function Navbar() {
           : "bg-white/60 backdrop-blur-md"
       }`}
     >
-      <nav className="flex justify-between items-center h-20 px-4 md:px-16 max-w-[1280px] mx-auto">
+      <nav className="flex justify-between items-center h-16 lg:h-20 px-4 sm:px-6 md:px-16 max-w-[1280px] mx-auto">
         <Link href="/" className="flex items-center gap-1.5">
           <Image
             src="/images/pelmeltech/logo_pelmeltech.png"
             alt="PelmelTech"
             width={44}
             height={44}
-            className="h-10 w-auto"
+            className="h-9 lg:h-10 w-auto"
             priority
           />
-          <span className="text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
+          <span className="text-[20px] lg:text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
             elmel<span className="text-cyan">Tech</span>
           </span>
         </Link>
@@ -197,7 +197,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 overflow-hidden"
           >
-            <div className="flex flex-col p-6 gap-1 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+            <div className="flex flex-col p-5 sm:p-6 gap-1 max-h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-5rem)] overflow-y-auto">
               {/* Mobile language switcher */}
               <div className="flex items-center gap-1 mb-4 bg-surface-container-low rounded-full border border-black/[0.06] p-0.5 w-fit">
                 {LOCALE_OPTIONS.map((opt) => (

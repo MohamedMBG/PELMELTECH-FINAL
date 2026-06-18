@@ -30,19 +30,19 @@ export default function CatalogPage() {
 
   return (
     <>
-      <section className="bg-surface-container-low py-20 relative overflow-hidden">
+      <section className="bg-surface-container-low py-14 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 end-0 w-1/3 h-full bg-gradient-to-l from-magenta/5 to-transparent rtl:bg-gradient-to-r" />
           <div className="absolute bottom-0 end-[10%] w-[300px] h-[300px] bg-cyan/5 rounded-full blur-[100px]" />
         </div>
 
         <div className="px-4 md:px-16 max-w-[1280px] mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <span className="text-magenta text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
                 {t.catalog.heroTag}
               </span>
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6 max-w-2xl">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-on-surface leading-[1.1] mb-6 max-w-2xl">
                 {t.catalog.heroTitle}<span className="text-cyan">.</span>
               </h1>
               <p className="text-lg text-on-surface-variant max-w-xl leading-relaxed">
@@ -65,9 +65,9 @@ export default function CatalogPage() {
         </div>
       </section>
 
-      <section className="py-16 px-4 md:px-16">
-        <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-12">
-          <aside className="w-full lg:w-72 shrink-0 space-y-10 lg:sticky lg:top-28 h-fit">
+      <section className="py-10 sm:py-12 lg:py-16 px-4 md:px-16">
+        <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <aside className="hidden lg:block w-full lg:w-72 shrink-0 space-y-10 lg:sticky lg:top-28 h-fit">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -119,13 +119,32 @@ export default function CatalogPage() {
           </aside>
 
           <div className="flex-grow">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            {/* Mobile category filter — swipeable chips (desktop uses the sidebar) */}
+            <div className="lg:hidden -mx-4 px-4 mb-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-2 w-max">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`shrink-0 whitespace-nowrap text-xs font-bold tracking-wide px-4 py-2.5 rounded-full border transition-all active:scale-95 ${
+                      activeCategory === cat
+                        ? "bg-on-surface text-white border-on-surface"
+                        : "bg-white text-on-surface-variant border-black/10"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 lg:mb-8 gap-4">
               <p className="text-sm text-on-surface-variant">
                 {t.catalog.showing} <span className="font-bold text-on-surface">{filtered.length}</span> {t.catalog.professionalResults}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
               {filtered.map((product, i) => (
                 <ProductCard key={product.id} product={product} index={i} />
               ))}
@@ -134,13 +153,13 @@ export default function CatalogPage() {
         </div>
       </section>
 
-      <section className="py-24 px-4 md:px-16">
+      <section className="section-y px-4 md:px-16">
         <div className="max-w-[1280px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-surface-container-high rounded-3xl p-12 md:p-20 border border-black/5 shadow-xl relative overflow-hidden"
+            className="bg-surface-container-high rounded-3xl p-8 sm:p-12 md:p-20 border border-black/5 shadow-xl relative overflow-hidden"
           >
             <div className="absolute top-0 end-0 w-[400px] h-[400px] bg-cyan/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 rtl:-translate-x-1/2" />
             <div className="absolute bottom-0 start-0 w-[300px] h-[300px] bg-magenta/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2" />
