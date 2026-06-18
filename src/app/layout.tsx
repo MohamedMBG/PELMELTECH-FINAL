@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import PelmelBot from "@/components/PelmelBot";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -25,10 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth antialiased ${manrope.variable}`}>
       <body className={`min-h-screen flex flex-col bg-background text-on-surface ${manrope.className}`}>
-        <Navbar />
-        <main className="flex-1 pt-20">{children}</main>
-        <Footer />
-        <PelmelBot />
+        {children}
       </body>
     </html>
   );
