@@ -1,21 +1,38 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getParentCategories, getSubcategories } from "@/lib/catalog";
 
-const CATEGORIES = [
-  "Large Format Printers",
-  "Banners & Mesh",
-  "Rigid Panels",
-  "Event Displays",
-  "Print Materials",
-];
+import categoriesData from "@/data/categories.json";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+const staticCategories = (() => {
+  const parents = (categoriesData as any[]).filter((c) => c.parentId === null && c.status === "published");
+  return parents.flatMap((parent) =>
+    (categoriesData as any[])
+      .filter((c) => c.parentId === parent.id && c.status === "published")
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .slice(0, 2)
+      .map((sub) => sub.name as string)
+  );
+})();
+
 export default function CatalogPreview() {
+  const [previewCategories, setPreviewCategories] = useState<string[]>(staticCategories);
+
+  useEffect(() => {
+    const parents = getParentCategories();
+    setPreviewCategories(
+      parents.flatMap((parent) =>
+        getSubcategories(parent.id).slice(0, 2).map((sub) => sub.name)
+      )
+    );
+  }, []);
   return (
     <section className="py-24 bg-background">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
@@ -39,7 +56,7 @@ export default function CatalogPreview() {
             </p>
 
             <ul className="space-y-3 mb-10">
-              {CATEGORIES.map((cat, i) => (
+              {previewCategories.map((cat, i) => (
                 <motion.li
                   key={cat}
                   initial={{ opacity: 0, x: -15 }}

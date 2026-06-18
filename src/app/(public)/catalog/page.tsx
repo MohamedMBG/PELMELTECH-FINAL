@@ -1,26 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { RotateCcw, Download } from "lucide-react";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
-import { PRODUCTS } from "@/lib/constants";
+import { getProducts, getAllSubcategories, type CatalogProduct } from "@/lib/catalog";
 
-const CATEGORIES = [
-  "All Solutions",
-  ...Array.from(new Set(PRODUCTS.map((product) => product.category))),
-];
 const FINISHES = ["All Finishes", "Matte Industrial", "High-Gloss Premium", "Satin"];
 
 export default function CatalogPage() {
+  const [allProducts, setAllProducts] = useState<CatalogProduct[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All Solutions"]);
   const [activeCategory, setActiveCategory] = useState("All Solutions");
   const [activeFinish, setActiveFinish] = useState("All Finishes");
 
+  useEffect(() => {
+    const products = getProducts();
+    setAllProducts(products);
+    setCategories(["All Solutions", ...getAllSubcategories()]);
+  }, []);
+
   const filtered = activeCategory === "All Solutions"
-    ? PRODUCTS
-    : PRODUCTS.filter((p) => p.category === activeCategory);
+    ? allProducts
+    : allProducts.filter((p) => p.subcategory === activeCategory);
 
   return (
     <>
@@ -31,7 +35,7 @@ export default function CatalogPage() {
           <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-magenta/5 to-transparent" />
           <div className="absolute bottom-0 right-[10%] w-[300px] h-[300px] bg-cyan/5 rounded-full blur-[100px]" />
         </div>
-        
+
         <div className="px-4 md:px-16 max-w-[1280px] mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
@@ -74,7 +78,7 @@ export default function CatalogPage() {
             >
               <h3 className="text-lg font-bold text-on-surface mb-6">Categories</h3>
               <div className="space-y-3">
-                {CATEGORIES.map((cat) => (
+                {categories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
@@ -127,7 +131,7 @@ export default function CatalogPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
               {filtered.map((product, i) => (
-                <ProductCard key={product.name} {...product} index={i} />
+                <ProductCard key={product.id} product={product} index={i} />
               ))}
             </div>
           </div>

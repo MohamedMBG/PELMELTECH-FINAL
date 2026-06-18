@@ -4,14 +4,18 @@
  */
 
 import { AdminProduct, AdminCategory, QuoteRequest } from "./admin-types";
-import { PRODUCTS } from "./constants";
+import productsData from "@/data/products.json";
+import categoriesData from "@/data/categories.json";
 
 const STORAGE_KEYS = {
   products: "pelmeltech_admin_products",
   categories: "pelmeltech_admin_categories",
   quotes: "pelmeltech_admin_quotes",
   seeded: "pelmeltech_admin_seeded",
+  seedVersion: "pelmeltech_admin_seed_version",
 } as const;
+
+const SEED_VERSION = "2";
 
 function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -29,81 +33,83 @@ function now(): string {
   return new Date().toISOString();
 }
 
-// --- Category seed ---
+function migrateData(): void {
+  if (typeof window === "undefined") return;
+  if (localStorage.getItem(STORAGE_KEYS.seedVersion) === SEED_VERSION) return;
+  if (!localStorage.getItem(STORAGE_KEYS.seeded)) return;
 
-const SEED_CATEGORIES: Omit<AdminCategory, "id" | "createdAt" | "updatedAt">[] = [
-  { name: "Standard Printers", slug: "standard-printers", description: "Business color printers for offices", imageUrl: "", parentId: null, sortOrder: 0, status: "published" },
-  { name: "Large Format Printers", slug: "large-format-printers", description: "Wide-format production printers", imageUrl: "", parentId: null, sortOrder: 1, status: "published" },
-  { name: "Event Printers", slug: "event-printers", description: "Portable event print systems", imageUrl: "", parentId: null, sortOrder: 2, status: "published" },
-  { name: "Industrial Printers", slug: "industrial-printers", description: "High-volume production platforms", imageUrl: "", parentId: null, sortOrder: 3, status: "published" },
-  { name: "Plotters", slug: "plotters", description: "Technical plotting and cutting systems", imageUrl: "", parentId: null, sortOrder: 4, status: "published" },
-  { name: "Banners & Mesh", slug: "banners-and-mesh", description: "Outdoor banner and mesh substrates", imageUrl: "", parentId: null, sortOrder: 5, status: "published" },
-  { name: "Rigid Panels", slug: "rigid-panels", description: "Rigid display and signage panels", imageUrl: "", parentId: null, sortOrder: 6, status: "published" },
-  { name: "Soft Signage", slug: "soft-signage", description: "Printed fabric display materials", imageUrl: "", parentId: null, sortOrder: 7, status: "published" },
-  { name: "Vinyl & Wraps", slug: "vinyl-and-wraps", description: "Adhesive vinyl and wrap media", imageUrl: "", parentId: null, sortOrder: 8, status: "published" },
-  { name: "Exhibition", slug: "exhibition", description: "Portable exhibition display systems", imageUrl: "", parentId: null, sortOrder: 9, status: "published" },
-  { name: "Ink & Toner", slug: "ink-and-toner", description: "Printer consumable supplies", imageUrl: "", parentId: null, sortOrder: 10, status: "published" },
-  { name: "Paper & Rolls", slug: "paper-and-rolls", description: "Printable roll media", imageUrl: "", parentId: null, sortOrder: 11, status: "published" },
-  { name: "Printer Parts", slug: "printer-parts", description: "Replacement printer parts", imageUrl: "", parentId: null, sortOrder: 12, status: "published" },
-  { name: "Maintenance Tools", slug: "maintenance-tools", description: "Printer maintenance accessories", imageUrl: "", parentId: null, sortOrder: 13, status: "published" },
-];
+  const cats = readStoredCategories();
+  const prods = readStoredProducts();
 
-function categoryToType(category: string): AdminProduct["type"] {
-  const machines = ["Standard Printers", "Large Format Printers", "Event Printers", "Industrial Printers", "Plotters"];
-  const materials = ["Banners & Mesh", "Rigid Panels", "Soft Signage", "Vinyl & Wraps", "Paper & Rolls"];
-  const consumables = ["Ink & Toner"];
-  const accessories = ["Printer Parts", "Maintenance Tools"];
-  if (machines.includes(category)) return "machine";
-  if (materials.includes(category)) return "material";
-  if (consumables.includes(category)) return "consumable";
-  if (accessories.includes(category)) return "accessory";
-  return "service";
+  const migratedCats = cats.map((c: any) => ({ ...c, icon: c.icon ?? null }));
+  localStorage.setItem(STORAGE_KEYS.categories, JSON.stringify(migratedCats));
+
+  const migratedProds = prods.map((p: any) => {
+    if (p.subcategory) return p;
+    const cat = migratedCats.find((c: any) => c.id === p.categoryId);
+    return {
+      ...p,
+      subcategory: cat && cat.parentId ? cat.name : (p.categoryName || ""),
+      badge: p.badge ?? null,
+      badgeColor: p.badgeColor ?? null,
+    };
+  });
+  localStorage.setItem(STORAGE_KEYS.products, JSON.stringify(migratedProds));
+  localStorage.setItem(STORAGE_KEYS.seedVersion, SEED_VERSION);
 }
 
-function parsePrice(price: string): number | null {
-  const match = price.match(/\$?([\d.]+)/);
-  return match ? parseFloat(match[1]) : null;
+function readStoredProducts(): any[] {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.products) || "[]"); } catch { return []; }
+}
+
+function readStoredCategories(): any[] {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.categories) || "[]"); } catch { return []; }
 }
 
 function seedData(): void {
   if (typeof window === "undefined") return;
+  migrateData();
   if (localStorage.getItem(STORAGE_KEYS.seeded)) return;
 
   const ts = now();
 
-  const categories: AdminCategory[] = SEED_CATEGORIES.map((c) => ({
-    ...c,
-    id: generateId(),
+  const categories = categoriesData.map((c) => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+    description: c.description,
+    imageUrl: c.imageUrl,
+    parentId: c.parentId,
+    sortOrder: c.sortOrder,
+    status: c.status as "published" | "hidden",
+    icon: (c as any).icon ?? null,
     createdAt: ts,
     updatedAt: ts,
   }));
 
-  const categoryMap = new Map(categories.map((c) => [c.name, c]));
-
-  const products: AdminProduct[] = PRODUCTS.map((p) => {
-    const cat = categoryMap.get(p.category);
-    const priceVal = parsePrice(p.price);
-    return {
-      id: generateId(),
-      name: p.name,
-      slug: slugify(p.name),
-      categoryId: cat?.id ?? "",
-      categoryName: p.category,
-      shortDescription: p.description,
-      description: p.description,
-      imageUrl: p.image,
-      gallery: [],
-      price: priceVal,
-      quoteOnly: priceVal === null,
-      featured: p.badge === "Bestseller" || p.badge === "Popular" || p.badge === "Premium",
-      status: "published" as const,
-      type: categoryToType(p.category),
-      specifications: {},
-      ctaLabel: priceVal === null ? "Request Quote" as const : "View Details" as const,
-      createdAt: ts,
-      updatedAt: ts,
-    };
-  });
+  const products = productsData.map((p) => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    categoryId: p.categoryId,
+    categoryName: p.categoryName,
+    subcategory: (p as any).subcategory ?? p.categoryName,
+    shortDescription: p.shortDescription,
+    description: p.description,
+    imageUrl: p.imageUrl,
+    gallery: p.gallery,
+    price: p.price,
+    quoteOnly: p.quoteOnly,
+    featured: p.featured,
+    status: p.status as "published" | "draft",
+    type: p.type as AdminProduct["type"],
+    badge: (p as any).badge ?? null,
+    badgeColor: (p as any).badgeColor ?? null,
+    specifications: p.specifications as AdminProduct["specifications"],
+    ctaLabel: p.ctaLabel as AdminProduct["ctaLabel"],
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
+  }));
 
   const quotes: QuoteRequest[] = [
     {
@@ -145,6 +151,7 @@ function seedData(): void {
   localStorage.setItem(STORAGE_KEYS.categories, JSON.stringify(categories));
   localStorage.setItem(STORAGE_KEYS.quotes, JSON.stringify(quotes));
   localStorage.setItem(STORAGE_KEYS.seeded, "true");
+  localStorage.setItem(STORAGE_KEYS.seedVersion, SEED_VERSION);
 }
 
 function getItems<T>(key: string): T[] {
@@ -173,16 +180,22 @@ export function getProduct(id: string): AdminProduct | undefined {
 
 export function createProduct(data: Omit<AdminProduct, "id" | "createdAt" | "updatedAt" | "slug">): AdminProduct {
   const products = getProducts();
-  const product: AdminProduct = {
+  const categories = getCategories();
+  const cat = categories.find((c) => c.id === data.categoryId);
+  const subcategory = cat && cat.parentId ? cat.name : (data.categoryName || "");
+  const product = {
     ...data,
     id: generateId(),
     slug: slugify(data.name),
+    subcategory,
+    badge: null,
+    badgeColor: null,
     createdAt: now(),
     updatedAt: now(),
   };
   products.unshift(product);
   setItems(STORAGE_KEYS.products, products);
-  return product;
+  return product as AdminProduct;
 }
 
 export function updateProduct(id: string, data: Partial<Omit<AdminProduct, "id" | "createdAt">>): AdminProduct | undefined {

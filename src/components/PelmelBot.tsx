@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -10,7 +11,6 @@ import {
   MessageCircle,
   Phone,
   RotateCcw,
-  Sparkles,
   X,
 } from "lucide-react";
 import { getProductPath, type Product } from "@/lib/products";
@@ -382,12 +382,18 @@ export default function PelmelBot() {
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             aria-label="PelmelBot chat panel"
-            className="fixed inset-x-3 bottom-24 flex h-[min(680px,calc(100dvh-7rem))] flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-2xl shadow-black/[0.12] sm:left-auto sm:right-6 sm:w-[390px]"
+            className="fixed inset-x-3 bottom-[6.5rem] flex h-[min(680px,calc(100dvh-8rem))] flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-2xl shadow-black/[0.12] sm:left-auto sm:right-6 sm:w-[390px]"
           >
             <header className="flex items-center justify-between gap-3 border-b border-black/[0.06] px-4 py-3">
               <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-magenta text-white shadow-lg shadow-magenta/15">
-                  <MessageCircle size={18} strokeWidth={2.3} />
+                <div className="relative h-10 w-10 shrink-0 rounded-xl overflow-hidden shadow-lg shadow-magenta/15">
+                  <Image
+                    src="/images/pelmeltech/activated_bot.png"
+                    alt="PelmelBot"
+                    fill
+                    className="object-cover"
+                    sizes="40px"
+                  />
                 </div>
                 <div className="min-w-0">
                   <h2 className="text-sm font-extrabold tracking-tight text-on-surface">
@@ -518,51 +524,65 @@ export default function PelmelBot() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.16 }}
-            className="mb-3 flex justify-end"
-          >
-            <div className="rounded-full border border-black/[0.06] bg-white px-5 py-2.5 shadow-lg shadow-black/[0.06] overflow-hidden min-w-[120px] text-center">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={helloIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  className="block text-sm font-bold tracking-tight text-on-surface"
-                >
-                  {HELLOS[helloIndex]} 👋
-                </motion.span>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <button
-        type="button"
-        onClick={() => setIsOpen((value) => !value)}
-        aria-label={isOpen ? "Close PelmelBot" : "Open PelmelBot"}
-        aria-expanded={isOpen}
-        className="group flex h-14 items-center gap-3 rounded-full border border-black/[0.06] bg-on-surface px-4 text-white shadow-xl shadow-black/15 transition-all hover:-translate-y-0.5 hover:bg-magenta active:scale-[0.98]"
-      >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/12">
-          {isOpen ? (
-            <X size={18} strokeWidth={2.3} />
-          ) : (
-            <Sparkles size={18} strokeWidth={2.3} />
+      <div className="relative">
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 8, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 6, scale: 0.9 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute bottom-full mb-3 right-0 flex justify-end"
+            >
+              <div className="rounded-full border border-black/[0.06] bg-white px-5 py-2.5 shadow-lg shadow-black/[0.06] overflow-hidden min-w-[120px] text-center">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={helloIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="block text-sm font-bold tracking-tight text-on-surface"
+                  >
+                    {HELLOS[helloIndex]} 👋
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            </motion.div>
           )}
-        </span>
-        <span className="hidden text-sm font-extrabold tracking-tight sm:block">
-          PelmelBot
-        </span>
-      </button>
+        </AnimatePresence>
+
+        <motion.button
+          type="button"
+          onClick={() => setIsOpen((value) => !value)}
+          aria-label={isOpen ? "Close PelmelBot" : "Open PelmelBot"}
+          aria-expanded={isOpen}
+          whileHover={{ scale: 1.08, y: -2 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className="relative h-16 w-16 rounded-full shadow-xl shadow-black/15 overflow-hidden"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isOpen ? "active" : "idle"}
+              initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 0.5, opacity: 0, rotate: 30 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={isOpen ? "/images/pelmeltech/activated_bot.png" : "/images/pelmeltech/not_activated_bot.png"}
+                alt="PelmelBot"
+                fill
+                className="object-cover"
+                sizes="64px"
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,13 @@
-import { PRODUCTS } from "@/lib/constants";
+import {
+  getProducts,
+  getProductBySlug as catalogGetProductBySlug,
+  getRelatedProducts as catalogGetRelatedProducts,
+  getProductPath as catalogGetProductPath,
+  slugifyProductName,
+  type CatalogProduct,
+} from "@/lib/catalog";
 
-export type Product = (typeof PRODUCTS)[number];
+export type Product = CatalogProduct;
 
 type TechnicalRow = {
   label: string;
@@ -268,46 +275,42 @@ const categoryDetails: Record<string, Omit<ProductDetail, "fiche"> & { fiche: Om
   },
 };
 
-export function slugifyProductName(name: string) {
-  return name
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+export { slugifyProductName };
+
+export function getProductPath(product: { name?: string; slug?: string }): string {
+  if (product.slug) return catalogGetProductPath({ slug: product.slug });
+  return `/catalog/${slugifyProductName(product.name ?? "")}`;
 }
 
-export function getProductPath(product: { name: string }) {
-  return `/catalog/${slugifyProductName(product.name)}`;
+export function findProductBySlug(slug: string): Product | undefined {
+  return catalogGetProductBySlug(slug);
 }
 
-export function findProductBySlug(slug: string) {
-  return PRODUCTS.find((product) => slugifyProductName(product.name) === slug);
+export function findProductByName(name: string): Product | undefined {
+  return getProducts().find((p) => p.name === name);
 }
 
 export function getProductDetail(product: Product): ProductDetail {
-  const category = categoryDetails[product.category] ?? categoryDetails["Standard Printers"];
+  const details = categoryDetails[product.subcategory] ?? categoryDetails["Standard Printers"];
+  const priceDisplay = product.quoteOnly || product.price === null
+    ? "Request quote"
+    : `$${product.price.toFixed(2)}${product.specifications?.usageType ? `/${product.specifications.usageType}` : ""}`;
 
   return {
     fiche: [
       { label: "Product", value: product.name },
-      { label: "Category", value: product.category },
-      { label: "Price", value: product.price },
-      ...category.fiche.map((row, index) => ({
+      { label: "Category", value: product.subcategory },
+      { label: "Price", value: priceDisplay },
+      ...details.fiche.map((row, index) => ({
         label: row.label,
-        value: category.values[index],
+        value: details.values[index],
       })),
     ],
-    highlights: category.highlights,
-    applications: category.applications,
+    highlights: details.highlights,
+    applications: details.applications,
   };
 }
 
-export function getRelatedProducts(product: Product, limit = 3) {
-  return PRODUCTS.filter(
-    (candidate) => candidate.category === product.category && candidate.name !== product.name
-  ).slice(0, limit);
-}
-
-export function findProductByName(name: string) {
-  return PRODUCTS.find((product) => product.name === name);
+export function getRelatedProducts(product: Product, limit = 3): Product[] {
+  return catalogGetRelatedProducts(product, limit);
 }

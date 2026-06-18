@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Menu, X, ChevronDown, Sparkles, ArrowRight, MessageCircle } from "lucide-react";
-import { NAV_LINKS, PRODUCT_MENU } from "@/lib/constants";
-import ProductsMegaMenu from "./ProductsMegaMenu";
+import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
+import { NAV_LINKS } from "@/lib/constants";
+import ProductsMegaMenu, { MobileProductsAccordion } from "./ProductsMegaMenu";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +29,6 @@ export default function Navbar() {
       setMegaMenuOpen(false);
       setMobileProductsOpen(false);
     });
-
     return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
@@ -53,6 +52,11 @@ export default function Navbar() {
     };
   }, []);
 
+  const closeMobileMenu = useCallback(() => {
+    setMobileOpen(false);
+    setMobileProductsOpen(false);
+  }, []);
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -62,10 +66,17 @@ export default function Navbar() {
       }`}
     >
       <nav className="flex justify-between items-center h-20 px-4 md:px-16 max-w-[1280px] mx-auto">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="w-2 h-8 bg-magenta block rounded-sm" />
-          <span className="text-2xl font-extrabold tracking-tighter text-on-surface">
-            PELMEL<span className="text-cyan">TECH</span>
+        <Link href="/" className="flex items-center gap-1.5">
+          <Image
+            src="/images/pelmeltech/logo_pelmeltech.png"
+            alt="PelmelTech"
+            width={44}
+            height={44}
+            className="h-10 w-auto"
+            priority
+          />
+          <span className="text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
+            elmel<span className="text-cyan">Tech</span>
           </span>
         </Link>
 
@@ -81,6 +92,8 @@ export default function Navbar() {
               >
                 <button
                   onClick={() => setMegaMenuOpen((v) => !v)}
+                  aria-expanded={megaMenuOpen}
+                  aria-haspopup="true"
                   className={`flex items-center gap-1 text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
                     pathname === link.href || megaMenuOpen
                       ? "text-magenta"
@@ -136,10 +149,7 @@ export default function Navbar() {
       {/* Desktop mega menu */}
       <AnimatePresence>
         {megaMenuOpen && (
-          <div
-            onMouseEnter={openMegaMenu}
-            onMouseLeave={closeMegaMenu}
-          >
+          <div onMouseEnter={openMegaMenu} onMouseLeave={closeMegaMenu}>
             <ProductsMegaMenu onClose={() => setMegaMenuOpen(false)} />
           </div>
         )}
@@ -154,12 +164,13 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 overflow-hidden"
           >
-            <div className="flex flex-col p-6 gap-1">
+            <div className="flex flex-col p-6 gap-1 max-h-[calc(100dvh-5rem)] overflow-y-auto">
               {NAV_LINKS.map((link) =>
                 link.hasMegaMenu ? (
                   <div key={link.href}>
                     <button
                       onClick={() => setMobileProductsOpen((v) => !v)}
+                      aria-expanded={mobileProductsOpen}
                       className={`flex items-center justify-between w-full text-sm font-semibold tracking-wide uppercase py-3 ${
                         pathname === link.href
                           ? "text-magenta"
@@ -183,84 +194,7 @@ export default function Navbar() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="pb-4 space-y-5">
-                            {PRODUCT_MENU.categories.map((category) => (
-                              <div key={category.title}>
-                                <div className="flex items-center gap-3 mb-2.5 pl-2">
-                                  <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-surface-container shrink-0">
-                                    <Image
-                                      src={category.image}
-                                      alt={category.title}
-                                      fill
-                                      className="object-cover"
-                                      sizes="40px"
-                                    />
-                                  </div>
-                                  <div>
-                                    <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface block">
-                                      {category.title}
-                                    </span>
-                                    <span className="text-[10px] text-on-surface-variant/60">
-                                      {category.description}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="space-y-0.5 pl-[56px]">
-                                  {category.items.map((item) => (
-                                    <Link
-                                      key={item.label}
-                                      href={item.href}
-                                      className="block text-sm text-on-surface-variant py-1.5 hover:text-magenta transition-colors"
-                                    >
-                                      {item.label}
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            ))}
-
-                            <div className="border-t border-black/5 pt-4 pl-2">
-                              <div className="flex items-center gap-3 mb-3">
-                                <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-surface-container shrink-0">
-                                  <Image
-                                    src={PRODUCT_MENU.featured.image}
-                                    alt="Featured products"
-                                    fill
-                                    className="object-cover"
-                                    sizes="40px"
-                                  />
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                  <Sparkles size={12} className="text-cyan" strokeWidth={2.5} />
-                                  <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface">
-                                    {PRODUCT_MENU.featured.title}
-                                  </span>
-                                </div>
-                              </div>
-                              <div className="space-y-0.5 pl-[56px]">
-                                {PRODUCT_MENU.featured.items.map((item) => (
-                                  <Link
-                                    key={item.label}
-                                    href={item.href}
-                                    className={`block text-sm py-1.5 transition-colors ${
-                                      item.accent
-                                        ? "text-magenta font-semibold"
-                                        : "text-on-surface-variant hover:text-magenta"
-                                    }`}
-                                  >
-                                    {item.label}
-                                  </Link>
-                                ))}
-                              </div>
-                              <Link
-                                href={PRODUCT_MENU.featured.cta.href}
-                                className="flex items-center justify-center gap-2 bg-on-surface text-white px-5 py-2.5 rounded-xl text-[10px] font-bold tracking-[0.12em] uppercase mt-4 ml-[56px] hover:bg-magenta transition-all"
-                              >
-                                {PRODUCT_MENU.featured.cta.label}
-                                <ArrowRight size={12} />
-                              </Link>
-                            </div>
-                          </div>
+                          <MobileProductsAccordion onNavigate={closeMobileMenu} />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -269,6 +203,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={closeMobileMenu}
                     className={`text-sm font-semibold tracking-wide uppercase py-3 ${
                       pathname === link.href
                         ? "text-magenta"

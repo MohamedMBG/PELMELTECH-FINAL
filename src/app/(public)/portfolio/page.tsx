@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Star, CheckCircle, Shield, Leaf, Award } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import PortfolioCard from "@/components/PortfolioCard";
@@ -67,24 +66,25 @@ export default function PortfolioPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 px-4 md:px-16 bg-white">
-        <div className="max-w-[1280px] mx-auto">
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <SectionHeader
             label="Endorsements"
             title="Trusted by Industry Leaders"
             labelColor="cyan"
             center
           />
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div
-                key={t.author}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-surface-container-low p-8 rounded-2xl border border-black/5"
+        <div className="relative">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent" />
+
+          <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused]">
+            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+              <div
+                key={`${t.author}-${i}`}
+                className="flex-shrink-0 w-[350px] bg-surface-container-low p-8 rounded-2xl border border-black/5"
               >
                 <div className="flex gap-1 text-magenta mb-4">
                   {Array.from({ length: 5 }).map((_, j) => (
@@ -103,11 +103,12 @@ export default function PortfolioPage() {
                     <p className="text-xs text-on-surface-variant">{t.role}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
+        </div>
 
-          {/* Quality Badges */}
+        <div className="max-w-[1280px] mx-auto px-4 md:px-16">
           <div className="mt-20 flex flex-wrap justify-center gap-12 opacity-40 hover:opacity-100 transition-all duration-700">
             {[
               { icon: CheckCircle, label: "ISO 9001 Certified" },

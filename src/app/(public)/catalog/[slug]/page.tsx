@@ -1,16 +1,18 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect, useState, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2, FileText, MessageCircle } from "lucide-react";
-import { PRODUCTS } from "@/lib/constants";
 import {
-  findProductBySlug,
-  getProductDetail,
+  getProductBySlug,
   getProductPath,
   getRelatedProducts,
-  slugifyProductName,
-} from "@/lib/products";
+  formatPrice,
+  type CatalogProduct,
+} from "@/lib/catalog";
+import { getProductDetail } from "@/lib/products";
 
 type ProductPageProps = {
   params: Promise<{
@@ -18,36 +20,27 @@ type ProductPageProps = {
   }>;
 };
 
-export function generateStaticParams() {
-  return PRODUCTS.map((product) => ({
-    slug: slugifyProductName(product.name),
-  }));
-}
+export default function ProductPage({ params }: ProductPageProps) {
+  const { slug } = use(params);
+  const [product, setProduct] = useState<CatalogProduct | null | undefined>(undefined);
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const product = findProductBySlug(slug);
+  useEffect(() => {
+    setProduct(getProductBySlug(slug) ?? null);
+  }, [slug]);
 
-  if (!product) {
-    return {
-      title: "Product not found | PelmelTech",
-    };
+  if (product === undefined) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="w-8 h-8 border-2 border-magenta border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
-  return {
-    title: `${product.name} Technical Fiche | PelmelTech`,
-    description: product.description,
-  };
-}
-
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
-  const product = findProductBySlug(slug);
-
-  if (!product) notFound();
+  if (product === null) notFound();
 
   const detail = getProductDetail(product);
   const relatedProducts = getRelatedProducts(product);
+  const displayPrice = formatPrice(product);
 
   return (
     <>
@@ -94,27 +87,33 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="lg:col-span-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-3 shadow-2xl shadow-black/[0.08]">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface-container">
-                  <Image
-                    src={product.image}
-                    alt={`${product.name} product image`}
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+                  {product.imageUrl ? (
+                    <Image
+                      src={product.imageUrl}
+                      alt={`${product.name} product image`}
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-on-surface-variant/30">
+                      <FileText size={48} />
+                    </div>
+                  )}
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-3">
                   <div className="rounded-2xl bg-surface-container-low p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
                       Category
                     </p>
-                    <p className="mt-1 text-sm font-bold text-on-surface">{product.category}</p>
+                    <p className="mt-1 text-sm font-bold text-on-surface">{product.subcategory}</p>
                   </div>
                   <div className="rounded-2xl bg-surface-container-low p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
                       Price
                     </p>
-                    <p className="mt-1 text-sm font-bold text-magenta">{product.price}</p>
+                    <p className="mt-1 text-sm font-bold text-magenta">{displayPrice}</p>
                   </div>
                 </div>
               </div>
@@ -200,13 +199,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
               {relatedProducts.map((related) => (
                 <Link
-                  key={related.name}
+                  key={related.id}
                   href={getProductPath(related)}
                   className="group rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-black/[0.06]"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-container">
                     <Image
-                      src={related.image}
+                      src={related.imageUrl}
                       alt={`${related.name} product image`}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -214,7 +213,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     />
                   </div>
                   <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
-                    {related.category}
+                    {related.subcategory}
                   </p>
                   <h3 className="mt-1 text-base font-extrabold text-on-surface transition-colors group-hover:text-magenta">
                     {related.name}

@@ -21,6 +21,13 @@
   --color-cyan-dark: #00668b;
   --color-cyan-light: #c6e7ff;
   --color-error: #ba1a1a;
+
+  --animate-marquee: marquee 60s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 html {

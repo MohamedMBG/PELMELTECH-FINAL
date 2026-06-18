@@ -1,0 +1,189 @@
+[
+  {
+    "id": "cat-printing-machines",
+    "name": "Printing Machines",
+    "slug": "printing-machines",
+    "description": "High-performance printers for every scale and application.",
+    "imageUrl": "/images/pelmeltech/product-large-format-printer.webp",
+    "parentId": null,
+    "sortOrder": 1,
+    "status": "published",
+    "icon": "Printer"
+  },
+  {
+    "id": "cat-standard-printers",
+    "name": "Standard Printers",
+    "slug": "standard-printers",
+    "description": "Business color printers for offices, agencies, schools, and everyday documents.",
+    "imageUrl": "/images/pelmeltech/product-large-format-printer.webp",
+    "parentId": "cat-printing-machines",
+    "sortOrder": 1,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-large-format-printers",
+    "name": "Large Format Printers",
+    "slug": "large-format-printers",
+    "description": "Wide-format production printers for banners, signage, and campaigns.",
+    "imageUrl": "/images/pelmeltech/product-large-format-printer.webp",
+    "parentId": "cat-printing-machines",
+    "sortOrder": 2,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-event-printers",
+    "name": "Event Printers",
+    "slug": "event-printers",
+    "description": "Portable event print systems for activations, photo booths, and launches.",
+    "imageUrl": "/images/pelmeltech/service-event-printing.webp",
+    "parentId": "cat-printing-machines",
+    "sortOrder": 3,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-industrial-printers",
+    "name": "Industrial Printers",
+    "slug": "industrial-printers",
+    "description": "High-volume production platforms for professional print shops.",
+    "imageUrl": "/images/pelmeltech/catalog-hero.webp",
+    "parentId": "cat-printing-machines",
+    "sortOrder": 4,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-plotters",
+    "name": "Plotters",
+    "slug": "plotters",
+    "description": "Technical plotting and cutting systems for precision work.",
+    "imageUrl": "/images/pelmeltech/product-vinyl-roll.webp",
+    "parentId": "cat-printing-machines",
+    "sortOrder": 5,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-printing-materials",
+    "name": "Printing Materials",
+    "slug": "printing-materials",
+    "description": "Durable substrates for indoor and outdoor visibility.",
+    "imageUrl": "/images/pelmeltech/product-outdoor-banner.webp",
+    "parentId": null,
+    "sortOrder": 2,
+    "status": "published",
+    "icon": "Layers"
+  },
+  {
+    "id": "cat-banners-and-mesh",
+    "name": "Banners & Mesh",
+    "slug": "banners-and-mesh",
+    "description": "Outdoor banner and mesh substrates for campaigns and events.",
+    "imageUrl": "/images/pelmeltech/product-outdoor-banner.webp",
+    "parentId": "cat-printing-materials",
+    "sortOrder": 1,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-rigid-panels",
+    "name": "Rigid Panels",
+    "slug": "rigid-panels",
+    "description": "Rigid display and signage panels for professional branding.",
+    "imageUrl": "/images/pelmeltech/product-rigid-panel.webp",
+    "parentId": "cat-printing-materials",
+    "sortOrder": 2,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-soft-signage",
+    "name": "Soft Signage",
+    "slug": "soft-signage",
+    "description": "Printed fabric display materials for backdrops and lightboxes.",
+    "imageUrl": "/images/pelmeltech/product-event-backdrop.webp",
+    "parentId": "cat-printing-materials",
+    "sortOrder": 3,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-vinyl-and-wraps",
+    "name": "Vinyl & Wraps",
+    "slug": "vinyl-and-wraps",
+    "description": "Adhesive vinyl and wrap media for branding and decoration.",
+    "imageUrl": "/images/pelmeltech/product-vinyl-roll.webp",
+    "parentId": "cat-printing-materials",
+    "sortOrder": 4,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-exhibition",
+    "name": "Exhibition",
+    "slug": "exhibition",
+    "description": "Portable exhibition display systems for trade shows and events.",
+    "imageUrl": "/images/pelmeltech/product-rollup-banner.webp",
+    "parentId": "cat-printing-materials",
+    "sortOrder": 5,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-consumables-and-accessories",
+    "name": "Consumables & Accessories",
+    "slug": "consumables-and-accessories",
+    "description": "Essential inks, papers, parts, and maintenance supplies.",
+    "imageUrl": "/images/pelmeltech/services-print-materials.webp",
+    "parentId": null,
+    "sortOrder": 3,
+    "status": "published",
+    "icon": "Package"
+  },
+  {
+    "id": "cat-ink-and-toner",
+    "name": "Ink & Toner",
+    "slug": "ink-and-toner",
+    "description": "Printer consumable supplies for consistent production output.",
+    "imageUrl": "/images/pelmeltech/services-print-materials.webp",
+    "parentId": "cat-consumables-and-accessories",
+    "sortOrder": 1,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-paper-and-rolls",
+    "name": "Paper & Rolls",
+    "slug": "paper-and-rolls",
+    "description": "Printable roll media in various finishes and widths.",
+    "imageUrl": "/images/pelmeltech/product-poster-set.webp",
+    "parentId": "cat-consumables-and-accessories",
+    "sortOrder": 2,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-printer-parts",
+    "name": "Printer Parts",
+    "slug": "printer-parts",
+    "description": "Replacement printer parts for maintenance and repairs.",
+    "imageUrl": "/images/pelmeltech/services-print-materials.webp",
+    "parentId": "cat-consumables-and-accessories",
+    "sortOrder": 3,
+    "status": "published",
+    "icon": null
+  },
+  {
+    "id": "cat-maintenance-tools",
+    "name": "Maintenance Tools",
+    "slug": "maintenance-tools",
+    "description": "Printer maintenance accessories for daily care and calibration.",
+    "imageUrl": "/images/pelmeltech/services-print-materials.webp",
+    "parentId": "cat-consumables-and-accessories",
+    "sortOrder": 4,
+    "status": "published",
+    "icon": null
+  }
+]

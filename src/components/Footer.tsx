@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, MapPin, Phone, Globe, Share2 } from "lucide-react";
 
 export default function Footer() {
@@ -6,12 +7,13 @@ export default function Footer() {
     <footer className="w-full pt-24 pb-12 bg-white border-t border-black/5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-4 md:px-16 max-w-[1280px] mx-auto mb-20">
         <div className="space-y-6">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-6 bg-magenta block rounded-sm" />
-            <span className="text-xl font-extrabold tracking-tighter text-on-surface">
-              PELMEL<span className="text-cyan">TECH</span>
-            </span>
-          </div>
+          <Image
+            src="/images/pelmeltech/logo_pelmeltech.png"
+            alt="PelmelTech"
+            width={140}
+            height={36}
+            className="h-8 w-auto"
+          />
           <p className="text-on-surface-variant text-sm leading-relaxed">
             Precision printing and premium industrial fabrication for brands that demand excellence.
           </p>
