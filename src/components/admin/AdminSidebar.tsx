@@ -11,13 +11,7 @@ import {
   Plus,
   X,
 } from "lucide-react";
-
-const NAV_ITEMS = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Categories", href: "/admin/categories", icon: FolderTree },
-  { label: "Quote Requests", href: "/admin/quotes", icon: MessageSquareQuote },
-];
+import { useLanguage } from "@/i18n";
 
 interface AdminSidebarProps {
   open: boolean;
@@ -26,6 +20,14 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { t } = useLanguage();
+
+  const NAV_ITEMS = [
+    { label: t.admin.dashboard, href: "/admin", icon: LayoutDashboard },
+    { label: t.admin.products, href: "/admin/products", icon: Package },
+    { label: t.admin.categories, href: "/admin/categories", icon: FolderTree },
+    { label: t.admin.quoteRequests, href: "/admin/quotes", icon: MessageSquareQuote },
+  ];
 
   const isActive = (href: string) => {
     if (href === "/admin") return pathname === "/admin";
@@ -61,7 +63,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
           </button>
         </div>
         <p className="px-6 text-[10px] font-bold tracking-[0.14em] uppercase text-on-surface-variant/50 mb-3">
-          Management Portal
+          {t.admin.managementPortal}
         </p>
 
         <nav className="flex-1 overflow-y-auto px-3 space-y-0.5">
@@ -86,7 +88,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
 
           <div className="pt-4 pb-2">
             <p className="px-3 text-[10px] font-bold tracking-[0.14em] uppercase text-on-surface-variant/50 mb-2">
-              Quick Actions
+              {t.admin.quickActions}
             </p>
             <Link
               href="/admin/products/new"
@@ -94,7 +96,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-cyan-dark hover:bg-cyan/5 transition-all"
             >
               <Plus size={18} />
-              Add Product
+              {t.admin.addProduct}
             </Link>
           </div>
         </nav>
@@ -105,7 +107,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
             className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-on-surface-variant hover:bg-black/[0.04] transition-all"
           >
             <ArrowLeft size={16} />
-            Back to Website
+            {t.admin.backToWebsite}
           </Link>
         </div>
       </aside>

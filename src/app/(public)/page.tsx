@@ -9,8 +9,11 @@ import PortfolioPreview from "@/components/PortfolioPreview";
 import ProcessSection from "@/components/ProcessSection";
 import InvestorSection from "@/components/InvestorSection";
 import CTASection from "@/components/CTASection";
+import { useLanguage } from "@/i18n";
 
 export default function HomePage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <HomeHero />
@@ -22,11 +25,11 @@ export default function HomePage() {
       <ProcessSection />
       <InvestorSection />
       <CTASection
-        title="Ready to turn your next campaign into a visible experience?"
-        description="Consult with our team to explore premium large-format printing, event branding, and custom production for your next project."
-        primaryLabel="Request a Quote"
+        title={t.cta.homeTitle}
+        description={t.cta.homeDescription}
+        primaryLabel={t.hero.requestQuote}
         primaryHref="/contact"
-        secondaryLabel="View Catalog"
+        secondaryLabel={t.cta.homeSecondary}
         secondaryHref="/catalog"
       />
     </>

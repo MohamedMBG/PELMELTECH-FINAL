@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 interface CTASectionProps {
   title: string;
@@ -16,11 +17,14 @@ interface CTASectionProps {
 export default function CTASection({
   title,
   description,
-  primaryLabel = "Start a Consultation",
+  primaryLabel,
   primaryHref = "/contact",
   secondaryLabel,
   secondaryHref,
 }: CTASectionProps) {
+  const { t } = useLanguage();
+  const label = primaryLabel || t.cta.startConsultation;
+
   return (
     <section className="py-24 px-4 md:px-16 bg-background">
       <motion.div
@@ -45,7 +49,7 @@ export default function CTASection({
               href={primaryHref}
               className="bg-magenta text-white px-10 py-4 rounded-full text-xs font-bold tracking-[0.15em] uppercase hover:brightness-110 transition-all shadow-lg shadow-magenta/10 active:scale-95 flex items-center gap-2"
             >
-              {primaryLabel} <ArrowRight size={16} />
+              {label} <ArrowRight size={16} className="rtl:rotate-180" />
             </Link>
             {secondaryLabel && secondaryHref && (
               <Link

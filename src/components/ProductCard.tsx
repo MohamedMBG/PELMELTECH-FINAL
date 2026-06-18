@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type CatalogProduct, getProductPath, formatPrice } from "@/lib/catalog";
+import { useLanguage } from "@/i18n";
 
 interface ProductCardProps {
   product: CatalogProduct;
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export default function ProductCard({ product, index }: ProductCardProps) {
   const productPath = getProductPath(product);
   const displayPrice = formatPrice(product);
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -35,7 +37,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
         {product.badge && (
-          <span className={`absolute top-3 left-3 text-[10px] font-bold tracking-widest uppercase text-white px-3 py-1 rounded-full shadow-md z-10 ${
+          <span className={`absolute top-3 start-3 text-[10px] font-bold tracking-widest uppercase text-white px-3 py-1 rounded-full shadow-md z-10 ${
             product.badgeColor === "cyan" ? "bg-cyan" : "bg-magenta"
           }`}>
             {product.badge}
@@ -54,7 +56,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         <div className="flex items-center justify-between pt-4 border-t border-black/5">
           <span className="text-magenta font-extrabold text-lg">{displayPrice}</span>
           <Link href={productPath} className="flex items-center gap-1 text-xs font-bold tracking-wide text-on-surface-variant hover:text-magenta transition-colors">
-            Details <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            {t.common.details} <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
           </Link>
         </div>
       </div>

@@ -149,8 +149,8 @@ export function getCategoryById(id: string): CatalogCategory | undefined {
 
 // --- Display helpers ---
 
-export function formatPrice(product: CatalogProduct): string {
-  if (product.quoteOnly || product.price === null) return "Request quote";
+export function formatPrice(product: CatalogProduct, quoteLabel?: string): string {
+  if (product.quoteOnly || product.price === null) return quoteLabel || "Request quote";
   const unit = product.specifications?.usageType;
   const formatted = `$${product.price.toFixed(2)}`;
   return unit ? `${formatted}/${unit}` : formatted;

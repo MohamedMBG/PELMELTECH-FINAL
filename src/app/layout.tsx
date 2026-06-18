@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Cairo } from "next/font/google";
+import { LanguageProvider } from "@/i18n";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -7,6 +8,13 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   variable: "--font-sans",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-arabic",
 });
 
 export const metadata: Metadata = {
@@ -20,9 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth antialiased ${manrope.variable}`}>
+    <html lang="en" dir="ltr" className={`scroll-smooth antialiased ${manrope.variable} ${cairo.variable}`}>
       <body className={`min-h-screen flex flex-col bg-background text-on-surface ${manrope.className}`}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

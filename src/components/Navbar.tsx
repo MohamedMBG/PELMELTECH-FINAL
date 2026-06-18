@@ -6,8 +6,14 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Menu, X, ChevronDown, MessageCircle } from "lucide-react";
-import { NAV_LINKS } from "@/lib/constants";
+import { useLanguage, type Locale } from "@/i18n";
 import ProductsMegaMenu, { MobileProductsAccordion } from "./ProductsMegaMenu";
+
+const LOCALE_OPTIONS: { value: Locale; label: string }[] = [
+  { value: "en", label: "EN" },
+  { value: "fr", label: "FR" },
+  { value: "ar", label: "AR" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,6 +22,16 @@ export default function Navbar() {
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const pathname = usePathname();
   const megaMenuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { locale, setLocale, t } = useLanguage();
+
+  const NAV_LINKS = [
+    { label: t.nav.home, href: "/", hasMegaMenu: false },
+    { label: t.nav.services, href: "/services", hasMegaMenu: false },
+    { label: t.nav.products, href: "/catalog", hasMegaMenu: true },
+    { label: t.nav.portfolio, href: "/portfolio", hasMegaMenu: false },
+    { label: t.nav.investors, href: "/investors", hasMegaMenu: false },
+    { label: t.nav.contact, href: "/contact", hasMegaMenu: false },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -125,7 +141,24 @@ export default function Navbar() {
           )}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          {/* Language switcher — desktop */}
+          <div className="hidden sm:flex items-center bg-surface-container-low rounded-full border border-black/[0.06] p-0.5">
+            {LOCALE_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setLocale(opt.value)}
+                className={`px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.08em] transition-all duration-200 ${
+                  locale === opt.value
+                    ? "bg-on-surface text-white shadow-sm"
+                    : "text-on-surface-variant hover:text-on-surface"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+
           <a
             href="https://wa.me/15550123456"
             target="_blank"
@@ -165,6 +198,23 @@ export default function Navbar() {
             className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-1 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+              {/* Mobile language switcher */}
+              <div className="flex items-center gap-1 mb-4 bg-surface-container-low rounded-full border border-black/[0.06] p-0.5 w-fit">
+                {LOCALE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => setLocale(opt.value)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold tracking-[0.08em] transition-all ${
+                      locale === opt.value
+                        ? "bg-on-surface text-white shadow-sm"
+                        : "text-on-surface-variant"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+
               {NAV_LINKS.map((link) =>
                 link.hasMegaMenu ? (
                   <div key={link.href}>

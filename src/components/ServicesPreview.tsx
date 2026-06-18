@@ -5,32 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
-const SERVICES = [
-  {
-    title: "Large Format Printing",
-    desc: "Architectural wraps and industrial-scale visuals engineered with sub-millimeter precision.",
-    image: "/images/pelmeltech/service-large-format.webp",
-    tag: "Signature",
-  },
-  {
-    title: "Event Printing",
-    desc: "Vibrant backdrops and dynamic signage for high-stakes corporate events and launches.",
-    image: "/images/pelmeltech/service-event-printing.webp",
-    tag: "Popular",
-  },
-  {
-    title: "Banner Printing",
-    desc: "Resilient vinyl and premium fabric solutions for outdoor and architectural branding.",
-    image: "/images/pelmeltech/service-banner-printing.webp",
-    tag: "Outdoor",
-  },
-  {
-    title: "Panel Printing",
-    desc: "Rigid substrate printing on Dibond and acrylic for gallery-grade installations.",
-    image: "/images/pelmeltech/service-panel-printing.webp",
-    tag: "Premium",
-  },
+const IMAGES = [
+  "/images/pelmeltech/service-large-format.webp",
+  "/images/pelmeltech/service-event-printing.webp",
+  "/images/pelmeltech/service-banner-printing.webp",
+  "/images/pelmeltech/service-panel-printing.webp",
 ];
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -56,18 +37,20 @@ const slideVariants = {
   }),
 };
 
-function getIndex(current: number, offset: number) {
-  return (current + offset + SERVICES.length) % SERVICES.length;
-}
-
 export default function ServicesPreview() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const { t } = useLanguage();
+  const items = t.services.items;
+
+  function getIndex(cur: number, offset: number) {
+    return (cur + offset + items.length) % items.length;
+  }
 
   const paginate = useCallback((dir: number) => {
     setDirection(dir);
-    setCurrent((prev) => (prev + dir + SERVICES.length) % SERVICES.length);
-  }, []);
+    setCurrent((prev) => (prev + dir + items.length) % items.length);
+  }, [items.length]);
 
   const goTo = useCallback(
     (index: number) => {
@@ -79,12 +62,11 @@ export default function ServicesPreview() {
 
   const prevIdx = getIndex(current, -1);
   const nextIdx = getIndex(current, 1);
-  const service = SERVICES[current];
+  const service = items[current];
 
   return (
     <section className="py-28 bg-background overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14 px-0 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -93,14 +75,13 @@ export default function ServicesPreview() {
             transition={{ duration: 0.7, ease }}
           >
             <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-3 block">
-              What We Do
+              {t.services.tag}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight mb-3">
-              Core Services
+              {t.services.title}
             </h2>
             <p className="text-base text-on-surface-variant max-w-lg leading-relaxed">
-              End-to-end printing solutions built for scale, speed, and visual
-              impact.
+              {t.services.description}
             </p>
           </motion.div>
 
@@ -128,14 +109,12 @@ export default function ServicesPreview() {
               href="/services"
               className="text-cyan-dark text-xs font-bold tracking-[0.15em] uppercase flex items-center gap-2 hover:text-on-surface transition-colors border-b border-cyan/30 pb-1 shrink-0"
             >
-              All Services <ArrowRight size={14} />
+              {t.services.allServices} <ArrowRight size={14} className="rtl:rotate-180" />
             </Link>
           </div>
         </div>
 
-        {/* Carousel */}
         <div className="relative flex items-stretch gap-0 md:gap-5">
-          {/* Previous card — peek */}
           <motion.div
             key={`prev-${prevIdx}`}
             onClick={() => paginate(-1)}
@@ -147,26 +126,19 @@ export default function ServicesPreview() {
             whileHover={{ scale: 0.95, filter: "brightness(0.85) saturate(0.7)" }}
           >
             <div className="absolute inset-0">
-              <Image
-                src={SERVICES[prevIdx].image}
-                alt={SERVICES[prevIdx].title}
-                fill
-                className="object-cover"
-                sizes="13vw"
-              />
+              <Image src={IMAGES[prevIdx]} alt={items[prevIdx].title} fill className="object-cover" sizes="13vw" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/20" />
-            <div className="absolute inset-0 flex items-center justify-end pr-3">
+            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/20 rtl:bg-gradient-to-l" />
+            <div className="absolute inset-0 flex items-center justify-end pe-3">
               <p
                 className="text-[11px] font-bold text-on-surface/40 tracking-wide uppercase group-hover/peek:text-on-surface/70 transition-colors duration-300"
                 style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               >
-                {SERVICES[prevIdx].title}
+                {items[prevIdx].title}
               </p>
             </div>
           </motion.div>
 
-          {/* Active card */}
           <div className="relative flex-1 min-h-[440px] md:min-h-[420px] rounded-3xl overflow-hidden bg-white border border-black/5 shadow-2xl shadow-black/8 ring-1 ring-black/[0.03]">
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
@@ -179,7 +151,6 @@ export default function ServicesPreview() {
                 transition={{ duration: 0.55, ease }}
                 className="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.15fr_1fr]"
               >
-                {/* Image */}
                 <div className="relative h-64 md:h-full overflow-hidden">
                   <motion.div
                     key={`img-${current}`}
@@ -188,21 +159,13 @@ export default function ServicesPreview() {
                     transition={{ duration: 0.8, ease }}
                     className="absolute inset-0"
                   >
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 45vw"
-                      priority
-                    />
+                    <Image src={IMAGES[current]} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 45vw" priority />
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/15 hidden md:block" />
                   <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent md:hidden" />
 
-                  {/* Tag */}
                   <motion.div
-                    className="absolute top-5 left-5"
+                    className="absolute top-5 start-5"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.2, ease }}
@@ -212,27 +175,19 @@ export default function ServicesPreview() {
                     </span>
                   </motion.div>
 
-                  {/* Counter — mobile */}
-                  <div className="absolute bottom-4 left-5 md:hidden">
+                  <div className="absolute bottom-4 start-5 md:hidden">
                     <span className="text-white/90 text-xs font-bold tracking-wider">
-                      {String(current + 1).padStart(2, "0")} /{" "}
-                      {String(SERVICES.length).padStart(2, "0")}
+                      {String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                     </span>
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col justify-center p-8 md:p-12 lg:p-16 bg-white">
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 0.12, ease }}
-                  >
+                  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.12, ease }}>
                     <div className="items-center gap-3 mb-8 hidden md:flex">
                       <div className="w-12 h-[2px] rounded-full bg-gradient-to-r from-cyan to-cyan/40" />
                       <span className="text-cyan-dark text-[11px] font-bold tracking-[0.2em] uppercase">
-                        {String(current + 1).padStart(2, "0")} /{" "}
-                        {String(SERVICES.length).padStart(2, "0")}
+                        {String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                       </span>
                     </div>
                   </motion.div>
@@ -257,20 +212,13 @@ export default function ServicesPreview() {
                     {service.desc}
                   </motion.p>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 0.32, ease }}
-                  >
+                  <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.32, ease }}>
                     <Link
                       href="/services"
                       className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-cyan text-white text-sm font-bold hover:bg-cyan-dark transition-colors duration-300 shadow-md hover:shadow-lg w-fit group/link"
                     >
-                      Learn More
-                      <ArrowRight
-                        size={16}
-                        className="transition-transform duration-300 group-hover/link:translate-x-1"
-                      />
+                      {t.services.learnMore}
+                      <ArrowRight size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 rtl:rotate-180 rtl:group-hover/link:-translate-x-1" />
                     </Link>
                   </motion.div>
                 </div>
@@ -278,7 +226,6 @@ export default function ServicesPreview() {
             </AnimatePresence>
           </div>
 
-          {/* Next card — peek */}
           <motion.div
             key={`next-${nextIdx}`}
             onClick={() => paginate(1)}
@@ -290,27 +237,20 @@ export default function ServicesPreview() {
             whileHover={{ scale: 0.95, filter: "brightness(0.85) saturate(0.7)" }}
           >
             <div className="absolute inset-0">
-              <Image
-                src={SERVICES[nextIdx].image}
-                alt={SERVICES[nextIdx].title}
-                fill
-                className="object-cover"
-                sizes="13vw"
-              />
+              <Image src={IMAGES[nextIdx]} alt={items[nextIdx].title} fill className="object-cover" sizes="13vw" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-l from-background/90 via-background/50 to-background/20" />
-            <div className="absolute inset-0 flex items-center justify-start pl-3">
+            <div className="absolute inset-0 bg-gradient-to-l from-background/90 via-background/50 to-background/20 rtl:bg-gradient-to-r" />
+            <div className="absolute inset-0 flex items-center justify-start ps-3">
               <p
                 className="text-[11px] font-bold text-on-surface/40 tracking-wide uppercase group-hover/peek:text-on-surface/70 transition-colors duration-300"
                 style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               >
-                {SERVICES[nextIdx].title}
+                {items[nextIdx].title}
               </p>
             </div>
           </motion.div>
         </div>
 
-        {/* Dot indicators + mobile arrows */}
         <div className="flex items-center justify-center gap-3 mt-10">
           <button
             onClick={() => paginate(-1)}
@@ -321,18 +261,11 @@ export default function ServicesPreview() {
           </button>
 
           <div className="flex items-center gap-2">
-            {SERVICES.map((s, i) => (
-              <button
-                key={s.title}
-                onClick={() => goTo(i)}
-                aria-label={`Go to ${s.title}`}
-                className="group/dot p-1.5"
-              >
+            {items.map((s, i) => (
+              <button key={i} onClick={() => goTo(i)} aria-label={`Go to ${s.title}`} className="group/dot p-1.5">
                 <div
                   className={`h-2 rounded-full transition-all duration-500 ${
-                    i === current
-                      ? "w-10 bg-cyan shadow-sm shadow-cyan/30"
-                      : "w-2 bg-black/12 group-hover/dot:bg-cyan/40"
+                    i === current ? "w-10 bg-cyan shadow-sm shadow-cyan/30" : "w-2 bg-black/12 group-hover/dot:bg-cyan/40"
                   }`}
                 />
               </button>

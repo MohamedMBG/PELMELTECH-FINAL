@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getParentCategories, getSubcategories } from "@/lib/catalog";
+import { useLanguage } from "@/i18n";
 
 import categoriesData from "@/data/categories.json";
 
@@ -24,6 +25,7 @@ const staticCategories = (() => {
 
 export default function CatalogPreview() {
   const [previewCategories, setPreviewCategories] = useState<string[]>(staticCategories);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const parents = getParentCategories();
@@ -33,6 +35,7 @@ export default function CatalogPreview() {
       )
     );
   }, []);
+
   return (
     <section className="py-24 bg-background">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
@@ -44,15 +47,14 @@ export default function CatalogPreview() {
             transition={{ duration: 0.8, ease }}
           >
             <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-3 block">
-              Product Catalog
+              {t.catalogPreview.tag}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight mb-6">
-              Everything You Need,{" "}
-              <span className="text-magenta">Ready to Print</span>
+              {t.catalogPreview.title}{" "}
+              <span className="text-magenta">{t.catalogPreview.titleAccent}</span>
             </h2>
             <p className="text-base md:text-lg text-on-surface-variant leading-relaxed mb-8">
-              Browse our complete range of premium print products, from industrial mesh
-              banners to rigid aluminum panels and exhibition systems.
+              {t.catalogPreview.description}
             </p>
 
             <ul className="space-y-3 mb-10">
@@ -75,7 +77,7 @@ export default function CatalogPreview() {
               href="/catalog"
               className="inline-flex items-center gap-2 bg-on-surface text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.15em] uppercase hover:bg-magenta transition-all duration-300 hover:-translate-y-0.5 shadow-lg"
             >
-              Browse Catalog <ArrowRight size={16} />
+              {t.catalogPreview.browseCatalog} <ArrowRight size={16} className="rtl:rotate-180" />
             </Link>
           </motion.div>
 
