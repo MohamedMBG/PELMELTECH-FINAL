@@ -292,7 +292,7 @@ function CtaIcon({ icon }: { icon?: Cta["icon"] }) {
 
 const HELLOS = [
   "Hello", "Bonjour", "Hola", "Hallo", "Ciao",
-  "Olá", "Merhaba", "Salam", "Ahlan", "Namaste",
+  "Olá", "Merhaba", "Salam", "أهلا", "Namaste",
   "Konnichiwa", "Annyeong", "Ni hao", "Sawadee",
   "Jambo", "Zdravstvuyte", "Cześć", "Xin chào",
   "Saluton", "Kamusta", "Szia", "Shalom", "Selamat",
