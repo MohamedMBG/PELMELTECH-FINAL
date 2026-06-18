@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -290,6 +290,14 @@ function CtaIcon({ icon }: { icon?: Cta["icon"] }) {
   return <ArrowRight size={14} strokeWidth={2.2} />;
 }
 
+const HELLOS = [
+  "Hello", "Bonjour", "Hola", "Hallo", "Ciao",
+  "Olá", "Merhaba", "Salam", "Ahlan", "Namaste",
+  "Konnichiwa", "Annyeong", "Ni hao", "Sawadee",
+  "Jambo", "Zdravstvuyte", "Cześć", "Xin chào",
+  "Saluton", "Kamusta", "Szia", "Shalom", "Selamat",
+];
+
 export default function PelmelBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentNodeId, setCurrentNodeId] = useState<NodeId>("root");
@@ -297,6 +305,15 @@ export default function PelmelBot() {
   const [history, setHistory] = useState<Snapshot[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const messageCounter = useRef(0);
+  const [helloIndex, setHelloIndex] = useState(0);
+
+  useEffect(() => {
+    if (isOpen) return;
+    const interval = setInterval(() => {
+      setHelloIndex((i) => (i + 1) % HELLOS.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isOpen]);
 
   const currentNode = chatNodes[currentNodeId];
   const canGoBack = history.length > 0;
@@ -508,10 +525,21 @@ export default function PelmelBot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.16 }}
-            className="mb-3 hidden justify-end sm:flex"
+            className="mb-3 flex justify-end"
           >
-            <div className="rounded-full border border-black/[0.06] bg-white px-4 py-2 text-xs font-semibold text-on-surface-variant shadow-lg shadow-black/[0.06]">
-              Need help choosing?
+            <div className="rounded-full border border-black/[0.06] bg-white px-5 py-2.5 shadow-lg shadow-black/[0.06] overflow-hidden min-w-[120px] text-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={helloIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25 }}
+                  className="block text-sm font-bold tracking-tight text-on-surface"
+                >
+                  {HELLOS[helloIndex]} 👋
+                </motion.span>
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
