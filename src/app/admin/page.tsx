@@ -25,11 +25,33 @@ import { useLanguage } from "@/i18n";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<AdminStats | null>(null);
+  const [error, setError] = useState(false);
   const { t } = useLanguage();
 
   useEffect(() => {
-    getAdminStats().then(setStats).catch(() => {});
+    setError(false);
+    getAdminStats().then(setStats).catch(() => setError(true));
   }, []);
+
+  if (error) {
+    return (
+      <>
+        <AdminHeader title={t.admin.dashboard} />
+        <div className="flex-1 flex flex-col items-center justify-center gap-3 p-8 text-center">
+          <p className="text-sm font-semibold text-on-surface">Couldn&apos;t load data from the API.</p>
+          <p className="text-xs text-on-surface-variant max-w-sm">
+            The <code className="font-mono">/api</code> routes returned an error. Check that <code className="font-mono">DATABASE_URL</code> is set in your deployment environment.
+          </p>
+          <button
+            onClick={() => location.reload()}
+            className="mt-2 bg-on-surface text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-on-surface/90 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </>
+    );
+  }
 
   if (!stats) {
     return (
