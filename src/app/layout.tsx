@@ -12,9 +12,11 @@ const manrope = Manrope({
 
 const cairo = Cairo({
   subsets: ["arabic"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700"],
   display: "swap",
   variable: "--font-arabic",
+  // ponytail: Arabic font only used in the `ar` locale — don't preload it for en/fr visitors
+  preload: false,
 });
 
 export const metadata: Metadata = {

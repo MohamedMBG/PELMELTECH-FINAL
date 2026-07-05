@@ -399,9 +399,11 @@ export async function deleteQuote(id: string): Promise<boolean> {
 // --- Stats / analytics (dashboard KPIs) ---
 
 export async function getStats() {
-  const products = await getProducts();
-  const categories = await getCategories();
-  const quotes = await getQuotes();
+  const [products, categories, quotes] = await Promise.all([
+    getProducts(),
+    getCategories(),
+    getQuotes(),
+  ]);
   const p = products;
   const q = quotes;
 
