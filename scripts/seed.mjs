@@ -37,6 +37,13 @@ for (const p of products) {
             ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, updated_at = now()`;
 }
 
+// Prune rows no longer present in the source JSON (e.g. old categories whose
+// ids were replaced). Keeps the DB an exact mirror of src/data/*.json.
+const catIds = categories.map((c) => c.id);
+const prodIds = products.map((p) => p.id);
+await sql`DELETE FROM pelmel_categories WHERE id <> ALL(${catIds})`;
+await sql`DELETE FROM pelmel_products WHERE id <> ALL(${prodIds})`;
+
 const [{ count: pc }] = await sql`SELECT COUNT(*)::int AS count FROM pelmel_products`;
 const [{ count: cc }] = await sql`SELECT COUNT(*)::int AS count FROM pelmel_categories`;
 console.log(`Seeded. products=${pc} categories=${cc}`);
