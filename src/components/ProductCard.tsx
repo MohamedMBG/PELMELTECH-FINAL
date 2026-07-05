@@ -45,7 +45,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         )}
         {product.newArrival && (
           <span className="absolute top-3 end-3 text-[10px] font-bold tracking-widest uppercase text-white px-3 py-1 rounded-full shadow-md z-10 bg-cyan">
-            Nouveau arrivage
+            {t.catalog.newArrival}
           </span>
         )}
       </div>
@@ -64,7 +64,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             <p className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide ${
               product.stockStatus === "out-of-stock" ? "text-red-500" : "text-cyan-dark"
             }`}>
-              {product.stockStatus === "out-of-stock" ? "Out of stock" : "En stock"}
+              {product.stockStatus === "out-of-stock" ? t.catalog.outOfStock : t.catalog.inStock}
             </p>
           </div>
           <Link href={productPath} className="flex items-center gap-1 text-xs font-bold tracking-wide text-on-surface-variant hover:text-magenta transition-colors">

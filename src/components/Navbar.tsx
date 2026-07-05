@@ -130,9 +130,9 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
+                className={`relative text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
                   pathname === link.href
-                    ? "text-magenta border-b-2 border-magenta pb-1"
+                    ? "text-magenta after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:bg-magenta"
                     : "text-on-surface-variant hover:text-cyan-dark"
                 }`}
               >
@@ -149,6 +149,7 @@ export default function Navbar() {
               <button
                 key={opt.value}
                 onClick={() => setLocale(opt.value)}
+                aria-pressed={locale === opt.value}
                 className={`px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.08em] transition-all duration-200 ${
                   locale === opt.value
                     ? "bg-on-surface text-white shadow-sm"
@@ -174,6 +175,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-on-surface"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -205,6 +207,7 @@ export default function Navbar() {
                   <button
                     key={opt.value}
                     onClick={() => setLocale(opt.value)}
+                    aria-pressed={locale === opt.value}
                     className={`px-4 py-2 rounded-full text-xs font-bold tracking-[0.08em] transition-all ${
                       locale === opt.value
                         ? "bg-on-surface text-white shadow-sm"

@@ -44,7 +44,7 @@ export default function ContactForm() {
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 4000);
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(t.contactForm.errorMessage);
     } finally {
       setSending(false);
     }
@@ -75,8 +75,9 @@ export default function ContactForm() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.fullName}</label>
+          <label htmlFor="cf-fullName" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.fullName}</label>
           <input
+            id="cf-fullName"
             type="text"
             name="fullName"
             required
@@ -85,8 +86,9 @@ export default function ContactForm() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.company}</label>
+          <label htmlFor="cf-company" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.company}</label>
           <input
+            id="cf-company"
             type="text"
             name="company"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
@@ -97,8 +99,9 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.workEmail}</label>
+          <label htmlFor="cf-email" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.workEmail}</label>
           <input
+            id="cf-email"
             type="email"
             name="email"
             required
@@ -107,8 +110,9 @@ export default function ContactForm() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.phone}</label>
+          <label htmlFor="cf-phone" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.phone}</label>
           <input
+            id="cf-phone"
             type="tel"
             name="phone"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
@@ -118,8 +122,8 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.serviceType}</label>
-        <select name="serviceType" className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none">
+        <label htmlFor="cf-serviceType" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.serviceType}</label>
+        <select id="cf-serviceType" name="serviceType" className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none">
           {t.contactForm.serviceOptions.map((opt) => (
             <option key={opt}>{opt}</option>
           ))}
@@ -128,8 +132,9 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.estimatedSize}</label>
+          <label htmlFor="cf-size" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.estimatedSize}</label>
           <input
+            id="cf-size"
             type="text"
             name="size"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
@@ -137,8 +142,9 @@ export default function ContactForm() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.deadline}</label>
+          <label htmlFor="cf-deadline" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.deadline}</label>
           <input
+            id="cf-deadline"
             type="text"
             name="deadline"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
@@ -148,8 +154,9 @@ export default function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.projectDetails}</label>
+        <label htmlFor="cf-details" className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.projectDetails}</label>
         <textarea
+          id="cf-details"
           name="details"
           rows={4}
           className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40 resize-none"
@@ -157,14 +164,14 @@ export default function ContactForm() {
         />
       </div>
 
-      {error && <p className="text-sm font-semibold text-red-500 text-center">{error}</p>}
+      {error && <p role="alert" className="text-sm font-semibold text-red-500 text-center">{error}</p>}
 
       <button
         type="submit"
         disabled={sending}
         className="w-full bg-magenta text-white py-4 rounded-xl text-xs font-bold tracking-[0.15em] uppercase hover:bg-magenta-dark transition-all duration-200 shadow-lg shadow-magenta/15 active:scale-[0.98] active:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60"
       >
-        {sending ? "Sending..." : t.contactForm.sendQuoteRequest} <Send size={16} />
+        {sending ? t.contactForm.sending : t.contactForm.sendQuoteRequest} <Send size={16} />
       </button>
     </motion.form>
   );

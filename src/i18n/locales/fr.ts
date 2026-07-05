@@ -251,6 +251,8 @@ const fr: Translations = {
         "Décrivez vos besoins, matériaux, préférences de finition...",
     },
     sendQuoteRequest: "Envoyer la demande de devis",
+    sending: "Envoi en cours...",
+    errorMessage: "Une erreur est survenue. Veuillez réessayer.",
     quoteRequestSent: "Demande de devis envoyée",
     teamWillContact:
       "Notre équipe vous contactera dans les 24 heures.",
@@ -285,6 +287,9 @@ const fr: Translations = {
       "Satin",
     ],
     tags: ["Exposition", "Kits de vente", "Fabrication sur mesure"],
+    inStock: "En stock",
+    outOfStock: "Rupture de stock",
+    newArrival: "Nouvel arrivage",
   },
 
   productDetail: {

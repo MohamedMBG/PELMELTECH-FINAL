@@ -26,7 +26,7 @@ export default function SectionHeader({ label, title, description, labelColor = 
           {label}
         </span>
       )}
-      <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight mb-4">
+      <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight mb-4">
         {title}
       </h2>
       {description && (

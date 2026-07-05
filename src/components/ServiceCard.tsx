@@ -42,7 +42,7 @@ export default function ServiceCard({ title, description, features, icon, accent
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className={`absolute top-4 right-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:rotate-12 ${
+        <div className={`absolute top-4 end-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:rotate-12 ${
           isCyan
             ? "bg-cyan text-white"
             : "bg-magenta text-white"

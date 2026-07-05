@@ -72,7 +72,9 @@ export default function ContactPage() {
 
               <div className="mt-8">
                 <a
-                  href="#"
+                  href="https://wa.me/15550123456"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full bg-magenta text-white py-4 rounded-xl text-xs font-bold tracking-wide uppercase hover:brightness-110 transition-all shadow-lg shadow-magenta/10"
                 >
                   <MessageCircle size={18} />

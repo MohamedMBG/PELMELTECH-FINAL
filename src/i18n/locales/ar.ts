@@ -250,6 +250,8 @@ const ar: Translations = {
         "صِف متطلبات مشروعك والمواد وتفضيلات التشطيب...",
     },
     sendQuoteRequest: "إرسال طلب عرض السعر",
+    sending: "جارٍ الإرسال...",
+    errorMessage: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     quoteRequestSent: "تم إرسال طلب عرض السعر",
     teamWillContact: "سيتواصل فريقنا معك خلال 24 ساعة.",
   },
@@ -282,6 +284,9 @@ const ar: Translations = {
       "ساتان",
     ],
     tags: ["معارض", "مجموعات البيع", "تصنيع مخصص"],
+    inStock: "متوفر",
+    outOfStock: "غير متوفر",
+    newArrival: "وصل حديثاً",
   },
 
   productDetail: {

@@ -244,6 +244,8 @@ const en = {
         "Describe your project requirements, materials, finish preferences...",
     },
     sendQuoteRequest: "Send Quote Request",
+    sending: "Sending...",
+    errorMessage: "Something went wrong. Please try again.",
     quoteRequestSent: "Quote Request Sent",
     teamWillContact: "Our team will contact you within 24 hours.",
   },
@@ -271,6 +273,9 @@ const en = {
     consultExperts: "Consult Our Experts",
     finishes: ["All Finishes", "Matte Industrial", "High-Gloss Premium", "Satin"],
     tags: ["Exhibition", "Retail Kits", "Custom Fab"],
+    inStock: "In stock",
+    outOfStock: "Out of stock",
+    newArrival: "New arrival",
   },
 
   productDetail: {
