@@ -54,6 +54,20 @@
   transform: translateY(0) scale(1);
 }
 
+/* Inner conversation panel — shared by the floating widget and the /chat page */
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panelPage {
+  height: 100%;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -355,6 +369,10 @@
   text-align: left;
   transition: border-color 150ms ease, background 150ms ease, color 150ms ease, opacity 150ms ease,
     transform 150ms ease, box-shadow 150ms ease;
+}
+
+:global([dir="rtl"]) .optionButton {
+  text-align: right;
 }
 
 .optionButton:hover:not(:disabled) {

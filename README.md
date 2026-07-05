@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PelmelTech
 
-## Getting Started
+Next.js frontend with API routes for the catalog, admin panel, quotes, and auth.
 
-First, run the development server:
+## Local Development
+
+Create a local env file:
+
+```bash
+cp .env.example .env.local
+```
+
+At minimum, set `ADMIN_PASSWORD` and `ADMIN_SECRET`. `DATABASE_URL` is optional locally; without it the app writes to `data/store.json`, which is ignored by Git.
+
+Run the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Neon Database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a Neon Postgres database and copy its connection string into `DATABASE_URL`.
 
-## Learn More
+On first API access, the app creates these tables automatically and seeds products/categories from `src/data` if the database is empty:
 
-To learn more about Next.js, take a look at the following resources:
+- `pelmel_products`
+- `pelmel_categories`
+- `pelmel_quotes`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Quotes are not seeded in production.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Render Backend
 
-## Deploy on Vercel
+Deploy this repository as a Render Web Service. Render can read `render.yaml`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Required environment variables on Render:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `DATABASE_URL`: Neon Postgres connection string.
+- `ADMIN_PASSWORD`: strong admin password.
+- `ADMIN_SECRET`: long random string for signed session cookies.
+
+Build command:
+
+```bash
+npm ci && npm run build
+```
+
+Start command:
+
+```bash
+npm run start -- -p $PORT
+```
+
+Health check path:
+
+```text
+/api/health
+```
+
+## Vercel Frontend
+
+Deploy the same repository to Vercel as a Next.js project.
+
+Set this Vercel environment variable after the Render backend URL exists:
+
+```text
+BACKEND_URL=https://your-render-service.onrender.com
+```
+
+When `BACKEND_URL` is set, Next proxies frontend calls from `/api/*` to the Render backend. This keeps the browser using same-origin `/api` URLs while the real backend runs on Render.
+
+Use the same `ADMIN_PASSWORD` and `ADMIN_SECRET` on Vercel and Render so the admin cookie can be verified consistently through the proxy.
+
+## Production Checklist
+
+- Create Neon database.
+- Add `DATABASE_URL`, `ADMIN_PASSWORD`, and `ADMIN_SECRET` to Render.
+- Deploy Render backend and confirm `/api/health` returns `{ "ok": true }`.
+- Add `BACKEND_URL` to Vercel using the Render URL.
+- Add the same `ADMIN_PASSWORD` and `ADMIN_SECRET` to Vercel.
+- Deploy Vercel frontend.
+- Test catalog loading, quote submission, admin login, and admin edits.
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```

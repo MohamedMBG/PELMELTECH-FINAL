@@ -17,11 +17,19 @@ export default function CatalogPage() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    const products = getProducts();
-    setAllProducts(products);
-    setCategories([t.catalog.allSolutions, ...getAllSubcategories()]);
-    setActiveCategory(t.catalog.allSolutions);
-    setActiveFinish(t.catalog.allFinishes);
+    let active = true;
+    Promise.all([getProducts(), getAllSubcategories()])
+      .then(([products, subs]) => {
+        if (!active) return;
+        setAllProducts(products);
+        setCategories([t.catalog.allSolutions, ...subs]);
+        setActiveCategory(t.catalog.allSolutions);
+        setActiveFinish(t.catalog.allFinishes);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, [t.catalog.allSolutions, t.catalog.allFinishes]);
 
   const filtered = activeCategory === t.catalog.allSolutions

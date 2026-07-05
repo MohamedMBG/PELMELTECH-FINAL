@@ -7,12 +7,47 @@ import { useLanguage } from "@/i18n";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const { t } = useLanguage();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    const fd = new FormData(e.currentTarget);
+    const productParam =
+      typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("product") : null;
+
+    const message = [
+      fd.get("company") && `Company: ${fd.get("company")}`,
+      fd.get("size") && `Estimated size: ${fd.get("size")}`,
+      fd.get("deadline") && `Deadline: ${fd.get("deadline")}`,
+      fd.get("details") && `\n${fd.get("details")}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: fd.get("fullName"),
+          email: fd.get("email"),
+          phone: fd.get("phone"),
+          productName: productParam || fd.get("serviceType"),
+          message,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -43,6 +78,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.fullName}</label>
           <input
             type="text"
+            name="fullName"
             required
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.name}
@@ -52,6 +88,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.company}</label>
           <input
             type="text"
+            name="company"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.company}
           />
@@ -63,6 +100,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.workEmail}</label>
           <input
             type="email"
+            name="email"
             required
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.email}
@@ -72,6 +110,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.phone}</label>
           <input
             type="tel"
+            name="phone"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.phone}
           />
@@ -80,7 +119,7 @@ export default function ContactForm() {
 
       <div className="space-y-2">
         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.serviceType}</label>
-        <select className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none">
+        <select name="serviceType" className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none">
           {t.contactForm.serviceOptions.map((opt) => (
             <option key={opt}>{opt}</option>
           ))}
@@ -92,6 +131,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.estimatedSize}</label>
           <input
             type="text"
+            name="size"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.size}
           />
@@ -100,6 +140,7 @@ export default function ContactForm() {
           <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.deadline}</label>
           <input
             type="text"
+            name="deadline"
             className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40"
             placeholder={t.contactForm.placeholders.deadline}
           />
@@ -109,17 +150,21 @@ export default function ContactForm() {
       <div className="space-y-2">
         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant">{t.contactForm.projectDetails}</label>
         <textarea
+          name="details"
           rows={4}
           className="w-full bg-surface-container-low border border-black/10 text-on-surface rounded-lg p-4 focus:ring-2 focus:ring-cyan/20 focus:border-cyan/60 transition-all outline-none placeholder:text-on-surface-variant/40 resize-none"
           placeholder={t.contactForm.placeholders.details}
         />
       </div>
 
+      {error && <p className="text-sm font-semibold text-red-500 text-center">{error}</p>}
+
       <button
         type="submit"
-        className="w-full bg-magenta text-white py-4 rounded-xl text-xs font-bold tracking-[0.15em] uppercase hover:bg-magenta-dark transition-all duration-200 shadow-lg shadow-magenta/15 active:scale-[0.98] active:-translate-y-px flex items-center justify-center gap-2"
+        disabled={sending}
+        className="w-full bg-magenta text-white py-4 rounded-xl text-xs font-bold tracking-[0.15em] uppercase hover:bg-magenta-dark transition-all duration-200 shadow-lg shadow-magenta/15 active:scale-[0.98] active:-translate-y-px flex items-center justify-center gap-2 disabled:opacity-60"
       >
-        {t.contactForm.sendQuoteRequest} <Send size={16} />
+        {sending ? "Sending..." : t.contactForm.sendQuoteRequest} <Send size={16} />
       </button>
     </motion.form>
   );

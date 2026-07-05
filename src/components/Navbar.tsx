@@ -31,6 +31,7 @@ export default function Navbar() {
     { label: t.nav.portfolio, href: "/portfolio", hasMegaMenu: false },
     { label: t.nav.investors, href: "/investors", hasMegaMenu: false },
     { label: t.nav.contact, href: "/contact", hasMegaMenu: false },
+    { label: "PelmelBot", href: "/chat", hasMegaMenu: false },
   ];
 
   useEffect(() => {

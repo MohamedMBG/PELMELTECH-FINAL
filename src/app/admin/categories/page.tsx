@@ -42,11 +42,11 @@ export default function CategoriesPage() {
   const [toast, setToast] = useState("");
 
   useEffect(() => {
-    setCategories(getCategories());
+    getCategories().then(setCategories).catch(() => {});
   }, []);
 
-  function refresh() {
-    setCategories(getCategories());
+  async function refresh() {
+    setCategories(await getCategories());
   }
 
   function openAdd() {
@@ -76,7 +76,7 @@ export default function CategoriesPage() {
     setFormError("");
   }
 
-  function handleSave() {
+  async function handleSave() {
     if (!form.name.trim()) {
       setFormError("Category name is required");
       return;
@@ -92,22 +92,22 @@ export default function CategoriesPage() {
     };
 
     if (editing) {
-      updateCategory(editing, data);
+      await updateCategory(editing, data);
       setToast("Category updated");
     } else {
-      createCategory(data);
+      await createCategory(data);
       setToast("Category created");
     }
 
-    refresh();
+    await refresh();
     closeForm();
     setTimeout(() => setToast(""), 2500);
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return;
-    deleteCategory(deleteTarget.id);
-    refresh();
+    await deleteCategory(deleteTarget.id);
+    await refresh();
     setDeleteTarget(null);
     setToast("Category deleted");
     setTimeout(() => setToast(""), 2500);

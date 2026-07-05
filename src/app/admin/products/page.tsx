@@ -23,8 +23,8 @@ export default function ProductsPage() {
   const [toast, setToast] = useState("");
 
   useEffect(() => {
-    setProducts(getProducts());
-    setCategories(getCategories());
+    getProducts().then(setProducts).catch(() => {});
+    getCategories().then(setCategories).catch(() => {});
   }, []);
 
   const filtered = useMemo(() => {
@@ -41,10 +41,10 @@ export default function ProductsPage() {
     [products]
   );
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return;
-    deleteProduct(deleteTarget.id);
-    setProducts(getProducts());
+    await deleteProduct(deleteTarget.id);
+    setProducts(await getProducts());
     setDeleteTarget(null);
     setToast("Product deleted");
     setTimeout(() => setToast(""), 2500);

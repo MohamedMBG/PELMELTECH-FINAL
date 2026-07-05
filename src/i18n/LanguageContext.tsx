@@ -34,15 +34,14 @@ const LanguageContext = createContext<LanguageContextType>({
   t: en,
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+function getInitialLocale(): Locale {
+  if (typeof window === "undefined") return "en";
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  return stored === "en" || stored === "fr" || stored === "ar" ? stored : "en";
+}
 
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "en" || stored === "fr" || stored === "ar") {
-      setLocaleState(stored);
-    }
-  }, []);
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
 
   useEffect(() => {
     const dir = locale === "ar" ? "rtl" : "ltr";

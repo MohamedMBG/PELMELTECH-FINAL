@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { AdminProvider, useAdmin } from "@/components/admin/AdminContext";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
@@ -17,10 +18,12 @@ function AdminShell({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * TODO: Add real admin authentication before production.
- * Currently unprotected for demo purposes.
+ * Access is gated by middleware.ts (HMAC session cookie). The login route
+ * renders without the admin chrome.
  */
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  if (pathname === "/admin/login") return <>{children}</>;
   return (
     <AdminProvider>
       <AdminShell>{children}</AdminShell>

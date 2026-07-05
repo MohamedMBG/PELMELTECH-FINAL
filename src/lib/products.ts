@@ -1,7 +1,4 @@
 import {
-  getProducts,
-  getProductBySlug as catalogGetProductBySlug,
-  getRelatedProducts as catalogGetRelatedProducts,
   getProductPath as catalogGetProductPath,
   slugifyProductName,
   type CatalogProduct,
@@ -282,14 +279,6 @@ export function getProductPath(product: { name?: string; slug?: string }): strin
   return `/catalog/${slugifyProductName(product.name ?? "")}`;
 }
 
-export function findProductBySlug(slug: string): Product | undefined {
-  return catalogGetProductBySlug(slug);
-}
-
-export function findProductByName(name: string): Product | undefined {
-  return getProducts().find((p) => p.name === name);
-}
-
 export function getProductDetail(product: Product): ProductDetail {
   const details = categoryDetails[product.subcategory] ?? categoryDetails["Standard Printers"];
   const priceDisplay = product.quoteOnly || product.price === null
@@ -309,8 +298,4 @@ export function getProductDetail(product: Product): ProductDetail {
     highlights: details.highlights,
     applications: details.applications,
   };
-}
-
-export function getRelatedProducts(product: Product, limit = 3): Product[] {
-  return catalogGetRelatedProducts(product, limit);
 }

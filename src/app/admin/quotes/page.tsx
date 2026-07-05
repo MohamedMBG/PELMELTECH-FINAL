@@ -16,24 +16,24 @@ export default function QuotesPage() {
   const [toast, setToast] = useState("");
 
   useEffect(() => {
-    setQuotes(getQuotes());
+    getQuotes().then(setQuotes).catch(() => {});
   }, []);
 
-  function refresh() {
-    setQuotes(getQuotes());
+  async function refresh() {
+    setQuotes(await getQuotes());
   }
 
-  function handleStatusChange(id: string, status: QuoteRequest["status"]) {
-    updateQuoteStatus(id, status);
-    refresh();
+  async function handleStatusChange(id: string, status: QuoteRequest["status"]) {
+    await updateQuoteStatus(id, status);
+    await refresh();
     setToast("Status updated");
     setTimeout(() => setToast(""), 2500);
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return;
-    deleteQuote(deleteTarget.id);
-    refresh();
+    await deleteQuote(deleteTarget.id);
+    await refresh();
     setDeleteTarget(null);
     setToast("Quote request archived");
     setTimeout(() => setToast(""), 2500);

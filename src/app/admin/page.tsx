@@ -11,30 +11,24 @@ import {
   Plus,
   ArrowRight,
   FileText,
+  TrendingUp,
+  AlertTriangle,
+  ImageOff,
+  DollarSign,
+  Clock,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import StatusBadge from "@/components/admin/StatusBadge";
-import { getAdminStats } from "@/lib/admin-store";
-import type { AdminProduct } from "@/lib/admin-types";
+import { BarList, Donut, Sparkbars, CHART_COLORS } from "@/components/admin/Charts";
+import { getAdminStats, type AdminStats } from "@/lib/admin-store";
 import { useLanguage } from "@/i18n";
 
-interface Stats {
-  totalProducts: number;
-  totalCategories: number;
-  featuredProducts: number;
-  publishedProducts: number;
-  draftProducts: number;
-  totalQuotes: number;
-  newQuotes: number;
-  recentProducts: AdminProduct[];
-}
-
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<Stats | null>(null);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const { t } = useLanguage();
 
   useEffect(() => {
-    setStats(getAdminStats());
+    getAdminStats().then(setStats).catch(() => {});
   }, []);
 
   if (!stats) {
@@ -49,16 +43,25 @@ export default function AdminDashboard() {
   }
 
   const cards = [
-    { label: t.admin.totalProducts, value: stats.totalProducts, icon: Package, href: "/admin/products", color: "text-on-surface" },
+    { label: t.admin.totalProducts, value: stats.totalProducts, icon: Package, href: "/admin/products", color: "text-on-surface", extra: `${stats.publishedProducts} live · ${stats.draftProducts} draft` },
     { label: t.admin.categories, value: stats.totalCategories, icon: FolderTree, href: "/admin/categories", color: "text-on-surface" },
     { label: t.admin.featured, value: stats.featuredProducts, icon: Star, href: "/admin/products", color: "text-magenta" },
-    { label: t.admin.quoteRequests, value: stats.totalQuotes, icon: MessageSquareQuote, href: "/admin/quotes", color: "text-cyan-dark", extra: stats.newQuotes > 0 ? `${stats.newQuotes} ${t.admin.newLabel}` : undefined },
+    { label: t.admin.quoteRequests, value: stats.quotes.total, icon: MessageSquareQuote, href: "/admin/quotes", color: "text-cyan-dark", extra: stats.quotes.new > 0 ? `${stats.quotes.new} ${t.admin.newLabel}` : undefined },
   ];
+
+  const alertGroups = [
+    { label: "Missing image", items: stats.alerts.missingImage, icon: ImageOff },
+    { label: "No price set", items: stats.alerts.noPrice, icon: DollarSign },
+    { label: "Stale drafts (30d+)", items: stats.alerts.staleDrafts, icon: Clock },
+    { label: "Empty categories", items: stats.alerts.emptyCategories, icon: FolderTree },
+  ];
+  const totalAlerts = alertGroups.reduce((s, g) => s + g.items.length, 0);
 
   return (
     <>
       <AdminHeader title={t.admin.dashboard} />
       <div className="flex-1 p-4 md:p-8 space-y-8 overflow-y-auto">
+        {/* KPI cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {cards.map((card) => (
             <Link
@@ -72,12 +75,92 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-end gap-2">
                 <span className={`text-3xl font-extrabold tracking-tight ${card.color}`}>{card.value}</span>
-                {card.extra && <span className="text-xs font-bold text-cyan-dark mb-1">{card.extra}</span>}
+                {card.extra && <span className="text-[11px] font-bold text-on-surface-variant/70 mb-1">{card.extra}</span>}
               </div>
             </Link>
           ))}
         </div>
 
+        {/* Analytics row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Quote funnel */}
+          <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
+            <h2 className="text-base font-bold text-on-surface mb-5">Quote Funnel</h2>
+            <Donut
+              centerValue={`${stats.quotes.conversionRate}%`}
+              centerLabel="conversion"
+              segments={[
+                { label: "New", value: stats.quotes.new, color: CHART_COLORS.cyan },
+                { label: "In progress", value: stats.quotes.inProgress, color: CHART_COLORS.magenta },
+                { label: "Done", value: stats.quotes.done, color: CHART_COLORS.muted },
+              ]}
+            />
+          </div>
+
+          {/* Quotes over time */}
+          <div className="lg:col-span-2 bg-white rounded-2xl border border-black/[0.06] p-6">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-base font-bold text-on-surface">Quote Requests · Last 14 Days</h2>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-dark">
+                <TrendingUp size={14} />
+                {stats.quotesByDay.reduce((s, d) => s + d.count, 0)} total
+              </span>
+            </div>
+            <Sparkbars data={stats.quotesByDay} />
+            <div className="flex justify-between mt-2 text-[10px] font-semibold text-on-surface-variant/50">
+              <span>{stats.quotesByDay[0]?.name}</span>
+              <span>{stats.quotesByDay[stats.quotesByDay.length - 1]?.name}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Distributions row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
+            <h2 className="text-base font-bold text-on-surface mb-5">Products by Category</h2>
+            <BarList data={stats.productsByCategory} color={CHART_COLORS.cyan} />
+          </div>
+          <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
+            <h2 className="text-base font-bold text-on-surface mb-5">Price Distribution</h2>
+            <BarList data={stats.priceBuckets} color={CHART_COLORS.magenta} />
+          </div>
+        </div>
+
+        {/* Inventory alerts */}
+        <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
+          <div className="flex items-center gap-2 mb-5">
+            <AlertTriangle size={18} className={totalAlerts > 0 ? "text-amber-500" : "text-on-surface-variant/30"} />
+            <h2 className="text-base font-bold text-on-surface">Inventory Alerts</h2>
+            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${totalAlerts > 0 ? "bg-amber-100 text-amber-700" : "bg-black/[0.04] text-on-surface-variant"}`}>
+              {totalAlerts}
+            </span>
+          </div>
+          {totalAlerts === 0 ? (
+            <p className="text-sm text-on-surface-variant">All products look healthy — nothing needs attention.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {alertGroups.map((g) => (
+                <div key={g.label} className={`rounded-xl border p-4 ${g.items.length ? "border-amber-200 bg-amber-50/50" : "border-black/[0.06]"}`}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <g.icon size={15} className={g.items.length ? "text-amber-600" : "text-on-surface-variant/30"} />
+                    <span className="text-xs font-bold text-on-surface">{g.label}</span>
+                    <span className="ml-auto text-sm font-extrabold text-on-surface">{g.items.length}</span>
+                  </div>
+                  {g.items.length > 0 && (
+                    <ul className="space-y-0.5">
+                      {g.items.slice(0, 3).map((name) => (
+                        <li key={name} className="text-[11px] text-on-surface-variant truncate">{name}</li>
+                      ))}
+                      {g.items.length > 3 && <li className="text-[11px] text-on-surface-variant/50">+{g.items.length - 3} more</li>}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Quick actions + recent products */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
             <h2 className="text-base font-bold text-on-surface mb-4">{t.admin.quickActions}</h2>

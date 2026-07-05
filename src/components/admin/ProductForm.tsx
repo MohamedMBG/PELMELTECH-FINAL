@@ -62,9 +62,9 @@ export default function ProductForm({ productId }: ProductFormProps) {
   const isEdit = !!productId;
 
   useEffect(() => {
-    setCategories(getCategories());
+    getCategories().then(setCategories).catch(() => {});
     if (productId) {
-      const product = getProduct(productId);
+      getProduct(productId).then((product) => {
       if (!product) {
         router.replace("/admin/products");
         return;
@@ -88,6 +88,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
         materialCompatibility: product.specifications.materialCompatibility || "",
         usageType: product.specifications.usageType || "",
       });
+      }).catch(() => router.replace("/admin/products"));
     }
   }, [productId, router]);
 
@@ -107,7 +108,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
     return Object.keys(errs).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
 
@@ -137,10 +138,17 @@ export default function ProductForm({ productId }: ProductFormProps) {
       ctaLabel: form.ctaLabel,
     };
 
-    if (isEdit && productId) {
-      updateProduct(productId, productData);
-    } else {
-      createProduct(productData);
+    try {
+      if (isEdit && productId) {
+        await updateProduct(productId, productData);
+      } else {
+        await createProduct(productData);
+      }
+    } catch {
+      setSaving(false);
+      setToast("Save failed — try again");
+      setTimeout(() => setToast(""), 2500);
+      return;
     }
 
     setToast(isEdit ? "Product updated" : "Product created");

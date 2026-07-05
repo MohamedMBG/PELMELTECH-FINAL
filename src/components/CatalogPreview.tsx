@@ -12,14 +12,23 @@ import categoriesData from "@/data/categories.json";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+type StaticCategory = {
+  id: string;
+  name: string;
+  parentId: string | null;
+  sortOrder: number;
+  status: string;
+};
+
 const staticCategories = (() => {
-  const parents = (categoriesData as any[]).filter((c) => c.parentId === null && c.status === "published");
+  const categoryList = categoriesData as StaticCategory[];
+  const parents = categoryList.filter((c) => c.parentId === null && c.status === "published");
   return parents.flatMap((parent) =>
-    (categoriesData as any[])
+    categoryList
       .filter((c) => c.parentId === parent.id && c.status === "published")
       .sort((a, b) => a.sortOrder - b.sortOrder)
       .slice(0, 2)
-      .map((sub) => sub.name as string)
+      .map((sub) => sub.name)
   );
 })();
 
@@ -28,12 +37,15 @@ export default function CatalogPreview() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    const parents = getParentCategories();
-    setPreviewCategories(
-      parents.flatMap((parent) =>
-        getSubcategories(parent.id).slice(0, 2).map((sub) => sub.name)
-      )
-    );
+    let active = true;
+    (async () => {
+      const parents = await getParentCategories();
+      const groups = await Promise.all(parents.map((p) => getSubcategories(p.id)));
+      if (active) setPreviewCategories(groups.flatMap((subs) => subs.slice(0, 2).map((s) => s.name)));
+    })().catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (

@@ -22,10 +22,28 @@ type ProductPageProps = {
 export default function ProductPage({ params }: ProductPageProps) {
   const { slug } = use(params);
   const [product, setProduct] = useState<CatalogProduct | null | undefined>(undefined);
+  const [relatedProducts, setRelatedProducts] = useState<CatalogProduct[]>([]);
   const { t } = useLanguage();
 
   useEffect(() => {
-    setProduct(getProductBySlug(slug) ?? null);
+    let active = true;
+    getProductBySlug(slug)
+      .then(async (p) => {
+        if (!active) return;
+        if (!p) {
+          setProduct(null);
+          return;
+        }
+        setProduct(p);
+        const rel = await getRelatedProducts(p);
+        if (active) setRelatedProducts(rel);
+      })
+      .catch(() => {
+        if (active) setProduct(null);
+      });
+    return () => {
+      active = false;
+    };
   }, [slug]);
 
   if (product === undefined) {
@@ -39,7 +57,6 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (product === null) notFound();
 
   const detail = getProductDetail(product);
-  const relatedProducts = getRelatedProducts(product);
   const displayPrice = formatPrice(product);
 
   return (

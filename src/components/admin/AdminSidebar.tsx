@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Package,
@@ -10,6 +10,7 @@ import {
   ArrowLeft,
   Plus,
   X,
+  LogOut,
 } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
@@ -20,7 +21,14 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
+
+  async function handleLogout() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.replace("/admin/login");
+    router.refresh();
+  }
 
   const NAV_ITEMS = [
     { label: t.admin.dashboard, href: "/admin", icon: LayoutDashboard },
@@ -101,7 +109,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
           </div>
         </nav>
 
-        <div className="p-4 border-t border-black/[0.06]">
+        <div className="p-4 border-t border-black/[0.06] space-y-0.5">
           <Link
             href="/"
             className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-on-surface-variant hover:bg-black/[0.04] transition-all"
@@ -109,6 +117,13 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
             <ArrowLeft size={16} />
             {t.admin.backToWebsite}
           </Link>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-on-surface-variant hover:bg-red-50 hover:text-red-500 transition-all"
+          >
+            <LogOut size={16} />
+            Log out
+          </button>
         </div>
       </aside>
     </>
