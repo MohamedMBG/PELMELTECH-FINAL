@@ -1,10 +1,11 @@
 /**
- * Minimal signed-cookie session for the single admin user. No auth library:
- * an HMAC-signed `${expiry}.${sig}` token, verified with Web Crypto so the
- * same code runs in Edge middleware and Node route handlers.
+ * Signed-cookie session. No auth library: an HMAC-signed
+ * `${userId}.${expiry}.${sig}` token, verified with Web Crypto so the same
+ * code runs in Edge middleware and Node route handlers.
  *
- * ponytail: one shared password (ADMIN_PASSWORD), one secret (ADMIN_SECRET).
- * Add a user table + hashed passwords if you ever need more than one admin.
+ * The env admin (ADMIN_PASSWORD) logs in as the bootstrap superadmin with the
+ * reserved userId "root". Additional accounts live in the users table with
+ * PBKDF2-hashed passwords and per-section permissions.
  */
 
 export const SESSION_COOKIE = "admin_session";
@@ -34,15 +35,55 @@ export function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-export async function createToken(secret: string): Promise<string> {
+/** Reserved id for the env-configured bootstrap superadmin. */
+export const ROOT_USER_ID = "root";
+
+export async function createToken(secret: string, userId: string = ROOT_USER_ID): Promise<string> {
   const exp = String(Date.now() + TTL_MS);
-  return `${exp}.${await hmacHex(secret, exp)}`;
+  const payload = `${userId}.${exp}`;
+  return `${payload}.${await hmacHex(secret, payload)}`;
 }
 
-export async function verifyToken(secret: string, token: string | undefined): Promise<boolean> {
-  if (!token) return false;
-  const [exp, sig] = token.split(".");
-  if (!exp || !sig) return false;
-  if (Date.now() > Number(exp)) return false;
-  return safeEqual(sig, await hmacHex(secret, exp));
+/** Returns the userId if the token is valid and unexpired, else null. */
+export async function verifyToken(secret: string, token: string | undefined): Promise<string | null> {
+  if (!token) return null;
+  const parts = token.split(".");
+  if (parts.length !== 3) return null;
+  const [userId, exp, sig] = parts;
+  if (!userId || !exp || !sig) return null;
+  if (Date.now() > Number(exp)) return null;
+  const ok = safeEqual(sig, await hmacHex(secret, `${userId}.${exp}`));
+  return ok ? userId : null;
+}
+
+function bytesToHex(bytes: Uint8Array): string {
+  return [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function hexToBytes(hex: string): Uint8Array {
+  const out = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < out.length; i++) out[i] = parseInt(hex.slice(i * 2, i * 2 + 2), 16);
+  return out;
+}
+
+/**
+ * PBKDF2-SHA256 password hash. Stored as `${saltHex}:${hashHex}`. Web Crypto
+ * only, so it runs in both Node and Edge runtimes.
+ */
+export async function hashPassword(password: string, saltHex?: string): Promise<string> {
+  const salt = saltHex ? hexToBytes(saltHex) : crypto.getRandomValues(new Uint8Array(16));
+  const key = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", salt: salt as BufferSource, iterations: 100_000, hash: "SHA-256" },
+    key,
+    256,
+  );
+  return `${bytesToHex(salt)}:${bytesToHex(new Uint8Array(bits))}`;
+}
+
+export async function verifyPassword(password: string, stored: string): Promise<boolean> {
+  const [saltHex, hashHex] = stored.split(":");
+  if (!saltHex || !hashHex) return false;
+  const computed = (await hashPassword(password, saltHex)).split(":")[1];
+  return safeEqual(computed, hashHex);
 }

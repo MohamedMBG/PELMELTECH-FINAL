@@ -35,6 +35,7 @@ export default function CatalogPage() {
   const filtered = activeCategory === t.catalog.allSolutions
     ? allProducts
     : allProducts.filter((p) => p.subcategory === activeCategory);
+  const newArrivals = allProducts.filter((p) => p.newArrival).slice(0, 6);
 
   return (
     <>
@@ -72,6 +73,28 @@ export default function CatalogPage() {
           </div>
         </div>
       </section>
+
+      {newArrivals.length > 0 && (
+        <section className="py-12 px-4 md:px-16 bg-white">
+          <div className="max-w-[1280px] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+              <div>
+                <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-2 block">
+                  Nouveau arrivage
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface">
+                  {t.megaMenu.newArrivals}
+                </h2>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+              {newArrivals.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-10 sm:py-12 lg:py-16 px-4 md:px-16">
         <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12">

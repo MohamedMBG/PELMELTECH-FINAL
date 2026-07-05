@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { hashPassword } from "@/lib/auth";
 import productsSeed from "@/data/products.json";
 import categoriesSeed from "@/data/categories.json";
 
@@ -18,10 +19,29 @@ type Product = Record<string, unknown> & { id: string };
 type Category = Record<string, unknown> & { id: string };
 type Quote = Record<string, unknown> & { id: string };
 
+/** Sections a member account can be granted access to. */
+export const ALL_PERMISSIONS = ["products", "categories", "quotes", "users"] as const;
+export type Permission = (typeof ALL_PERMISSIONS)[number];
+
+export interface User {
+  id: string;
+  username: string;
+  name: string;
+  role: "superadmin" | "member";
+  permissions: Permission[];
+  passwordHash: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** User without the password hash — safe to send to clients. */
+export type PublicUser = Omit<User, "passwordHash">;
+
 interface Store {
   products: Product[];
   categories: Category[];
   quotes: Quote[];
+  users: User[];
 }
 
 type Sql = NeonQueryFunction<false, false>;
@@ -51,12 +71,15 @@ function seed(): Store {
     products: JSON.parse(JSON.stringify(productsSeed)),
     categories: JSON.parse(JSON.stringify(categoriesSeed)),
     quotes: [],
+    users: [],
   };
 }
 
 function readFileStore(): Store {
   try {
-    return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
+    const store = JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Store;
+    store.users ??= []; // older stores predate the users table
+    return store;
   } catch {
     const store = seed();
     writeFileStore(store);
@@ -100,6 +123,14 @@ async function initDb(db: Sql): Promise<void> {
   `;
   await db`
     CREATE TABLE IF NOT EXISTS pelmel_quotes (
+      id text PRIMARY KEY,
+      data jsonb NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )
+  `;
+  await db`
+    CREATE TABLE IF NOT EXISTS pelmel_users (
       id text PRIMARY KEY,
       data jsonb NOT NULL,
       created_at timestamptz NOT NULL DEFAULT now(),
@@ -396,6 +427,128 @@ export async function deleteQuote(id: string): Promise<boolean> {
   return rows.length > 0;
 }
 
+// --- Users ---
+
+function stripHash(user: User): PublicUser {
+  const { passwordHash: _hash, ...rest } = user;
+  return rest;
+}
+
+export async function getUsers(): Promise<PublicUser[]> {
+  const db = await getDb();
+  const users = db
+    ? (await db`SELECT data FROM pelmel_users ORDER BY COALESCE(data->>'createdAt', '')`)
+        .map((row) => rowData<User>(row))
+        .filter(Boolean as unknown as (u: User | undefined) => u is User)
+    : readFileStore().users;
+  return users.map(stripHash);
+}
+
+export async function getUserById(id: string): Promise<User | undefined> {
+  const db = await getDb();
+  if (!db) return readFileStore().users.find((u) => u.id === id);
+  const [row] = await db`SELECT data FROM pelmel_users WHERE id = ${id} LIMIT 1`;
+  return rowData<User>(row);
+}
+
+export async function getUserByUsername(username: string): Promise<User | undefined> {
+  const key = username.trim().toLowerCase();
+  const db = await getDb();
+  if (!db) return readFileStore().users.find((u) => u.username.toLowerCase() === key);
+  const [row] = await db`SELECT data FROM pelmel_users WHERE lower(data->>'username') = ${key} LIMIT 1`;
+  return rowData<User>(row);
+}
+
+interface UserInput {
+  username: string;
+  name: string;
+  password: string;
+  role?: User["role"];
+  permissions?: Permission[];
+}
+
+export async function createUser(input: UserInput): Promise<PublicUser> {
+  const role = input.role === "superadmin" ? "superadmin" : "member";
+  const user: User = {
+    id: generateId(),
+    username: input.username.trim(),
+    name: input.name.trim() || input.username.trim(),
+    role,
+    permissions: role === "superadmin" ? [...ALL_PERMISSIONS] : sanitizePermissions(input.permissions),
+    passwordHash: await hashPassword(input.password),
+    createdAt: now(),
+    updatedAt: now(),
+  };
+
+  const db = await getDb();
+  if (!db) {
+    const store = readFileStore();
+    store.users.push(user);
+    writeFileStore(store);
+    return stripHash(user);
+  }
+  await db`INSERT INTO pelmel_users (id, data) VALUES (${user.id}, ${JSON.stringify(user)}::jsonb)`;
+  return stripHash(user);
+}
+
+interface UserUpdate {
+  name?: string;
+  password?: string;
+  role?: User["role"];
+  permissions?: Permission[];
+}
+
+export async function updateUser(id: string, patch: UserUpdate): Promise<PublicUser | undefined> {
+  const existing = await getUserById(id);
+  if (!existing) return undefined;
+
+  const role = patch.role ?? existing.role;
+  const updated: User = {
+    ...existing,
+    name: patch.name?.trim() || existing.name,
+    role,
+    permissions:
+      role === "superadmin"
+        ? [...ALL_PERMISSIONS]
+        : patch.permissions
+          ? sanitizePermissions(patch.permissions)
+          : existing.permissions,
+    passwordHash: patch.password ? await hashPassword(patch.password) : existing.passwordHash,
+    updatedAt: now(),
+  };
+
+  const db = await getDb();
+  if (!db) {
+    const store = readFileStore();
+    const idx = store.users.findIndex((u) => u.id === id);
+    if (idx === -1) return undefined;
+    store.users[idx] = updated;
+    writeFileStore(store);
+    return stripHash(updated);
+  }
+  await db`UPDATE pelmel_users SET data = ${JSON.stringify(updated)}::jsonb, updated_at = now() WHERE id = ${id}`;
+  return stripHash(updated);
+}
+
+export async function deleteUser(id: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    const store = readFileStore();
+    const next = store.users.filter((u) => u.id !== id);
+    if (next.length === store.users.length) return false;
+    store.users = next;
+    writeFileStore(store);
+    return true;
+  }
+  const rows = await db`DELETE FROM pelmel_users WHERE id = ${id} RETURNING id`;
+  return rows.length > 0;
+}
+
+function sanitizePermissions(perms: Permission[] | undefined): Permission[] {
+  if (!Array.isArray(perms)) return [];
+  return ALL_PERMISSIONS.filter((p) => perms.includes(p));
+}
+
 // --- Stats / analytics (dashboard KPIs) ---
 
 export async function getStats() {
@@ -450,12 +603,36 @@ export async function getStats() {
 
   const done = q.filter((x) => x.status === "done").length;
 
+  const prices = priced.map((x) => x.price as number);
+  const catalogValue = prices.reduce((s, v) => s + v, 0);
+  const avgPrice = prices.length ? catalogValue / prices.length : 0;
+  const openQuotes = q.filter((x) => x.status !== "done").length;
+
+  // Quote requests this week vs the previous week (momentum indicator).
+  const weekMs = 7 * 24 * 60 * 60 * 1000;
+  const nowMs = Date.now();
+  const inWindow = (x: Quote, from: number, to: number) => {
+    const t = new Date(String(x.createdAt)).getTime();
+    return t >= from && t < to;
+  };
+  const quotesThisWeek = q.filter((x) => inWindow(x, nowMs - weekMs, nowMs)).length;
+  const quotesPrevWeek = q.filter((x) => inWindow(x, nowMs - 2 * weekMs, nowMs - weekMs)).length;
+  const weekTrend = quotesPrevWeek === 0
+    ? (quotesThisWeek > 0 ? 100 : 0)
+    : Math.round(((quotesThisWeek - quotesPrevWeek) / quotesPrevWeek) * 100);
+
   return {
     totalProducts: p.length,
     publishedProducts: p.filter((x) => x.status === "published").length,
     draftProducts: p.filter((x) => x.status === "draft").length,
     featuredProducts: p.filter((x) => x.featured).length,
     totalCategories: categories.length,
+    catalogValue,
+    avgPrice,
+    quoteOnlyProducts: p.filter((x) => x.quoteOnly).length,
+    openQuotes,
+    quotesThisWeek,
+    weekTrend,
     productsByCategory: byCount(p, (x) => String(x.categoryName || "Uncategorized")).slice(0, 8),
     productsByType: byCount(p, (x) => String(x.type || "other")),
     priceBuckets,

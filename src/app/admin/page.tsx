@@ -29,7 +29,6 @@ export default function AdminDashboard() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    setError(false);
     getAdminStats().then(setStats).catch(() => setError(true));
   }, []);
 
@@ -38,15 +37,15 @@ export default function AdminDashboard() {
       <>
         <AdminHeader title={t.admin.dashboard} />
         <div className="flex-1 flex flex-col items-center justify-center gap-3 p-8 text-center">
-          <p className="text-sm font-semibold text-on-surface">Couldn&apos;t load data from the API.</p>
+          <p className="text-sm font-semibold text-on-surface">{t.admin.couldntLoadApi}</p>
           <p className="text-xs text-on-surface-variant max-w-sm">
-            The <code className="font-mono">/api</code> routes returned an error. Check that <code className="font-mono">DATABASE_URL</code> is set in your deployment environment.
+            {t.admin.apiErrorHelp}
           </p>
           <button
             onClick={() => location.reload()}
             className="mt-2 bg-on-surface text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-on-surface/90 transition-colors"
           >
-            Retry
+            {t.admin.retry}
           </button>
         </div>
       </>
@@ -65,17 +64,35 @@ export default function AdminDashboard() {
   }
 
   const cards = [
-    { label: t.admin.totalProducts, value: stats.totalProducts, icon: Package, href: "/admin/products", color: "text-on-surface", extra: `${stats.publishedProducts} live · ${stats.draftProducts} draft` },
+    { label: t.admin.totalProducts, value: stats.totalProducts, icon: Package, href: "/admin/products", color: "text-on-surface", extra: `${stats.publishedProducts} ${t.admin.live} · ${stats.draftProducts} ${t.admin.draftLabel}` },
     { label: t.admin.categories, value: stats.totalCategories, icon: FolderTree, href: "/admin/categories", color: "text-on-surface" },
     { label: t.admin.featured, value: stats.featuredProducts, icon: Star, href: "/admin/products", color: "text-magenta" },
     { label: t.admin.quoteRequests, value: stats.quotes.total, icon: MessageSquareQuote, href: "/admin/quotes", color: "text-cyan-dark", extra: stats.quotes.new > 0 ? `${stats.quotes.new} ${t.admin.newLabel}` : undefined },
   ];
 
+  const money = (n: number) =>
+    n >= 1000 ? `$${(n / 1000).toFixed(1)}k` : `$${n.toFixed(0)}`;
+
+  const metrics = [
+    { label: t.admin.catalogValue, value: money(stats.catalogValue), sub: t.admin.pricedProducts, icon: DollarSign },
+    { label: t.admin.avgPrice, value: money(stats.avgPrice), sub: t.admin.perPricedItem, icon: TrendingUp },
+    { label: t.admin.openQuotes, value: stats.openQuotes, sub: `${stats.quotes.total} ${t.admin.total}`, icon: MessageSquareQuote },
+    {
+      label: t.admin.quotesThisWeek,
+      value: stats.quotesThisWeek,
+      sub: `${stats.weekTrend >= 0 ? "+" : ""}${stats.weekTrend}% ${t.admin.vsLastWeek}`,
+      icon: TrendingUp,
+      trendUp: stats.weekTrend >= 0,
+    },
+  ];
+
+  const typeColors = [CHART_COLORS.cyan, CHART_COLORS.magenta, CHART_COLORS.muted, "#f59e0b", "#8b5cf6"];
+
   const alertGroups = [
-    { label: "Missing image", items: stats.alerts.missingImage, icon: ImageOff },
-    { label: "No price set", items: stats.alerts.noPrice, icon: DollarSign },
-    { label: "Stale drafts (30d+)", items: stats.alerts.staleDrafts, icon: Clock },
-    { label: "Empty categories", items: stats.alerts.emptyCategories, icon: FolderTree },
+    { label: t.admin.missingImage, items: stats.alerts.missingImage, icon: ImageOff },
+    { label: t.admin.noPriceSet, items: stats.alerts.noPrice, icon: DollarSign },
+    { label: t.admin.staleDrafts, items: stats.alerts.staleDrafts, icon: Clock },
+    { label: t.admin.emptyCategories, items: stats.alerts.emptyCategories, icon: FolderTree },
   ];
   const totalAlerts = alertGroups.reduce((s, g) => s + g.items.length, 0);
 
@@ -103,18 +120,34 @@ export default function AdminDashboard() {
           ))}
         </div>
 
+        {/* Business metrics strip */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {metrics.map((m) => (
+            <div key={m.label} className="bg-white rounded-2xl border border-black/[0.06] p-5">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-on-surface-variant/60">{m.label}</span>
+                <m.icon size={18} className="text-on-surface-variant/30" />
+              </div>
+              <p className="text-2xl font-extrabold tracking-tight text-on-surface">{m.value}</p>
+              <p className={`text-[11px] font-bold mt-1 ${m.trendUp === false ? "text-red-500" : m.trendUp ? "text-emerald-600" : "text-on-surface-variant/70"}`}>
+                {m.sub}
+              </p>
+            </div>
+          ))}
+        </div>
+
         {/* Analytics row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Quote funnel */}
           <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
-            <h2 className="text-base font-bold text-on-surface mb-5">Quote Funnel</h2>
+            <h2 className="text-base font-bold text-on-surface mb-5">{t.admin.quoteFunnel}</h2>
             <Donut
               centerValue={`${stats.quotes.conversionRate}%`}
-              centerLabel="conversion"
+              centerLabel={t.admin.conversion}
               segments={[
-                { label: "New", value: stats.quotes.new, color: CHART_COLORS.cyan },
-                { label: "In progress", value: stats.quotes.inProgress, color: CHART_COLORS.magenta },
-                { label: "Done", value: stats.quotes.done, color: CHART_COLORS.muted },
+                { label: t.admin.newLabel, value: stats.quotes.new, color: CHART_COLORS.cyan },
+                { label: t.admin.inProgress, value: stats.quotes.inProgress, color: CHART_COLORS.magenta },
+                { label: t.admin.done, value: stats.quotes.done, color: CHART_COLORS.muted },
               ]}
             />
           </div>
@@ -122,10 +155,10 @@ export default function AdminDashboard() {
           {/* Quotes over time */}
           <div className="lg:col-span-2 bg-white rounded-2xl border border-black/[0.06] p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-base font-bold text-on-surface">Quote Requests · Last 14 Days</h2>
+              <h2 className="text-base font-bold text-on-surface">{t.admin.quotesLast14Days}</h2>
               <span className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-dark">
                 <TrendingUp size={14} />
-                {stats.quotesByDay.reduce((s, d) => s + d.count, 0)} total
+                {stats.quotesByDay.reduce((s, d) => s + d.count, 0)} {t.admin.total}
               </span>
             </div>
             <Sparkbars data={stats.quotesByDay} />
@@ -137,14 +170,24 @@ export default function AdminDashboard() {
         </div>
 
         {/* Distributions row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
-            <h2 className="text-base font-bold text-on-surface mb-5">Products by Category</h2>
+            <h2 className="text-base font-bold text-on-surface mb-5">{t.admin.productsByCategory}</h2>
             <BarList data={stats.productsByCategory} color={CHART_COLORS.cyan} />
           </div>
           <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
-            <h2 className="text-base font-bold text-on-surface mb-5">Price Distribution</h2>
+            <h2 className="text-base font-bold text-on-surface mb-5">{t.admin.priceDistribution}</h2>
             <BarList data={stats.priceBuckets} color={CHART_COLORS.magenta} />
+          </div>
+          <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
+            <h2 className="text-base font-bold text-on-surface mb-5">{t.admin.productsByType}</h2>
+            <Donut
+              segments={stats.productsByType.map((d, i) => ({
+                label: d.name,
+                value: d.count,
+                color: typeColors[i % typeColors.length],
+              }))}
+            />
           </div>
         </div>
 
@@ -152,13 +195,13 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
           <div className="flex items-center gap-2 mb-5">
             <AlertTriangle size={18} className={totalAlerts > 0 ? "text-amber-500" : "text-on-surface-variant/30"} />
-            <h2 className="text-base font-bold text-on-surface">Inventory Alerts</h2>
+            <h2 className="text-base font-bold text-on-surface">{t.admin.inventoryAlerts}</h2>
             <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${totalAlerts > 0 ? "bg-amber-100 text-amber-700" : "bg-black/[0.04] text-on-surface-variant"}`}>
               {totalAlerts}
             </span>
           </div>
           {totalAlerts === 0 ? (
-            <p className="text-sm text-on-surface-variant">All products look healthy — nothing needs attention.</p>
+            <p className="text-sm text-on-surface-variant">{t.admin.allProductsHealthy}</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {alertGroups.map((g) => (
@@ -173,7 +216,7 @@ export default function AdminDashboard() {
                       {g.items.slice(0, 3).map((name) => (
                         <li key={name} className="text-[11px] text-on-surface-variant truncate">{name}</li>
                       ))}
-                      {g.items.length > 3 && <li className="text-[11px] text-on-surface-variant/50">+{g.items.length - 3} more</li>}
+                      {g.items.length > 3 && <li className="text-[11px] text-on-surface-variant/50">+{g.items.length - 3} {t.admin.more}</li>}
                     </ul>
                   )}
                 </div>

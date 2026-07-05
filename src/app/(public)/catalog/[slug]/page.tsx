@@ -113,6 +113,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                   )}
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-3">
+                  {product.newArrival && (
+                    <div className="col-span-2 rounded-2xl bg-cyan/10 p-4">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-dark">
+                        Nouveau arrivage
+                      </p>
+                    </div>
+                  )}
                   <div className="rounded-2xl bg-surface-container-low p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
                       {t.productDetail.category}
@@ -124,6 +131,16 @@ export default function ProductPage({ params }: ProductPageProps) {
                       {t.productDetail.price}
                     </p>
                     <p className="mt-1 text-sm font-bold text-magenta">{displayPrice}</p>
+                  </div>
+                  <div className="col-span-2 rounded-2xl bg-surface-container-low p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
+                      Stock
+                    </p>
+                    <p className={`mt-1 text-sm font-bold ${
+                      product.stockStatus === "out-of-stock" ? "text-red-500" : "text-cyan-dark"
+                    }`}>
+                      {product.stockStatus === "out-of-stock" ? "Out of stock" : "En stock"}
+                    </p>
                   </div>
                 </div>
               </div>

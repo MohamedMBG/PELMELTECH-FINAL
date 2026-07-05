@@ -43,6 +43,11 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             {product.badge}
           </span>
         )}
+        {product.newArrival && (
+          <span className="absolute top-3 end-3 text-[10px] font-bold tracking-widest uppercase text-white px-3 py-1 rounded-full shadow-md z-10 bg-cyan">
+            Nouveau arrivage
+          </span>
+        )}
       </div>
 
       <div className="px-1.5 pt-4 pb-1">
@@ -54,7 +59,14 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         </h4>
         <p className="text-sm text-on-surface-variant leading-relaxed mb-4 line-clamp-2">{product.shortDescription}</p>
         <div className="flex items-center justify-between pt-4 border-t border-black/5">
-          <span className="text-magenta font-extrabold text-lg">{displayPrice}</span>
+          <div>
+            <span className="text-magenta font-extrabold text-lg">{displayPrice}</span>
+            <p className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide ${
+              product.stockStatus === "out-of-stock" ? "text-red-500" : "text-cyan-dark"
+            }`}>
+              {product.stockStatus === "out-of-stock" ? "Out of stock" : "En stock"}
+            </p>
+          </div>
           <Link href={productPath} className="flex items-center gap-1 text-xs font-bold tracking-wide text-on-surface-variant hover:text-magenta transition-colors">
             {t.common.details} <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity rtl:rotate-180" />
           </Link>

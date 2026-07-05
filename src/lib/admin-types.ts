@@ -10,6 +10,8 @@ export interface AdminProduct {
   gallery: string[];
   price: number | null;
   quoteOnly: boolean;
+  stockStatus: "in-stock" | "out-of-stock";
+  newArrival: boolean;
   featured: boolean;
   status: "published" | "draft";
   type: "machine" | "material" | "consumable" | "accessory" | "service";
@@ -35,6 +37,19 @@ export interface AdminCategory {
   parentId: string | null;
   sortOrder: number;
   status: "published" | "hidden";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const ALL_PERMISSIONS = ["products", "categories", "quotes", "users"] as const;
+export type Permission = (typeof ALL_PERMISSIONS)[number];
+
+export interface AdminUser {
+  id: string;
+  username: string;
+  name: string;
+  role: "superadmin" | "member";
+  permissions: Permission[];
   createdAt: string;
   updatedAt: string;
 }

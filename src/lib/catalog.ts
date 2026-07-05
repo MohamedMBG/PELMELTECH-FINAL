@@ -18,6 +18,8 @@ export interface CatalogProduct {
   gallery: string[];
   price: number | null;
   quoteOnly: boolean;
+  stockStatus?: "in-stock" | "out-of-stock";
+  newArrival?: boolean;
   featured: boolean;
   status: "published" | "draft";
   type: "machine" | "material" | "consumable" | "accessory" | "service";

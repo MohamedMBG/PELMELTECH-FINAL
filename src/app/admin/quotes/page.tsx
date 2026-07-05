@@ -8,8 +8,10 @@ import EmptyState from "@/components/admin/EmptyState";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import { getQuotes, updateQuoteStatus, deleteQuote } from "@/lib/admin-store";
 import type { QuoteRequest } from "@/lib/admin-types";
+import { useLanguage } from "@/i18n";
 
 export default function QuotesPage() {
+  const { locale, t } = useLanguage();
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [statusFilter, setStatusFilter] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<QuoteRequest | null>(null);
@@ -26,7 +28,7 @@ export default function QuotesPage() {
   async function handleStatusChange(id: string, status: QuoteRequest["status"]) {
     await updateQuoteStatus(id, status);
     await refresh();
-    setToast("Status updated");
+    setToast(t.admin.statusUpdated);
     setTimeout(() => setToast(""), 2500);
   }
 
@@ -35,7 +37,7 @@ export default function QuotesPage() {
     await deleteQuote(deleteTarget.id);
     await refresh();
     setDeleteTarget(null);
-    setToast("Quote request archived");
+    setToast(t.admin.quoteRequestArchived);
     setTimeout(() => setToast(""), 2500);
   }
 
@@ -52,7 +54,7 @@ export default function QuotesPage() {
   }), [quotes]);
 
   function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString("en-US", {
+    return new Date(dateStr).toLocaleDateString(locale === "fr" ? "fr-FR" : locale === "ar" ? "ar-MA" : "en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -61,16 +63,16 @@ export default function QuotesPage() {
 
   return (
     <>
-      <AdminHeader title="Quote Requests" />
+      <AdminHeader title={t.admin.quoteRequests} />
 
       <div className="flex-1 p-4 md:p-8 space-y-6 overflow-y-auto">
         {/* Status filter tabs */}
         <div className="flex flex-wrap gap-2">
           {[
-            { label: `All (${counts.all})`, value: "" },
-            { label: `New (${counts.new})`, value: "new", dot: "bg-cyan" },
-            { label: `In Progress (${counts.inProgress})`, value: "in-progress", dot: "bg-magenta" },
-            { label: `Done (${counts.done})`, value: "done", dot: "bg-on-surface-variant/40" },
+            { label: `${t.admin.all} (${counts.all})`, value: "" },
+            { label: `${t.admin.newLabel} (${counts.new})`, value: "new", dot: "bg-cyan" },
+            { label: `${t.admin.inProgress} (${counts.inProgress})`, value: "in-progress", dot: "bg-magenta" },
+            { label: `${t.admin.done} (${counts.done})`, value: "done", dot: "bg-on-surface-variant/40" },
           ].map((tab) => (
             <button
               key={tab.value}
@@ -90,8 +92,8 @@ export default function QuotesPage() {
         {filtered.length === 0 ? (
           <EmptyState
             icon={MessageSquareQuote}
-            title="No quote requests"
-            description={quotes.length === 0 ? "Quote requests from your website will appear here." : "No requests match this filter."}
+            title={t.admin.noQuoteRequests}
+            description={quotes.length === 0 ? t.admin.quotesWillAppear : t.admin.noRequestsMatch}
           />
         ) : (
           <div className="space-y-4">
@@ -100,11 +102,11 @@ export default function QuotesPage() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b border-black/[0.06] bg-[#f8f9fb] text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface-variant/60">
-                    <th className="py-3 px-5">Client</th>
-                    <th className="py-3 px-5">Product</th>
-                    <th className="py-3 px-5">Date</th>
-                    <th className="py-3 px-5 text-center">Status</th>
-                    <th className="py-3 px-5 text-right">Actions</th>
+                    <th className="py-3 px-5">{t.admin.client}</th>
+                    <th className="py-3 px-5">{t.admin.product}</th>
+                    <th className="py-3 px-5">{t.admin.date}</th>
+                    <th className="py-3 px-5 text-center">{t.admin.status}</th>
+                    <th className="py-3 px-5 text-right">{t.admin.actions}</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-black/[0.04]">
@@ -130,16 +132,16 @@ export default function QuotesPage() {
                           onChange={(e) => handleStatusChange(quote.id, e.target.value as QuoteRequest["status"])}
                           className="text-xs font-semibold bg-transparent border border-black/[0.08] rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
                         >
-                          <option value="new">New</option>
-                          <option value="in-progress">In Progress</option>
-                          <option value="done">Done</option>
+                          <option value="new">{t.admin.newLabel}</option>
+                          <option value="in-progress">{t.admin.inProgress}</option>
+                          <option value="done">{t.admin.done}</option>
                         </select>
                       </td>
                       <td className="py-4 px-5 text-right">
                         <button
                           onClick={() => setDeleteTarget(quote)}
                           className="p-2 rounded-lg hover:bg-red-50 text-on-surface-variant hover:text-red-500 transition-colors"
-                          title="Archive"
+                          title={t.admin.archive}
                         >
                           <Trash2 size={16} />
                         </button>
@@ -173,9 +175,9 @@ export default function QuotesPage() {
                         onChange={(e) => handleStatusChange(quote.id, e.target.value as QuoteRequest["status"])}
                         className="text-xs font-semibold bg-transparent border border-black/[0.08] rounded-lg px-2 py-1.5 focus:outline-none appearance-none cursor-pointer"
                       >
-                        <option value="new">New</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="done">Done</option>
+                        <option value="new">{t.admin.newLabel}</option>
+                        <option value="in-progress">{t.admin.inProgress}</option>
+                        <option value="done">{t.admin.done}</option>
                       </select>
                       <button
                         onClick={() => setDeleteTarget(quote)}
@@ -194,9 +196,9 @@ export default function QuotesPage() {
 
       <ConfirmDialog
         open={!!deleteTarget}
-        title="Archive Quote Request"
-        message={`Archive the request from "${deleteTarget?.customerName}"? This will remove it from the list.`}
-        confirmLabel="Archive"
+        title={t.admin.archiveQuoteRequest}
+        message={t.admin.archiveQuoteMessage.replace("{name}", deleteTarget?.customerName || "")}
+        confirmLabel={t.admin.archive}
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
       />

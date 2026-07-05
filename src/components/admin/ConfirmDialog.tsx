@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertTriangle } from "lucide-react";
+import { useLanguage } from "@/i18n";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -15,10 +16,11 @@ export default function ConfirmDialog({
   open,
   title,
   message,
-  confirmLabel = "Delete",
+  confirmLabel,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
+  const { t } = useLanguage();
   if (!open) return null;
 
   return (
@@ -39,13 +41,13 @@ export default function ConfirmDialog({
             onClick={onCancel}
             className="px-4 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-black/5 transition-colors"
           >
-            Cancel
+            {t.admin.cancel}
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 rounded-lg text-sm font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors"
           >
-            {confirmLabel}
+            {confirmLabel ?? t.admin.delete}
           </button>
         </div>
       </div>

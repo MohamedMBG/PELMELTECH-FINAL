@@ -7,6 +7,7 @@ import { ArrowLeft, Save, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { getCategories, createProduct, updateProduct, getProduct } from "@/lib/admin-store";
 import type { AdminProduct, AdminCategory } from "@/lib/admin-types";
+import { useLanguage } from "@/i18n";
 
 interface ProductFormProps {
   productId?: string;
@@ -20,6 +21,8 @@ type FormData = {
   imageUrl: string;
   price: string;
   quoteOnly: boolean;
+  stockStatus: AdminProduct["stockStatus"];
+  newArrival: boolean;
   featured: boolean;
   status: "published" | "draft";
   type: AdminProduct["type"];
@@ -40,6 +43,8 @@ const EMPTY_FORM: FormData = {
   imageUrl: "",
   price: "",
   quoteOnly: false,
+  stockStatus: "in-stock",
+  newArrival: false,
   featured: false,
   status: "draft",
   type: "machine",
@@ -54,6 +59,7 @@ const EMPTY_FORM: FormData = {
 
 export default function ProductForm({ productId }: ProductFormProps) {
   const router = useRouter();
+  const { t } = useLanguage();
   const [categories, setCategories] = useState<AdminCategory[]>([]);
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -77,6 +83,8 @@ export default function ProductForm({ productId }: ProductFormProps) {
         imageUrl: product.imageUrl,
         price: product.price !== null ? product.price.toString() : "",
         quoteOnly: product.quoteOnly,
+        stockStatus: product.stockStatus ?? "in-stock",
+        newArrival: product.newArrival ?? false,
         featured: product.featured,
         status: product.status,
         type: product.type,
@@ -99,10 +107,10 @@ export default function ProductForm({ productId }: ProductFormProps) {
 
   function validate(): boolean {
     const errs: typeof errors = {};
-    if (!form.name.trim()) errs.name = "Product name is required";
-    if (!form.categoryId) errs.categoryId = "Category is required";
+    if (!form.name.trim()) errs.name = t.admin.productNameRequired;
+    if (!form.categoryId) errs.categoryId = t.admin.categoryRequired;
     if (!form.quoteOnly && form.price && isNaN(parseFloat(form.price))) {
-      errs.price = "Enter a valid price";
+      errs.price = t.admin.validPriceRequired;
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -124,6 +132,8 @@ export default function ProductForm({ productId }: ProductFormProps) {
       gallery: [] as string[],
       price: form.quoteOnly ? null : (form.price ? parseFloat(form.price) : null),
       quoteOnly: form.quoteOnly,
+      stockStatus: form.stockStatus,
+      newArrival: form.newArrival,
       featured: form.featured,
       status: form.status,
       type: form.type,
@@ -146,12 +156,12 @@ export default function ProductForm({ productId }: ProductFormProps) {
       }
     } catch {
       setSaving(false);
-      setToast("Save failed — try again");
+      setToast(t.admin.saveFailed);
       setTimeout(() => setToast(""), 2500);
       return;
     }
 
-    setToast(isEdit ? "Product updated" : "Product created");
+    setToast(isEdit ? t.admin.productUpdated : t.admin.productCreated);
     setTimeout(() => {
       setSaving(false);
       router.push("/admin/products");
@@ -165,17 +175,17 @@ export default function ProductForm({ productId }: ProductFormProps) {
         className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-on-surface-variant hover:text-on-surface transition-colors"
       >
         <ArrowLeft size={14} />
-        Back to Products
+        {t.admin.backToProducts}
       </Link>
 
       {/* Basic Info */}
       <section className="bg-white rounded-2xl border border-black/[0.06] p-6">
         <h2 className="text-base font-bold text-on-surface mb-5 pb-3 border-b border-black/[0.04]">
-          Basic Information
+          {t.admin.basicInformation}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Product Name *</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.productName} *</label>
             <input
               type="text"
               value={form.name}
@@ -188,7 +198,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
             {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Category *</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.category} *</label>
             <select
               value={form.categoryId}
               onChange={(e) => update("categoryId", e.target.value)}
@@ -196,7 +206,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
                 errors.categoryId ? "border-red-400 focus:ring-red-200" : "border-black/[0.08]"
               }`}
             >
-              <option value="">Select a category</option>
+              <option value="">{t.admin.selectCategory}</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
@@ -204,33 +214,33 @@ export default function ProductForm({ productId }: ProductFormProps) {
             {errors.categoryId && <p className="text-xs text-red-500">{errors.categoryId}</p>}
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Product Type</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.productType}</label>
             <select
               value={form.type}
               onChange={(e) => update("type", e.target.value as AdminProduct["type"])}
               className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
             >
-              <option value="machine">Printing Machine</option>
-              <option value="material">Printing Material</option>
-              <option value="consumable">Consumable</option>
-              <option value="accessory">Accessory</option>
-              <option value="service">Service-related</option>
+              <option value="machine">{t.admin.printingMachine}</option>
+              <option value="material">{t.admin.printingMaterial}</option>
+              <option value="consumable">{t.admin.consumable}</option>
+              <option value="accessory">{t.admin.accessory}</option>
+              <option value="service">{t.admin.serviceRelated}</option>
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">CTA Label</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.ctaLabel}</label>
             <select
               value={form.ctaLabel}
               onChange={(e) => update("ctaLabel", e.target.value as AdminProduct["ctaLabel"])}
               className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
             >
-              <option value="Request Quote">Request Quote</option>
-              <option value="View Details">View Details</option>
-              <option value="Contact Sales">Contact Sales</option>
+              <option value="Request Quote">{t.admin.requestQuote}</option>
+              <option value="View Details">{t.common.viewDetails}</option>
+              <option value="Contact Sales">{t.admin.contactSales}</option>
             </select>
           </div>
           <div className="md:col-span-2 space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Short Description</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.shortDescription}</label>
             <input
               type="text"
               value={form.shortDescription}
@@ -240,7 +250,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
             />
           </div>
           <div className="md:col-span-2 space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Full Description</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.fullDescription}</label>
             <textarea
               value={form.description}
               onChange={(e) => update("description", e.target.value)}
@@ -255,11 +265,11 @@ export default function ProductForm({ productId }: ProductFormProps) {
       {/* Product Image */}
       <section className="bg-white rounded-2xl border border-black/[0.06] p-6">
         <h2 className="text-base font-bold text-on-surface mb-5 pb-3 border-b border-black/[0.04]">
-          Product Image
+          {t.admin.productImage}
         </h2>
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Image URL</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.imageUrl}</label>
             <input
               type="text"
               value={form.imageUrl}
@@ -268,14 +278,14 @@ export default function ProductForm({ productId }: ProductFormProps) {
               className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:ring-2 focus:ring-cyan/30 transition-all"
             />
             <p className="text-[11px] text-on-surface-variant/50">
-              Use a path from /images or an external URL. Real upload requires backend integration.
+              {t.admin.imageUrlHelp}
             </p>
           </div>
           {form.imageUrl && (
             <div className="w-32 h-24 rounded-lg border border-black/[0.06] overflow-hidden bg-surface-container">
               <Image
                 src={form.imageUrl}
-                alt="Product preview"
+                alt={t.admin.productPreview}
                 width={128}
                 height={96}
                 className="w-full h-full object-cover"
@@ -286,7 +296,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
           {!form.imageUrl && (
             <div className="w-32 h-24 rounded-lg border-2 border-dashed border-black/[0.1] flex flex-col items-center justify-center text-on-surface-variant/30">
               <ImageIcon size={20} />
-              <span className="text-[10px] mt-1">No image</span>
+              <span className="text-[10px] mt-1">{t.admin.noImage}</span>
             </div>
           )}
         </div>
@@ -295,11 +305,11 @@ export default function ProductForm({ productId }: ProductFormProps) {
       {/* Pricing & Status */}
       <section className="bg-white rounded-2xl border border-black/[0.06] p-6">
         <h2 className="text-base font-bold text-on-surface mb-5 pb-3 border-b border-black/[0.04]">
-          Pricing & Status
+          {t.admin.pricingStatus}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Base Price ($)</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.basePrice}</label>
             <input
               type="text"
               value={form.price}
@@ -313,14 +323,25 @@ export default function ProductForm({ productId }: ProductFormProps) {
             {errors.price && <p className="text-xs text-red-500">{errors.price}</p>}
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">Status</label>
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.status}</label>
             <select
               value={form.status}
               onChange={(e) => update("status", e.target.value as "published" | "draft")}
               className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
             >
-              <option value="published">Published</option>
-              <option value="draft">Draft</option>
+              <option value="published">{t.admin.published}</option>
+              <option value="draft">{t.admin.draft}</option>
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-on-surface-variant">{t.admin.stock}</label>
+            <select
+              value={form.stockStatus}
+              onChange={(e) => update("stockStatus", e.target.value as AdminProduct["stockStatus"])}
+              className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
+            >
+              <option value="in-stock">{t.admin.inStock}</option>
+              <option value="out-of-stock">{t.admin.outOfStock}</option>
             </select>
           </div>
           <div className="flex items-center gap-4 md:col-span-2">
@@ -331,7 +352,16 @@ export default function ProductForm({ productId }: ProductFormProps) {
                 onChange={(e) => update("quoteOnly", e.target.checked)}
                 className="w-4 h-4 rounded border-black/[0.15] text-cyan-dark focus:ring-cyan/30"
               />
-              <span className="text-sm text-on-surface">Quote-based pricing</span>
+              <span className="text-sm text-on-surface">{t.admin.quoteBasedPricing}</span>
+            </label>
+            <label className="flex items-center gap-2.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.newArrival}
+                onChange={(e) => update("newArrival", e.target.checked)}
+                className="w-4 h-4 rounded border-black/[0.15] text-cyan-dark focus:ring-cyan/30"
+              />
+              <span className="text-sm text-on-surface">{t.admin.newArrival}</span>
             </label>
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
@@ -340,7 +370,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
                 onChange={(e) => update("featured", e.target.checked)}
                 className="w-4 h-4 rounded border-black/[0.15] text-magenta focus:ring-magenta/30"
               />
-              <span className="text-sm text-on-surface">Featured product</span>
+              <span className="text-sm text-on-surface">{t.admin.featuredProduct}</span>
             </label>
           </div>
         </div>
@@ -348,16 +378,16 @@ export default function ProductForm({ productId }: ProductFormProps) {
 
       {/* Specifications */}
       <section className="bg-white rounded-2xl border border-black/[0.06] p-6">
-        <h2 className="text-base font-bold text-on-surface mb-1">Specifications</h2>
-        <p className="text-xs text-on-surface-variant mb-5 pb-3 border-b border-black/[0.04]">Optional technical details</p>
+        <h2 className="text-base font-bold text-on-surface mb-1">{t.admin.specifications}</h2>
+        <p className="text-xs text-on-surface-variant mb-5 pb-3 border-b border-black/[0.04]">{t.admin.optionalTechnicalDetails}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {([
-            ["printWidth", "Print Width", "e.g. 1600mm"],
-            ["printSpeed", "Print Speed", "e.g. 45 sqm/hr"],
-            ["resolution", "Resolution", "e.g. 1440 dpi"],
-            ["inkType", "Ink Type", "e.g. Eco-solvent, UV"],
-            ["materialCompatibility", "Material Compatibility", "e.g. Vinyl, banner, fabric"],
-            ["usageType", "Usage Type", "e.g. Indoor, outdoor, both"],
+            ["printWidth", t.admin.printWidth, "e.g. 1600mm"],
+            ["printSpeed", t.admin.printSpeed, "e.g. 45 sqm/hr"],
+            ["resolution", t.admin.resolution, "e.g. 1440 dpi"],
+            ["inkType", t.admin.inkType, "e.g. Eco-solvent, UV"],
+            ["materialCompatibility", t.admin.materialCompatibility, "e.g. Vinyl, banner, fabric"],
+            ["usageType", t.admin.usageType, "e.g. Indoor, outdoor, both"],
           ] as const).map(([key, label, placeholder]) => (
             <div key={key} className="space-y-1.5">
               <label className="text-xs font-semibold text-on-surface-variant">{label}</label>
@@ -379,7 +409,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
           href="/admin/products"
           className="px-5 py-2.5 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-black/5 transition-colors"
         >
-          Cancel
+          {t.admin.cancel}
         </Link>
         <button
           type="submit"
@@ -387,7 +417,7 @@ export default function ProductForm({ productId }: ProductFormProps) {
           className="inline-flex items-center gap-2 bg-on-surface text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-on-surface/90 transition-colors disabled:opacity-60"
         >
           <Save size={16} />
-          {saving ? "Saving..." : isEdit ? "Update Product" : "Create Product"}
+          {saving ? t.admin.saving : isEdit ? t.admin.updateProduct : t.admin.createProductButton}
         </button>
       </div>
 

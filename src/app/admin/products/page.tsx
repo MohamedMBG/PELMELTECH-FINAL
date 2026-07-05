@@ -3,28 +3,28 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Plus, Search, Eye, Pencil, Trash2, Star, FileText } from "lucide-react";
+import { Plus, Search, Eye, Pencil, Trash2, Star, FileText, Sparkles } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import StatusBadge from "@/components/admin/StatusBadge";
 import EmptyState from "@/components/admin/EmptyState";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
-import { getProducts, getCategories, deleteProduct } from "@/lib/admin-store";
-import type { AdminProduct, AdminCategory } from "@/lib/admin-types";
+import { getProducts, deleteProduct } from "@/lib/admin-store";
+import type { AdminProduct } from "@/lib/admin-types";
+import { useLanguage } from "@/i18n";
 
 export default function ProductsPage() {
-  const router = useRouter();
+  const { t } = useLanguage();
   const [products, setProducts] = useState<AdminProduct[]>([]);
-  const [categories, setCategories] = useState<AdminCategory[]>([]);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [stockFilter, setStockFilter] = useState("");
+  const [arrivalFilter, setArrivalFilter] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<AdminProduct | null>(null);
   const [toast, setToast] = useState("");
 
   useEffect(() => {
     getProducts().then(setProducts).catch(() => {});
-    getCategories().then(setCategories).catch(() => {});
   }, []);
 
   const filtered = useMemo(() => {
@@ -32,9 +32,11 @@ export default function ProductsPage() {
       if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
       if (categoryFilter && p.categoryName !== categoryFilter) return false;
       if (statusFilter && p.status !== statusFilter) return false;
+      if (stockFilter && (p.stockStatus ?? "in-stock") !== stockFilter) return false;
+      if (arrivalFilter === "new" && !p.newArrival) return false;
       return true;
     });
-  }, [products, search, categoryFilter, statusFilter]);
+  }, [products, search, categoryFilter, statusFilter, stockFilter, arrivalFilter]);
 
   const categoryNames = useMemo(
     () => Array.from(new Set(products.map((p) => p.categoryName))).sort(),
@@ -46,21 +48,21 @@ export default function ProductsPage() {
     await deleteProduct(deleteTarget.id);
     setProducts(await getProducts());
     setDeleteTarget(null);
-    setToast("Product deleted");
+    setToast(t.admin.productDeleted);
     setTimeout(() => setToast(""), 2500);
   }
 
   return (
     <>
       <AdminHeader
-        title="Products"
+        title={t.admin.products}
         actions={
           <Link
             href="/admin/products/new"
             className="hidden sm:inline-flex items-center gap-2 bg-on-surface text-white px-4 py-2 rounded-lg text-xs font-bold tracking-wide uppercase hover:bg-on-surface/90 transition-colors"
           >
             <Plus size={14} />
-            Add Product
+            {t.admin.addProduct}
           </Link>
         }
       />
@@ -72,7 +74,7 @@ export default function ProductsPage() {
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40" />
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={t.admin.searchProducts}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-white border border-black/[0.08] rounded-lg pl-9 pr-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:ring-2 focus:ring-cyan/30 focus:border-cyan/40 transition-all"
@@ -83,7 +85,7 @@ export default function ProductsPage() {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
           >
-            <option value="">All Categories</option>
+            <option value="">{t.admin.allCategories}</option>
             {categoryNames.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
@@ -93,9 +95,26 @@ export default function ProductsPage() {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
           >
-            <option value="">All Status</option>
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
+            <option value="">{t.admin.allStatus}</option>
+            <option value="published">{t.admin.published}</option>
+            <option value="draft">{t.admin.draft}</option>
+          </select>
+          <select
+            value={stockFilter}
+            onChange={(e) => setStockFilter(e.target.value)}
+            className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
+          >
+            <option value="">All Stock</option>
+            <option value="in-stock">En stock</option>
+            <option value="out-of-stock">Out of stock</option>
+          </select>
+          <select
+            value={arrivalFilter}
+            onChange={(e) => setArrivalFilter(e.target.value)}
+            className="bg-white border border-black/[0.08] rounded-lg px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
+          >
+            <option value="">All Arrivals</option>
+            <option value="new">Nouveau arrivage</option>
           </select>
         </div>
 
@@ -105,19 +124,21 @@ export default function ProductsPage() {
           className="sm:hidden flex items-center justify-center gap-2 bg-on-surface text-white px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide uppercase"
         >
           <Plus size={14} />
-          Add Product
+          {t.admin.addProduct}
         </Link>
 
         <p className="text-xs text-on-surface-variant">
-          Showing <span className="font-bold text-on-surface">{filtered.length}</span> of {products.length} products
+          {t.admin.showingOfProducts
+            .replace("{count}", String(filtered.length))
+            .replace("{total}", String(products.length))}
         </p>
 
         {/* Table / Empty */}
         {filtered.length === 0 ? (
           <EmptyState
-            title="No products found"
-            description={products.length === 0 ? "Add your first product to get started." : "Try adjusting your search or filters."}
-            actionLabel={products.length === 0 ? "Add Product" : undefined}
+            title={t.admin.noProductsFound}
+            description={products.length === 0 ? t.admin.addFirstProduct : t.admin.adjustSearchFilters}
+            actionLabel={products.length === 0 ? t.admin.addProduct : undefined}
             actionHref={products.length === 0 ? "/admin/products/new" : undefined}
           />
         ) : (
@@ -126,13 +147,15 @@ export default function ProductsPage() {
               <table className="w-full text-left min-w-[800px]">
                 <thead>
                   <tr className="border-b border-black/[0.06] bg-[#f8f9fb] text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface-variant/60">
-                    <th className="py-3 px-5 w-16">Image</th>
-                    <th className="py-3 px-5">Product Name</th>
-                    <th className="py-3 px-5">Category</th>
-                    <th className="py-3 px-5">Price</th>
-                    <th className="py-3 px-5 text-center">Status</th>
-                    <th className="py-3 px-5 text-center w-16">Featured</th>
-                    <th className="py-3 px-5 text-right">Actions</th>
+                    <th className="py-3 px-5 w-16">{t.admin.image}</th>
+                    <th className="py-3 px-5">{t.admin.productName}</th>
+                    <th className="py-3 px-5">{t.admin.category}</th>
+                    <th className="py-3 px-5">{t.admin.price}</th>
+                    <th className="py-3 px-5 text-center">{t.admin.stock}</th>
+                    <th className="py-3 px-5 text-center">{t.admin.status}</th>
+                    <th className="py-3 px-5 text-center w-16">{t.admin.newLabel}</th>
+                    <th className="py-3 px-5 text-center w-16">{t.admin.featured}</th>
+                    <th className="py-3 px-5 text-right">{t.admin.actions}</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-black/[0.04]">
@@ -159,13 +182,29 @@ export default function ProductsPage() {
                       <td className="py-3 px-5 text-on-surface-variant">{product.categoryName}</td>
                       <td className="py-3 px-5 font-mono text-on-surface-variant">
                         {product.quoteOnly ? (
-                          <span className="italic text-xs">Request Quote</span>
+                          <span className="italic text-xs">{t.admin.requestQuote}</span>
                         ) : (
                           `$${product.price?.toFixed(2)}`
                         )}
                       </td>
                       <td className="py-3 px-5 text-center">
+                        <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${
+                          (product.stockStatus ?? "in-stock") === "out-of-stock"
+                            ? "bg-red-50 text-red-600"
+                            : "bg-cyan/10 text-cyan-dark"
+                        }`}>
+                          {(product.stockStatus ?? "in-stock") === "out-of-stock" ? t.admin.outOfStock : t.admin.inStock}
+                        </span>
+                      </td>
+                      <td className="py-3 px-5 text-center">
                         <StatusBadge status={product.status} />
+                      </td>
+                      <td className="py-3 px-5 text-center">
+                        {product.newArrival ? (
+                          <Sparkles size={16} className="text-cyan-dark inline-block" />
+                        ) : (
+                          <Sparkles size={16} className="text-on-surface-variant/20 inline-block" />
+                        )}
                       </td>
                       <td className="py-3 px-5 text-center">
                         {product.featured ? (
@@ -179,21 +218,21 @@ export default function ProductsPage() {
                           <Link
                             href={`/catalog/${product.slug}`}
                             className="p-2 rounded-lg hover:bg-black/5 text-on-surface-variant transition-colors"
-                            title="View"
+                            title={t.admin.view}
                           >
                             <Eye size={16} />
                           </Link>
                           <Link
                             href={`/admin/products/${product.id}/edit`}
                             className="p-2 rounded-lg hover:bg-black/5 text-on-surface-variant transition-colors"
-                            title="Edit"
+                            title={t.admin.edit}
                           >
                             <Pencil size={16} />
                           </Link>
                           <button
                             onClick={() => setDeleteTarget(product)}
                             className="p-2 rounded-lg hover:bg-red-50 text-on-surface-variant hover:text-red-500 transition-colors"
-                            title="Delete"
+                            title={t.admin.delete}
                           >
                             <Trash2 size={16} />
                           </button>
@@ -210,8 +249,8 @@ export default function ProductsPage() {
 
       <ConfirmDialog
         open={!!deleteTarget}
-        title="Delete Product"
-        message={`Are you sure you want to delete "${deleteTarget?.name}"? This action cannot be undone.`}
+        title={t.admin.deleteProduct}
+        message={t.admin.deleteProductMessage.replace("{name}", deleteTarget?.name || "")}
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
       />

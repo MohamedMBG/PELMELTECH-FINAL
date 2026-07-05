@@ -1,3 +1,5 @@
+import { useLanguage } from "@/i18n";
+
 interface StatusBadgeProps {
   status: string;
   variant?: "default" | "cyan" | "magenta" | "muted";
@@ -13,7 +15,16 @@ const VARIANT_MAP: Record<string, StatusBadgeProps["variant"]> = {
 };
 
 export default function StatusBadge({ status, variant }: StatusBadgeProps) {
+  const { t } = useLanguage();
   const resolved = variant ?? VARIANT_MAP[status] ?? "default";
+  const labels: Record<string, string> = {
+    published: t.admin.published,
+    draft: t.admin.draft,
+    hidden: t.admin.hidden,
+    new: t.admin.newLabel,
+    "in-progress": t.admin.inProgress,
+    done: t.admin.done,
+  };
 
   const styles = {
     cyan: "bg-cyan/10 text-cyan-dark border-cyan/20",
@@ -26,7 +37,7 @@ export default function StatusBadge({ status, variant }: StatusBadgeProps) {
     <span
       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase border ${styles[resolved]}`}
     >
-      {status.replace("-", " ")}
+      {labels[status] ?? status.replace("-", " ")}
     </span>
   );
 }

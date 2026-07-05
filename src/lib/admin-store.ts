@@ -4,7 +4,7 @@
  * is instantly visible on the public site for all visitors.
  */
 
-import { AdminProduct, AdminCategory, QuoteRequest } from "./admin-types";
+import { AdminProduct, AdminCategory, QuoteRequest, AdminUser, Permission } from "./admin-types";
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -12,7 +12,10 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
     headers: { "Content-Type": "application/json", ...(init?.headers || {}) },
     cache: "no-store",
   });
-  if (!res.ok) throw new Error(`${init?.method || "GET"} ${url} → ${res.status}`);
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(body?.error || `${init?.method || "GET"} ${url} → ${res.status}`);
+  }
   return res.json();
 }
 
@@ -70,6 +73,36 @@ export function deleteQuote(id: string): Promise<{ ok: boolean }> {
   return api(`/api/quotes/${id}`, { method: "DELETE" });
 }
 
+// --- Users ---
+
+export function getMe(): Promise<AdminUser> {
+  return api<AdminUser>("/api/me");
+}
+
+export function getUsers(): Promise<AdminUser[]> {
+  return api("/api/users");
+}
+
+export interface NewUser {
+  username: string;
+  name: string;
+  password: string;
+  role: AdminUser["role"];
+  permissions: Permission[];
+}
+
+export function createUser(data: NewUser): Promise<AdminUser> {
+  return api("/api/users", { method: "POST", body: JSON.stringify(data) });
+}
+
+export function updateUser(id: string, data: Partial<NewUser>): Promise<AdminUser> {
+  return api(`/api/users/${id}`, { method: "PUT", body: JSON.stringify(data) });
+}
+
+export function deleteUser(id: string): Promise<{ ok: boolean }> {
+  return api(`/api/users/${id}`, { method: "DELETE" });
+}
+
 // --- Stats ---
 
 export function getAdminStats(): Promise<AdminStats> {
@@ -82,6 +115,12 @@ export interface AdminStats {
   draftProducts: number;
   featuredProducts: number;
   totalCategories: number;
+  catalogValue: number;
+  avgPrice: number;
+  quoteOnlyProducts: number;
+  openQuotes: number;
+  quotesThisWeek: number;
+  weekTrend: number;
   productsByCategory: { name: string; count: number }[];
   productsByType: { name: string; count: number }[];
   priceBuckets: { name: string; count: number }[];

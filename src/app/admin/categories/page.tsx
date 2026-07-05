@@ -13,6 +13,7 @@ import {
   deleteCategory,
 } from "@/lib/admin-store";
 import type { AdminCategory } from "@/lib/admin-types";
+import { useLanguage } from "@/i18n";
 
 type FormData = {
   name: string;
@@ -33,6 +34,7 @@ const EMPTY_FORM: FormData = {
 };
 
 export default function CategoriesPage() {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState<AdminCategory[]>([]);
   const [editing, setEditing] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -78,7 +80,7 @@ export default function CategoriesPage() {
 
   async function handleSave() {
     if (!form.name.trim()) {
-      setFormError("Category name is required");
+      setFormError(t.admin.categoryNameRequired);
       return;
     }
 
@@ -93,10 +95,10 @@ export default function CategoriesPage() {
 
     if (editing) {
       await updateCategory(editing, data);
-      setToast("Category updated");
+      setToast(t.admin.categoryUpdated);
     } else {
       await createCategory(data);
-      setToast("Category created");
+      setToast(t.admin.categoryCreated);
     }
 
     await refresh();
@@ -109,7 +111,7 @@ export default function CategoriesPage() {
     await deleteCategory(deleteTarget.id);
     await refresh();
     setDeleteTarget(null);
-    setToast("Category deleted");
+    setToast(t.admin.categoryDeleted);
     setTimeout(() => setToast(""), 2500);
   }
 
@@ -118,14 +120,14 @@ export default function CategoriesPage() {
   return (
     <>
       <AdminHeader
-        title="Categories"
+        title={t.admin.categories}
         actions={
           <button
             onClick={openAdd}
             className="hidden sm:inline-flex items-center gap-2 bg-on-surface text-white px-4 py-2 rounded-lg text-xs font-bold tracking-wide uppercase hover:bg-on-surface/90 transition-colors"
           >
             <Plus size={14} />
-            Add Category
+            {t.admin.addCategory}
           </button>
         }
       />
@@ -136,7 +138,7 @@ export default function CategoriesPage() {
           className="sm:hidden flex items-center justify-center gap-2 bg-on-surface text-white px-4 py-2.5 rounded-lg text-xs font-bold tracking-wide uppercase w-full"
         >
           <Plus size={14} />
-          Add Category
+          {t.admin.addCategory}
         </button>
 
         {/* Inline form */}
@@ -144,7 +146,7 @@ export default function CategoriesPage() {
           <div className="bg-white rounded-2xl border border-black/[0.06] p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-base font-bold text-on-surface">
-                {editing ? "Edit Category" : "New Category"}
+                {editing ? t.admin.editCategory : t.admin.newCategory}
               </h2>
               <button onClick={closeForm} className="p-1.5 rounded-lg hover:bg-black/5 text-on-surface-variant">
                 <X size={18} />
@@ -152,7 +154,7 @@ export default function CategoriesPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-on-surface-variant">Name *</label>
+                <label className="text-xs font-semibold text-on-surface-variant">{t.admin.name} *</label>
                 <input
                   type="text"
                   value={form.name}
@@ -165,18 +167,18 @@ export default function CategoriesPage() {
                 {formError && <p className="text-xs text-red-500">{formError}</p>}
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-on-surface-variant">Status</label>
+                <label className="text-xs font-semibold text-on-surface-variant">{t.admin.status}</label>
                 <select
                   value={form.status}
                   onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as "published" | "hidden" }))}
                   className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
                 >
-                  <option value="published">Published</option>
-                  <option value="hidden">Hidden</option>
+                  <option value="published">{t.admin.published}</option>
+                  <option value="hidden">{t.admin.hidden}</option>
                 </select>
               </div>
               <div className="md:col-span-2 space-y-1.5">
-                <label className="text-xs font-semibold text-on-surface-variant">Description</label>
+                <label className="text-xs font-semibold text-on-surface-variant">{t.admin.description}</label>
                 <input
                   type="text"
                   value={form.description}
@@ -186,20 +188,20 @@ export default function CategoriesPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-on-surface-variant">Parent Category</label>
+                <label className="text-xs font-semibold text-on-surface-variant">{t.admin.parentCategory}</label>
                 <select
                   value={form.parentId}
                   onChange={(e) => setForm((f) => ({ ...f, parentId: e.target.value }))}
                   className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-2.5 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-cyan/30 appearance-none cursor-pointer"
                 >
-                  <option value="">None (top-level)</option>
+                  <option value="">{t.admin.noParentCategory}</option>
                   {parentOptions.map((c) => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-on-surface-variant">Sort Order</label>
+                <label className="text-xs font-semibold text-on-surface-variant">{t.admin.sortOrder}</label>
                 <input
                   type="number"
                   value={form.sortOrder}
@@ -213,14 +215,14 @@ export default function CategoriesPage() {
                 onClick={closeForm}
                 className="px-4 py-2 rounded-lg text-sm font-semibold text-on-surface-variant hover:bg-black/5 transition-colors"
               >
-                Cancel
+                {t.admin.cancel}
               </button>
               <button
                 onClick={handleSave}
                 className="inline-flex items-center gap-2 bg-on-surface text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-on-surface/90 transition-colors"
               >
                 <Save size={14} />
-                {editing ? "Update" : "Create"}
+                {editing ? t.admin.update : t.admin.create}
               </button>
             </div>
           </div>
@@ -230,8 +232,8 @@ export default function CategoriesPage() {
         {categories.length === 0 ? (
           <EmptyState
             icon={FolderTree}
-            title="No categories yet"
-            description="Create your first category to organize products."
+            title={t.admin.noCategoriesYet}
+            description={t.admin.createFirstCategory}
           />
         ) : (
           <div className="bg-white rounded-2xl border border-black/[0.06] overflow-hidden">
@@ -239,11 +241,11 @@ export default function CategoriesPage() {
               <table className="w-full text-left min-w-[600px]">
                 <thead>
                   <tr className="border-b border-black/[0.06] bg-[#f8f9fb] text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface-variant/60">
-                    <th className="py-3 px-5">Name</th>
-                    <th className="py-3 px-5">Description</th>
-                    <th className="py-3 px-5 text-center">Status</th>
-                    <th className="py-3 px-5 text-center">Order</th>
-                    <th className="py-3 px-5 text-right">Actions</th>
+                    <th className="py-3 px-5">{t.admin.name}</th>
+                    <th className="py-3 px-5">{t.admin.description}</th>
+                    <th className="py-3 px-5 text-center">{t.admin.status}</th>
+                    <th className="py-3 px-5 text-center">{t.admin.order}</th>
+                    <th className="py-3 px-5 text-right">{t.admin.actions}</th>
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-black/[0.04]">
@@ -254,7 +256,7 @@ export default function CategoriesPage() {
                         {cat.name}
                       </td>
                       <td className="py-3 px-5 text-on-surface-variant truncate max-w-[240px]">
-                        {cat.description || <span className="text-on-surface-variant/30 italic">No description</span>}
+                        {cat.description || <span className="text-on-surface-variant/30 italic">{t.admin.noDescription}</span>}
                       </td>
                       <td className="py-3 px-5 text-center">
                         <StatusBadge status={cat.status} />
@@ -267,14 +269,14 @@ export default function CategoriesPage() {
                           <button
                             onClick={() => openEdit(cat)}
                             className="p-2 rounded-lg hover:bg-black/5 text-on-surface-variant transition-colors"
-                            title="Edit"
+                            title={t.admin.edit}
                           >
                             <Pencil size={16} />
                           </button>
                           <button
                             onClick={() => setDeleteTarget(cat)}
                             className="p-2 rounded-lg hover:bg-red-50 text-on-surface-variant hover:text-red-500 transition-colors"
-                            title="Delete"
+                            title={t.admin.delete}
                           >
                             <Trash2 size={16} />
                           </button>
@@ -291,8 +293,8 @@ export default function CategoriesPage() {
 
       <ConfirmDialog
         open={!!deleteTarget}
-        title="Delete Category"
-        message={`Are you sure you want to delete "${deleteTarget?.name}"? Products in this category will need to be reassigned.`}
+        title={t.admin.deleteCategory}
+        message={t.admin.deleteCategoryMessage.replace("{name}", deleteTarget?.name || "")}
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
       />
