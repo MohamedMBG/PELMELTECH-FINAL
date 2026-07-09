@@ -35,9 +35,9 @@ const LanguageContext = createContext<LanguageContextType>({
 });
 
 function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "fr";
   const stored = window.localStorage.getItem(STORAGE_KEY);
-  return stored === "en" || stored === "fr" || stored === "ar" ? stored : "en";
+  return stored === "en" || stored === "fr" || stored === "ar" ? stored : "fr";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

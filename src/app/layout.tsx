@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr" className={`scroll-smooth antialiased ${manrope.variable} ${cairo.variable}`}>
+    <html lang="fr" dir="ltr" className={`scroll-smooth antialiased ${manrope.variable} ${cairo.variable}`}>
       <body className={`min-h-screen flex flex-col bg-background text-on-surface ${manrope.className}`}>
         <LanguageProvider>
           {children}
