@@ -10,6 +10,7 @@ export type PelmelBotStep = {
   message: string;
   options: PelmelBotOption[];
   enableInput?: boolean;
+  productSlug?: string;
 };
 
 export type PelmelBotUi = {
@@ -25,6 +26,7 @@ export type PelmelBotUi = {
   callLabel: string;
   recommendationLabel: string;
   recommendationPrefix: string;
+  viewProductLabel: string;
   inputPlaceholderEnabled: string;
   inputPlaceholderDisabled: string;
   inputLabel: string;
@@ -84,9 +86,10 @@ function buildContent(
     opt(t.differentNeed, "rotateCcw", "FALLBACK_1"),
   ];
 
-  const rec = (message: string): PelmelBotStep => ({
+  const rec = (message: string, productSlug?: string): PelmelBotStep => ({
     message,
     options: recommendationOptions,
+    productSlug,
   });
 
   return {
@@ -96,43 +99,43 @@ function buildContent(
     tree: {
       WELCOME: { message: t.messages.WELCOME, options: t.options.WELCOME },
       A_Q2: { message: t.messages.A_Q2, options: t.options.A_Q2 },
-      REC_DTG_4050: rec(t.messages.REC_DTG_4050),
-      REC_DTF_30: rec(t.messages.REC_DTF_30),
-      REC_DTF_60: rec(t.messages.REC_DTF_60),
+      REC_DTG_4050: rec(t.messages.REC_DTG_4050, "machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200"),
+      REC_DTF_30: rec(t.messages.REC_DTF_30, "machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600"),
+      REC_DTF_60: rec(t.messages.REC_DTF_60, "machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600"),
       B_DEF: { message: t.messages.B_DEF, options: t.options.B_DEF },
-      REC_UV_6090: rec(t.messages.REC_UV_6090),
-      REC_UV_1290: rec(t.messages.REC_UV_1290),
-      REC_UV_2513: rec(t.messages.REC_UV_2513),
+      REC_UV_6090: rec(t.messages.REC_UV_6090, "machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600"),
+      REC_UV_1290: rec(t.messages.REC_UV_1290, "machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200"),
+      REC_UV_2513: rec(t.messages.REC_UV_2513, "machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6"),
       C_Q2: { message: t.messages.C_Q2, options: t.options.C_Q2 },
-      REC_UV_DTF_A3: rec(t.messages.REC_UV_DTF_A3),
-      REC_UV_DTF_700: rec(t.messages.REC_UV_DTF_700),
-      REC_FC7090U: rec(t.messages.REC_FC7090U),
+      REC_UV_DTF_A3: rec(t.messages.REC_UV_DTF_A3, "machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600"),
+      REC_UV_DTF_700: rec(t.messages.REC_UV_DTF_700, "machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1"),
+      REC_FC7090U: rec(t.messages.REC_FC7090U, "table-de-decoupe-a-plat-flatbed-fc7090u"),
       C2_Q2: { message: t.messages.C2_Q2, options: t.options.C2_Q2 },
       D_Q2: { message: t.messages.D_Q2, options: t.options.D_Q2 },
       D_Q3_1800: { message: t.messages.D_Q3_1800, options: t.options.D_Q3_1800 },
       D_Q3_3200: { message: t.messages.D_Q3_3200, options: t.options.D_Q3_3200 },
-      REC_ECO_1800: rec(t.messages.REC_ECO_1800),
-      REC_UV_RTR_1800: rec(t.messages.REC_UV_RTR_1800),
-      REC_ECO_3200: rec(t.messages.REC_ECO_3200),
-      REC_ECO_XLINE: rec(t.messages.REC_ECO_XLINE),
+      REC_ECO_1800: rec(t.messages.REC_ECO_1800, "machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200"),
+      REC_UV_RTR_1800: rec(t.messages.REC_UV_RTR_1800, "machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200"),
+      REC_ECO_3200: rec(t.messages.REC_ECO_3200, "machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200"),
+      REC_ECO_XLINE: rec(t.messages.REC_ECO_XLINE, "machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200"),
       REC_DELUXEJET3200U: rec(t.messages.REC_DELUXEJET3200U),
       E_Q2: { message: t.messages.E_Q2, options: t.options.E_Q2 },
       REC_EH_720TS: rec(t.messages.REC_EH_720TS),
       REC_EH_1350TS: rec(t.messages.REC_EH_1350TS),
       REC_EH_1750TS: rec(t.messages.REC_EH_1750TS),
-      REC_EN49CCD: rec(t.messages.REC_EN49CCD),
+      REC_EN49CCD: rec(t.messages.REC_EN49CCD, "machine-de-decoupe-1200mm-avec-camera-ccd"),
       REC_L6: rec(t.messages.REC_L6),
       F_Q2: { message: t.messages.F_Q2, options: t.options.F_Q2 },
       F_Q3_CNC: { message: t.messages.F_Q3_CNC, options: t.options.F_Q3_CNC },
-      REC_LASER: rec(t.messages.REC_LASER),
-      REC_CNC_1625: rec(t.messages.REC_CNC_1625),
+      REC_LASER: rec(t.messages.REC_LASER, "machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w"),
+      REC_CNC_1625: rec(t.messages.REC_CNC_1625, "machine-decoupe-cnc-1600x2500mm-fraiseuse"),
       REC_CNC_1825: rec(t.messages.REC_CNC_1825),
-      REC_FC5070E: rec(t.messages.REC_FC5070E),
+      REC_FC5070E: rec(t.messages.REC_FC5070E, "table-de-decoupe-a-plat-flatbed-fc5070e"),
       REC_FC7090E: rec(t.messages.REC_FC7090E),
       G_Q2: { message: t.messages.G_Q2, options: t.options.G_Q2 },
-      REC_L2_1700: rec(t.messages.REC_L2_1700),
+      REC_L2_1700: rec(t.messages.REC_L2_1700, "lamineuse-electrique-industrielle-1630mm"),
       H_DEF: { message: t.messages.H_DEF, options: t.options.H_DEF },
-      REC_PRESSE_CHAUD: rec(t.messages.REC_PRESSE_CHAUD),
+      REC_PRESSE_CHAUD: rec(t.messages.REC_PRESSE_CHAUD, "presse-a-chaud-pneumatique-60x40cm"),
       PRIX: {
         message: `${t.messages.PRIX}\n\n${ui.contactDetails}`,
         options: [opt(t.backToMachines, "rotateCcw", "WELCOME")],
@@ -173,6 +176,7 @@ const enUi: PelmelBotUi = {
   callLabel: "Call",
   recommendationLabel: "Recommendation",
   recommendationPrefix: "I recommend",
+  viewProductLabel: "View this machine",
   inputPlaceholderEnabled: "Describe your need...",
   inputPlaceholderDisabled: 'Input is available only for "Other"',
   inputLabel: "Describe your need",
@@ -196,6 +200,7 @@ const frUi: PelmelBotUi = {
   callLabel: "Appeler",
   recommendationLabel: "Recommandation",
   recommendationPrefix: "Je vous recommande",
+  viewProductLabel: "Voir cette machine",
   inputPlaceholderEnabled: "Décrivez votre besoin...",
   inputPlaceholderDisabled: "Saisie disponible uniquement pour « Autre »",
   inputLabel: "Décrire votre besoin",
@@ -219,6 +224,7 @@ const arUi: PelmelBotUi = {
   callLabel: "اتصال",
   recommendationLabel: "التوصية",
   recommendationPrefix: "أنصحك بـ",
+  viewProductLabel: "عرض هذه الآلة",
   inputPlaceholderEnabled: "صف حاجتك...",
   inputPlaceholderDisabled: "الإدخال متاح فقط عند اختيار «أخرى»",
   inputLabel: "صف حاجتك",

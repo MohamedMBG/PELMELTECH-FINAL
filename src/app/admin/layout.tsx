@@ -8,9 +8,9 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   const { sidebarOpen, closeSidebar } = useAdmin();
 
   return (
-    <div className="min-h-screen bg-[#f8f9fb] flex">
+    <div className="min-h-screen bg-[#f8f9fb] flex print:block print:bg-white">
       <AdminSidebar open={sidebarOpen} onClose={closeSidebar} />
-      <div className="flex-1 md:ml-[260px] flex flex-col min-h-screen">
+      <div className="flex-1 md:ml-[260px] flex flex-col min-h-screen print:ml-0">
         {children}
       </div>
     </div>

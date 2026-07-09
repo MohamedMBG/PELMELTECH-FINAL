@@ -65,3 +65,26 @@ export interface QuoteRequest {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface DevisItem {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+/** A quotation/sale created by an admin with custom pricing. */
+export interface Devis {
+  id: string;
+  number: string;
+  customerName: string;
+  company: string;
+  email: string;
+  phone: string;
+  address: string;
+  items: DevisItem[];
+  taxRate: number; // percent, e.g. 20
+  notes: string;
+  status: "draft" | "sent" | "accepted";
+  createdAt: string;
+  updatedAt: string;
+}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, MapPin, Phone, Globe, Share2 } from "lucide-react";
+import { Clock, MapPin, Phone, Globe, Share2 } from "lucide-react";
 import { useLanguage } from "@/i18n";
 
 export default function Footer() {
@@ -55,16 +55,18 @@ export default function Footer() {
           <h4 className="text-xs font-bold tracking-[0.1em] uppercase text-on-surface">{t.footer.contact}</h4>
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-              <MapPin size={14} className="text-cyan shrink-0" />
-              123 Precision Way, Print District
+              <Clock size={14} className="text-magenta shrink-0" />
+              Open weekdays - Closes 6:30 PM
             </li>
-            <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-              <Mail size={14} className="text-magenta shrink-0" />
-              contact@pelmeltech.com
+            <li className="flex items-start gap-3 text-sm text-on-surface-variant">
+              <MapPin size={14} className="text-cyan shrink-0 mt-0.5" />
+              <span>Rue des Camelias, Casablanca</span>
             </li>
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
               <Phone size={14} className="text-cyan shrink-0" />
-              +1 (555) 012-3456
+              <a href="tel:+212520737132" className="hover:text-on-surface transition-colors">
+                05 20 73 71 32
+              </a>
             </li>
           </ul>
         </div>

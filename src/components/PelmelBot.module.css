@@ -285,6 +285,46 @@
   line-height: 1.52;
 }
 
+.recLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--pmb-pink), var(--pmb-pink-dark));
+  color: var(--pmb-white);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgb(233 30 140 / 0.24);
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+
+.recLink svg {
+  flex-shrink: 0;
+  transition: transform 150ms ease;
+}
+
+.recLink:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 8px 20px rgb(233 30 140 / 0.32);
+}
+
+.recLink:hover svg {
+  transform: translateX(2px);
+}
+
+.recLink:active {
+  transform: translateY(1px);
+}
+
+.recLink:focus-visible {
+  outline: 3px solid rgb(0 200 240 / 0.52);
+  outline-offset: 3px;
+}
+
 /* Contact block inside bubble */
 .contactBlock {
   display: grid;

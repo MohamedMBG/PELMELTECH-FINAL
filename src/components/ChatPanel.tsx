@@ -3,11 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Shirt, Box, Maximize2, Gift, Scissors, Tag, Flame, Package, Layers,
   ThumbsUp, HelpCircle, RotateCcw, Phone, Mail, MessageCircle,
   Printer, Ruler, Factory, Wrench, Zap, ScanLine, Droplet, PenLine,
-  CheckCircle2, Send,
+  CheckCircle2, Send, ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -55,6 +56,7 @@ type ChatEvent =
       type: "message";
       sender: "bot" | "user";
       text: string;
+      productSlug?: string;
     }
   | {
       id: string;
@@ -151,7 +153,15 @@ function ContactBlock({ text, ui }: { text: string; ui: PelmelBotUi }) {
   );
 }
 
-function RecommendationContent({ text, ui }: { text: string; ui: PelmelBotUi }) {
+function RecommendationContent({
+  text,
+  ui,
+  productSlug,
+}: {
+  text: string;
+  ui: PelmelBotUi;
+  productSlug?: string;
+}) {
   const lines = text.split("\n").filter(Boolean);
   const machineName =
     lines[0]
@@ -176,16 +186,22 @@ function RecommendationContent({ text, ui }: { text: string; ui: PelmelBotUi }) 
           </span>
         ))}
       </div>
+      {productSlug ? (
+        <Link href={`/catalog/${productSlug}`} className={styles.recLink}>
+          <span>{ui.viewProductLabel}</span>
+          <ArrowRight size={15} aria-hidden="true" className="rtl:flip" />
+        </Link>
+      ) : null}
     </div>
   );
 }
 
-function MessageContent({ text, ui }: { text: string; ui: PelmelBotUi }) {
+function MessageContent({ text, ui, productSlug }: { text: string; ui: PelmelBotUi; productSlug?: string }) {
   const isRecommendation = text.startsWith(ui.recommendationPrefix);
   const hasContact = text.includes(ui.contactEmailLabel);
 
   if (isRecommendation) {
-    return <RecommendationContent text={text} ui={ui} />;
+    return <RecommendationContent text={text} ui={ui} productSlug={productSlug} />;
   }
 
   if (hasContact) {
@@ -286,6 +302,7 @@ export default function ChatPanel({ variant = "floating", active = true, onClose
           type: "message",
           sender: "bot",
           text: step.message,
+          productSlug: step.productSlug,
         },
         ...(step.options.length
           ? [
@@ -462,7 +479,7 @@ export default function ChatPanel({ variant = "floating", active = true, onClose
                 }`}
               >
                 {item.sender === "bot" ? (
-                  <MessageContent text={item.text} ui={ui} />
+                  <MessageContent text={item.text} ui={ui} productSlug={item.productSlug} />
                 ) : (
                   splitLines(item.text)
                 )}

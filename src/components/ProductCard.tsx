@@ -28,12 +28,12 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         product.badgeColor === "cyan" ? "hover:shadow-lg hover:shadow-cyan/8" : "hover:shadow-lg hover:shadow-magenta/8"
       }`}
     >
-      <div className="h-44 sm:h-52 rounded-2xl bg-surface-container-low relative overflow-hidden flex items-center justify-center border border-black/5">
+      <div className="h-44 sm:h-52 rounded-2xl bg-white relative overflow-hidden flex items-center justify-center border border-black/5">
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-contain transition-transform duration-700 group-hover:scale-105 p-2"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
         {product.badge && (
@@ -58,6 +58,25 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           {product.name}
         </h4>
         <p className="text-sm text-on-surface-variant leading-relaxed mb-4 line-clamp-2">{product.shortDescription}</p>
+        {product.specifications && (
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {product.specifications.printhead && product.specifications.printhead !== "À vérifier" && (
+              <span className="text-[10px] font-semibold bg-surface-container-high text-on-surface-variant px-2.5 py-1 rounded-md border border-black/[0.03]">
+                {product.specifications.printhead}
+              </span>
+            )}
+            {product.specifications.printingWidth && product.specifications.printingWidth !== "À vérifier" && (
+              <span className="text-[10px] font-semibold bg-surface-container-high text-on-surface-variant px-2.5 py-1 rounded-md border border-black/[0.03]">
+                {product.specifications.printingWidth}
+              </span>
+            )}
+            {product.specifications.speed && product.specifications.speed !== "À vérifier" && (
+              <span className="text-[10px] font-semibold bg-surface-container-high text-on-surface-variant px-2.5 py-1 rounded-md border border-black/[0.03]">
+                {product.specifications.speed}
+              </span>
+            )}
+          </div>
+        )}
         <div className="flex items-center justify-between pt-4 border-t border-black/5">
           <div>
             <span className="text-magenta font-extrabold text-lg">{displayPrice}</span>

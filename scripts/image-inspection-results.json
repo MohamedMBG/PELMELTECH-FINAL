@@ -1,0 +1,1400 @@
+[
+  {
+    "file": "DECOUPE 1200mm CCD CAMERA.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 2480,
+        "height": 1685,
+        "sizeBytes": 1436601,
+        "savePath": "public/images/products/temp-extracted/DECOUPE_1200mm_CCD_CAMERA/page_1_idx_0_w2480_h1685.png"
+      }
+    ]
+  },
+  {
+    "file": "LASER 1390 UNE TETE 130-150W CCD MAMERA.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 2182,
+        "height": 3116,
+        "sizeBytes": 3530042,
+        "savePath": "public/images/products/temp-extracted/LASER_1390_UNE_TETE_130-150W_CCD_MAMERA/page_1_idx_0_w2182_h3116.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE CNC DECOUPE 1600x2500mm.pdf",
+    "totalImages": 4,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1678,
+        "height": 1147,
+        "sizeBytes": 662634,
+        "savePath": "public/images/products/temp-extracted/MACHINE_CNC_DECOUPE_1600x2500mm/page_1_idx_0_w1678_h1147.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 123,
+        "height": 123,
+        "sizeBytes": 15191,
+        "savePath": "public/images/products/temp-extracted/MACHINE_CNC_DECOUPE_1600x2500mm/page_1_idx_1_w123_h123.png"
+      },
+      {
+        "page": 2,
+        "index": 2,
+        "name": "img_p1_1",
+        "width": 1678,
+        "height": 1147,
+        "sizeBytes": 989051,
+        "savePath": "public/images/products/temp-extracted/MACHINE_CNC_DECOUPE_1600x2500mm/page_2_idx_2_w1678_h1147.png"
+      },
+      {
+        "page": 3,
+        "index": 3,
+        "name": "img_p2_1",
+        "width": 1678,
+        "height": 1147,
+        "sizeBytes": 688044,
+        "savePath": "public/images/products/temp-extracted/MACHINE_CNC_DECOUPE_1600x2500mm/page_3_idx_3_w1678_h1147.png"
+      },
+      {
+        "page": 4,
+        "index": 4,
+        "name": "img_p3_1",
+        "width": 1678,
+        "height": 1147,
+        "sizeBytes": 1246921,
+        "savePath": "public/images/products/temp-extracted/MACHINE_CNC_DECOUPE_1600x2500mm/page_4_idx_4_w1678_h1147.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE D'IMPRESSIN EASYJET UV ROLL TO ROLL 1800mm DEUX TETES I3200.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 672,
+        "height": 1194,
+        "sizeBytes": 352897,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSIN_EASYJET_UV_ROLL_TO_ROLL_1800mm_DEUX_TETES_I3200/page_1_idx_0_w672_h1194.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 759,
+        "height": 130,
+        "sizeBytes": 56745,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSIN_EASYJET_UV_ROLL_TO_ROLL_1800mm_DEUX_TETES_I3200/page_1_idx_1_w759_h130.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_3",
+        "width": 772,
+        "height": 496,
+        "sizeBytes": 259179,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSIN_EASYJET_UV_ROLL_TO_ROLL_1800mm_DEUX_TETES_I3200/page_1_idx_2_w772_h496.png"
+      },
+      {
+        "page": 2,
+        "index": 3,
+        "name": "img_p1_2",
+        "width": 120,
+        "height": 120,
+        "sizeBytes": 11005,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSIN_EASYJET_UV_ROLL_TO_ROLL_1800mm_DEUX_TETES_I3200/page_2_idx_3_w120_h120.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE D'IMPRESSION ECO 1800mm TETE-DEUX TETES I3200.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 782,
+        "height": 868,
+        "sizeBytes": 580676,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_ECO_1800mm_TETE-DEUX_TETES_I3200/page_1_idx_0_w782_h868.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 1227,
+        "height": 1667,
+        "sizeBytes": 1345662,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_ECO_1800mm_TETE-DEUX_TETES_I3200/page_1_idx_1_w1227_h1667.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE D'IMPRESSION ECO SOLVENT 3200mm DEUX-QUATRE TETES I3200.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_56",
+        "width": 478,
+        "height": 269,
+        "sizeBytes": 230326,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_ECO_SOLVENT_3200mm_DEUX-QUATRE_TETES_I3200/page_1_idx_0_w478_h269.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_57",
+        "width": 457,
+        "height": 254,
+        "sizeBytes": 195973,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_ECO_SOLVENT_3200mm_DEUX-QUATRE_TETES_I3200/page_1_idx_1_w457_h254.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_58",
+        "width": 1046,
+        "height": 592,
+        "sizeBytes": 873441,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_ECO_SOLVENT_3200mm_DEUX-QUATRE_TETES_I3200/page_1_idx_2_w1046_h592.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE D'IMPRESSION FLATBED UV 1290 TROIS TETES I3200.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 700,
+        "height": 350,
+        "sizeBytes": 130432,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_0_w700_h350.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 245,
+        "height": 218,
+        "sizeBytes": 27629,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_1_w245_h218.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_3",
+        "width": 196,
+        "height": 221,
+        "sizeBytes": 20787,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_2_w196_h221.png"
+      },
+      {
+        "page": 1,
+        "index": 3,
+        "name": "img_p0_4",
+        "width": 203,
+        "height": 221,
+        "sizeBytes": 34722,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_3_w203_h221.png"
+      },
+      {
+        "page": 1,
+        "index": 4,
+        "name": "img_p0_5",
+        "width": 610,
+        "height": 218,
+        "sizeBytes": 70537,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_4_w610_h218.png"
+      },
+      {
+        "page": 1,
+        "index": 5,
+        "name": "img_p0_6",
+        "width": 566,
+        "height": 218,
+        "sizeBytes": 53826,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_5_w566_h218.png"
+      },
+      {
+        "page": 1,
+        "index": 6,
+        "name": "img_p0_7",
+        "width": 1960,
+        "height": 1810,
+        "sizeBytes": 2095275,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_6_w1960_h1810.png"
+      },
+      {
+        "page": 1,
+        "index": 7,
+        "name": "img_p0_8",
+        "width": 1584,
+        "height": 610,
+        "sizeBytes": 753804,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_7_w1584_h610.png"
+      },
+      {
+        "page": 1,
+        "index": 8,
+        "name": "img_p0_9",
+        "width": 131,
+        "height": 131,
+        "sizeBytes": 16819,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_1_idx_8_w131_h131.png"
+      },
+      {
+        "page": 2,
+        "index": 9,
+        "name": "img_p1_4",
+        "width": 404,
+        "height": 88,
+        "sizeBytes": 52471,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_2_idx_9_w404_h88.png"
+      },
+      {
+        "page": 2,
+        "index": 10,
+        "name": "img_p1_5",
+        "width": 1449,
+        "height": 1005,
+        "sizeBytes": 1498414,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_2_idx_10_w1449_h1005.png"
+      },
+      {
+        "page": 2,
+        "index": 11,
+        "name": "img_p1_6",
+        "width": 1443,
+        "height": 1003,
+        "sizeBytes": 1504194,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_FLATBED_UV_1290_TROIS_TETES_I3200/page_2_idx_11_w1443_h1003.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE D'IMPRESSION UV FLATED 2513 RICOH HEADS.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 2516,
+        "height": 3097,
+        "sizeBytes": 455141,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_0_w2516_h3097.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_3",
+        "width": 2365,
+        "height": 373,
+        "sizeBytes": 375086,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_1_w2365_h373.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_4",
+        "width": 2365,
+        "height": 373,
+        "sizeBytes": 606129,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_2_w2365_h373.png"
+      },
+      {
+        "page": 1,
+        "index": 3,
+        "name": "img_p0_5",
+        "width": 1998,
+        "height": 239,
+        "sizeBytes": 223654,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_3_w1998_h239.png"
+      },
+      {
+        "page": 1,
+        "index": 4,
+        "name": "img_p0_6",
+        "width": 2371,
+        "height": 829,
+        "sizeBytes": 1802521,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_4_w2371_h829.png"
+      },
+      {
+        "page": 1,
+        "index": 5,
+        "name": "img_p0_8",
+        "width": 334,
+        "height": 216,
+        "sizeBytes": 130727,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_5_w334_h216.png"
+      },
+      {
+        "page": 1,
+        "index": 6,
+        "name": "img_p0_9",
+        "width": 868,
+        "height": 445,
+        "sizeBytes": 908392,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_6_w868_h445.png"
+      },
+      {
+        "page": 1,
+        "index": 7,
+        "name": "img_p0_10",
+        "width": 1547,
+        "height": 558,
+        "sizeBytes": 1063455,
+        "savePath": "public/images/products/temp-extracted/MACHINE_D'IMPRESSION_UV_FLATED_2513_RICOH_HEADS/page_1_idx_7_w1547_h558.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE DE DECOUPE A4.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1600,
+        "height": 772,
+        "sizeBytes": 866349,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DE_DECOUPE_A4/page_1_idx_0_w1600_h772.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 123,
+        "height": 123,
+        "sizeBytes": 11706,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DE_DECOUPE_A4/page_1_idx_1_w123_h123.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE DE DECOUPE CCD CAMERA 1200mm.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 958,
+        "height": 295,
+        "sizeBytes": 94813,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DE_DECOUPE_CCD_CAMERA_1200mm/page_1_idx_0_w958_h295.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 120,
+        "height": 120,
+        "sizeBytes": 11005,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DE_DECOUPE_CCD_CAMERA_1200mm/page_1_idx_1_w120_h120.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_3",
+        "width": 1600,
+        "height": 1067,
+        "sizeBytes": 476563,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DE_DECOUPE_CCD_CAMERA_1200mm/page_1_idx_2_w1600_h1067.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE DTF 30CM DEUX TETEX I3200-XP600.pdf",
+    "totalImages": 3,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1000,
+        "height": 667,
+        "sizeBytes": 167256,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_1_idx_0_w1000_h667.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 2267,
+        "height": 429,
+        "sizeBytes": 932383,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_1_idx_1_w2267_h429.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_4",
+        "width": 1960,
+        "height": 146,
+        "sizeBytes": 130740,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_1_idx_2_w1960_h146.png"
+      },
+      {
+        "page": 1,
+        "index": 3,
+        "name": "img_p0_5",
+        "width": 3283,
+        "height": 3284,
+        "sizeBytes": 2933947,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_1_idx_3_w3283_h3284.png"
+      },
+      {
+        "page": 2,
+        "index": 4,
+        "name": "img_p1_1",
+        "width": 2412,
+        "height": 671,
+        "sizeBytes": 1561619,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_2_idx_4_w2412_h671.png"
+      },
+      {
+        "page": 3,
+        "index": 5,
+        "name": "img_p2_1",
+        "width": 1879,
+        "height": 1163,
+        "sizeBytes": 699259,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_3_idx_5_w1879_h1163.png"
+      },
+      {
+        "page": 3,
+        "index": 6,
+        "name": "img_p2_2",
+        "width": 3283,
+        "height": 2155,
+        "sizeBytes": 2142553,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_30CM_DEUX_TETEX_I3200-XP600/page_3_idx_6_w3283_h2155.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE DTF 600cm TWO HEADS I3200-XP600.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 4917,
+        "height": 3441,
+        "sizeBytes": 6303480,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTF_600cm_TWO_HEADS_I3200-XP600/page_1_idx_0_w4917_h3441.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE DTG 4050 DEUX TETES I3200.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 781,
+        "height": 976,
+        "sizeBytes": 600307,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTG_4050_DEUX_TETES_I3200/page_1_idx_0_w781_h976.png"
+      },
+      {
+        "page": 2,
+        "index": 1,
+        "name": "img_p1_1",
+        "width": 1178,
+        "height": 1600,
+        "sizeBytes": 1414038,
+        "savePath": "public/images/products/temp-extracted/MACHINE_DTG_4050_DEUX_TETES_I3200/page_2_idx_1_w1178_h1600.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE ECO SOLVENT 3200mm XLINE QUATRE TETES I3200.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 5626,
+        "height": 3500,
+        "sizeBytes": 6129270,
+        "savePath": "public/images/products/temp-extracted/MACHINE_ECO_SOLVENT_3200mm_XLINE_QUATRE_TETES_I3200/page_1_idx_0_w5626_h3500.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE ELECTRIC DE LAMINATION 1630mm.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1600,
+        "height": 1600,
+        "sizeBytes": 98508,
+        "savePath": "public/images/products/temp-extracted/MACHINE_ELECTRIC_DE_LAMINATION_1630mm/page_1_idx_0_w1600_h1600.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 800,
+        "height": 800,
+        "sizeBytes": 292408,
+        "savePath": "public/images/products/temp-extracted/MACHINE_ELECTRIC_DE_LAMINATION_1630mm/page_1_idx_1_w800_h800.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_3",
+        "width": 762,
+        "height": 863,
+        "sizeBytes": 145044,
+        "savePath": "public/images/products/temp-extracted/MACHINE_ELECTRIC_DE_LAMINATION_1630mm/page_1_idx_2_w762_h863.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE FLATBED DE DECOUPE FC5070E.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 732,
+        "height": 656,
+        "sizeBytes": 436392,
+        "savePath": "public/images/products/temp-extracted/MACHINE_FLATBED_DE_DECOUPE_FC5070E/page_1_idx_0_w732_h656.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 123,
+        "height": 123,
+        "sizeBytes": 11706,
+        "savePath": "public/images/products/temp-extracted/MACHINE_FLATBED_DE_DECOUPE_FC5070E/page_1_idx_1_w123_h123.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE GRAND FORMAT 3200mm 4TETES I3200.pdf",
+    "totalImages": 4,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1654,
+        "height": 2245,
+        "sizeBytes": 2471303,
+        "savePath": "public/images/products/temp-extracted/MACHINE_GRAND_FORMAT_3200mm_4TETES_I3200/page_1_idx_0_w1654_h2245.png"
+      },
+      {
+        "page": 2,
+        "index": 1,
+        "name": "g_d16_img_p1_1",
+        "width": 1654,
+        "height": 2245,
+        "sizeBytes": 2471303,
+        "savePath": "public/images/products/temp-extracted/MACHINE_GRAND_FORMAT_3200mm_4TETES_I3200/page_2_idx_1_w1654_h2245.png"
+      },
+      {
+        "page": 3,
+        "index": 2,
+        "name": "g_d16_img_p1_1",
+        "width": 1654,
+        "height": 2245,
+        "sizeBytes": 2471303,
+        "savePath": "public/images/products/temp-extracted/MACHINE_GRAND_FORMAT_3200mm_4TETES_I3200/page_3_idx_2_w1654_h2245.png"
+      },
+      {
+        "page": 4,
+        "index": 3,
+        "name": "g_d16_img_p1_1",
+        "width": 1654,
+        "height": 2245,
+        "sizeBytes": 2471303,
+        "savePath": "public/images/products/temp-extracted/MACHINE_GRAND_FORMAT_3200mm_4TETES_I3200/page_4_idx_3_w1654_h2245.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE SOLVENT ROLL TO ROLL 3200mm QUATRE TETES KONICA MINOLTA.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 5626,
+        "height": 3500,
+        "sizeBytes": 6445800,
+        "savePath": "public/images/products/temp-extracted/MACHINE_SOLVENT_ROLL_TO_ROLL_3200mm_QUATRE_TETES_KONICA_MINOLTA/page_1_idx_0_w5626_h3500.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE TABLE UV 6090 TROIS TETES XP600-I3200.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 1678,
+        "height": 1646,
+        "sizeBytes": 1203019,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_1_idx_0_w1678_h1646.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 1355,
+        "height": 1138,
+        "sizeBytes": 1195484,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_1_idx_1_w1355_h1138.png"
+      },
+      {
+        "page": 2,
+        "index": 2,
+        "name": "img_p1_1",
+        "width": 290,
+        "height": 318,
+        "sizeBytes": 198185,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_2_w290_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 3,
+        "name": "img_p1_2",
+        "width": 290,
+        "height": 318,
+        "sizeBytes": 135841,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_3_w290_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 4,
+        "name": "img_p1_3",
+        "width": 290,
+        "height": 318,
+        "sizeBytes": 168628,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_4_w290_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 5,
+        "name": "img_p1_4",
+        "width": 289,
+        "height": 318,
+        "sizeBytes": 128046,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_5_w289_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 6,
+        "name": "img_p1_5",
+        "width": 290,
+        "height": 317,
+        "sizeBytes": 116656,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_6_w290_h317.png"
+      },
+      {
+        "page": 2,
+        "index": 7,
+        "name": "img_p1_6",
+        "width": 290,
+        "height": 317,
+        "sizeBytes": 158313,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_7_w290_h317.png"
+      },
+      {
+        "page": 2,
+        "index": 8,
+        "name": "img_p1_7",
+        "width": 290,
+        "height": 318,
+        "sizeBytes": 178819,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_8_w290_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 9,
+        "name": "img_p1_8",
+        "width": 289,
+        "height": 322,
+        "sizeBytes": 176851,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_9_w289_h322.png"
+      },
+      {
+        "page": 2,
+        "index": 10,
+        "name": "img_p1_9",
+        "width": 288,
+        "height": 319,
+        "sizeBytes": 182169,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_10_w288_h319.png"
+      },
+      {
+        "page": 2,
+        "index": 11,
+        "name": "img_p1_10",
+        "width": 290,
+        "height": 318,
+        "sizeBytes": 174793,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_11_w290_h318.png"
+      },
+      {
+        "page": 2,
+        "index": 12,
+        "name": "img_p1_11",
+        "width": 289,
+        "height": 319,
+        "sizeBytes": 170681,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_12_w289_h319.png"
+      },
+      {
+        "page": 2,
+        "index": 13,
+        "name": "img_p1_12",
+        "width": 316,
+        "height": 260,
+        "sizeBytes": 102513,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_13_w316_h260.png"
+      },
+      {
+        "page": 2,
+        "index": 14,
+        "name": "img_p1_13",
+        "width": 316,
+        "height": 261,
+        "sizeBytes": 120568,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_14_w316_h261.png"
+      },
+      {
+        "page": 2,
+        "index": 15,
+        "name": "img_p1_14",
+        "width": 317,
+        "height": 261,
+        "sizeBytes": 114446,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_15_w317_h261.png"
+      },
+      {
+        "page": 2,
+        "index": 16,
+        "name": "img_p1_15",
+        "width": 316,
+        "height": 261,
+        "sizeBytes": 128162,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_16_w316_h261.png"
+      },
+      {
+        "page": 2,
+        "index": 17,
+        "name": "img_p1_16",
+        "width": 316,
+        "height": 261,
+        "sizeBytes": 113866,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_17_w316_h261.png"
+      },
+      {
+        "page": 2,
+        "index": 18,
+        "name": "img_p1_17",
+        "width": 317,
+        "height": 260,
+        "sizeBytes": 118068,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_18_w317_h260.png"
+      },
+      {
+        "page": 2,
+        "index": 19,
+        "name": "img_p1_18",
+        "width": 316,
+        "height": 260,
+        "sizeBytes": 103945,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_19_w316_h260.png"
+      },
+      {
+        "page": 2,
+        "index": 20,
+        "name": "img_p1_19",
+        "width": 316,
+        "height": 260,
+        "sizeBytes": 101141,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_20_w316_h260.png"
+      },
+      {
+        "page": 2,
+        "index": 21,
+        "name": "img_p1_20",
+        "width": 290,
+        "height": 317,
+        "sizeBytes": 147669,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_21_w290_h317.png"
+      },
+      {
+        "page": 2,
+        "index": 22,
+        "name": "img_p1_270",
+        "width": 301,
+        "height": 229,
+        "sizeBytes": 40466,
+        "savePath": "public/images/products/temp-extracted/MACHINE_TABLE_UV_6090_TROIS_TETES_XP600-I3200/page_2_idx_22_w301_h229.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE UV DTF 30CM TETES I3200-XP600.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 840,
+        "height": 825,
+        "sizeBytes": 195508,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_1_idx_0_w840_h825.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_4",
+        "width": 757,
+        "height": 418,
+        "sizeBytes": 180245,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_1_idx_1_w757_h418.png"
+      },
+      {
+        "page": 2,
+        "index": 2,
+        "name": "img_p1_1",
+        "width": 231,
+        "height": 230,
+        "sizeBytes": 56378,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_2_w231_h230.png"
+      },
+      {
+        "page": 2,
+        "index": 3,
+        "name": "img_p1_2",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 19661,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_3_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 4,
+        "name": "img_p1_252",
+        "width": 361,
+        "height": 198,
+        "sizeBytes": 66119,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_4_w361_h198.png"
+      },
+      {
+        "page": 2,
+        "index": 5,
+        "name": "img_p1_253",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 34461,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_5_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 6,
+        "name": "img_p1_254",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 14651,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_6_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 7,
+        "name": "img_p1_255",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 32641,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_7_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 8,
+        "name": "img_p1_256",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 35338,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_8_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 9,
+        "name": "img_p1_257",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 29231,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_9_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 10,
+        "name": "img_p1_258",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 29987,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_10_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 11,
+        "name": "img_p1_259",
+        "width": 169,
+        "height": 144,
+        "sizeBytes": 26910,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_11_w169_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 12,
+        "name": "img_p1_260",
+        "width": 260,
+        "height": 214,
+        "sizeBytes": 48058,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_12_w260_h214.png"
+      },
+      {
+        "page": 2,
+        "index": 13,
+        "name": "img_p1_261",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 18348,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_13_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 14,
+        "name": "img_p1_262",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 21440,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_14_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 15,
+        "name": "img_p1_263",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 46932,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_15_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 16,
+        "name": "img_p1_264",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 28824,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_16_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 17,
+        "name": "img_p1_265",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 26608,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_17_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 18,
+        "name": "img_p1_266",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 27261,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_18_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 19,
+        "name": "img_p1_267",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 37721,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_19_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 20,
+        "name": "img_p1_268",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 40202,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_20_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 21,
+        "name": "img_p1_269",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 29390,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_21_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 22,
+        "name": "img_p1_270",
+        "width": 190,
+        "height": 157,
+        "sizeBytes": 7639,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_22_w190_h157.png"
+      },
+      {
+        "page": 2,
+        "index": 23,
+        "name": "img_p1_272",
+        "width": 191,
+        "height": 116,
+        "sizeBytes": 17711,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_23_w191_h116.png"
+      },
+      {
+        "page": 2,
+        "index": 24,
+        "name": "img_p1_273",
+        "width": 211,
+        "height": 117,
+        "sizeBytes": 27177,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_30CM_TETES_I3200-XP600/page_2_idx_24_w211_h117.png"
+      }
+    ]
+  },
+  {
+    "file": "MACHINE UV DTF 700mm 3PCS TETES I3200 U1.pdf",
+    "totalImages": 2,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 851,
+        "height": 827,
+        "sizeBytes": 232236,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_1_idx_0_w851_h827.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 765,
+        "height": 663,
+        "sizeBytes": 263625,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_1_idx_1_w765_h663.png"
+      },
+      {
+        "page": 2,
+        "index": 2,
+        "name": "img_p1_1",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 31672,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_2_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 3,
+        "name": "img_p1_2",
+        "width": 146,
+        "height": 143,
+        "sizeBytes": 19592,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_3_w146_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 4,
+        "name": "img_p1_3",
+        "width": 190,
+        "height": 157,
+        "sizeBytes": 7639,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_4_w190_h157.png"
+      },
+      {
+        "page": 2,
+        "index": 5,
+        "name": "img_p1_5",
+        "width": 213,
+        "height": 185,
+        "sizeBytes": 40578,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_5_w213_h185.png"
+      },
+      {
+        "page": 2,
+        "index": 6,
+        "name": "img_p1_6",
+        "width": 232,
+        "height": 289,
+        "sizeBytes": 108306,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_6_w232_h289.png"
+      },
+      {
+        "page": 2,
+        "index": 7,
+        "name": "img_p1_7",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 19661,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_7_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 8,
+        "name": "img_p1_8",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 29009,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_8_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 9,
+        "name": "img_p1_9",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 28455,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_9_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 10,
+        "name": "img_p1_10",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 31501,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_10_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 11,
+        "name": "img_p1_11",
+        "width": 198,
+        "height": 147,
+        "sizeBytes": 34970,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_11_w198_h147.png"
+      },
+      {
+        "page": 2,
+        "index": 12,
+        "name": "img_p1_261",
+        "width": 361,
+        "height": 198,
+        "sizeBytes": 52431,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_12_w361_h198.png"
+      },
+      {
+        "page": 2,
+        "index": 13,
+        "name": "img_p1_262",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 29546,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_13_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 14,
+        "name": "img_p1_263",
+        "width": 251,
+        "height": 204,
+        "sizeBytes": 36281,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_14_w251_h204.png"
+      },
+      {
+        "page": 2,
+        "index": 15,
+        "name": "img_p1_264",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 22638,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_15_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 16,
+        "name": "img_p1_265",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 26010,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_16_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 17,
+        "name": "img_p1_266",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 16399,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_17_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 18,
+        "name": "img_p1_267",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 19723,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_18_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 19,
+        "name": "img_p1_268",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 39609,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_19_w174_h143.png"
+      },
+      {
+        "page": 2,
+        "index": 20,
+        "name": "img_p1_269",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 34642,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_20_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 21,
+        "name": "img_p1_270",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 33516,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_21_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 22,
+        "name": "img_p1_271",
+        "width": 168,
+        "height": 144,
+        "sizeBytes": 36418,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_22_w168_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 23,
+        "name": "img_p1_272",
+        "width": 174,
+        "height": 144,
+        "sizeBytes": 31267,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_23_w174_h144.png"
+      },
+      {
+        "page": 2,
+        "index": 24,
+        "name": "img_p1_273",
+        "width": 174,
+        "height": 143,
+        "sizeBytes": 29353,
+        "savePath": "public/images/products/temp-extracted/MACHINE_UV_DTF_700mm_3PCS_TETES_I3200_U1/page_2_idx_24_w174_h143.png"
+      }
+    ]
+  },
+  {
+    "file": "PRESSE A CHAUD PNEUMATIQUE 60x40.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 320,
+        "height": 511,
+        "sizeBytes": 193340,
+        "savePath": "public/images/products/temp-extracted/PRESSE_A_CHAUD_PNEUMATIQUE_60x40/page_1_idx_0_w320_h511.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 2181,
+        "height": 197,
+        "sizeBytes": 113769,
+        "savePath": "public/images/products/temp-extracted/PRESSE_A_CHAUD_PNEUMATIQUE_60x40/page_1_idx_1_w2181_h197.png"
+      },
+      {
+        "page": 1,
+        "index": 2,
+        "name": "img_p0_3",
+        "width": 2181,
+        "height": 339,
+        "sizeBytes": 30345,
+        "savePath": "public/images/products/temp-extracted/PRESSE_A_CHAUD_PNEUMATIQUE_60x40/page_1_idx_2_w2181_h339.png"
+      }
+    ]
+  },
+  {
+    "file": "TABLE DE DECOUPE FC7090U.pdf",
+    "totalImages": 1,
+    "images": [
+      {
+        "page": 1,
+        "index": 0,
+        "name": "img_p0_1",
+        "width": 788,
+        "height": 748,
+        "sizeBytes": 365585,
+        "savePath": "public/images/products/temp-extracted/TABLE_DE_DECOUPE_FC7090U/page_1_idx_0_w788_h748.png"
+      },
+      {
+        "page": 1,
+        "index": 1,
+        "name": "img_p0_2",
+        "width": 123,
+        "height": 123,
+        "sizeBytes": 11706,
+        "savePath": "public/images/products/temp-extracted/TABLE_DE_DECOUPE_FC7090U/page_1_idx_1_w123_h123.png"
+      }
+    ]
+  }
+]

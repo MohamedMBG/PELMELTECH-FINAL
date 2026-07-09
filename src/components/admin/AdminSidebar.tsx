@@ -7,6 +7,7 @@ import {
   Package,
   FolderTree,
   MessageSquareQuote,
+  FileText,
   Users,
   ArrowLeft,
   Plus,
@@ -39,6 +40,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
     { label: t.admin.products, href: "/admin/products", icon: Package, perm: "products" },
     { label: t.admin.categories, href: "/admin/categories", icon: FolderTree, perm: "categories" },
     { label: t.admin.quoteRequests, href: "/admin/quotes", icon: MessageSquareQuote, perm: "quotes" },
+    { label: t.admin.devis.nav, href: "/admin/devis", icon: FileText, perm: "quotes" },
     { label: t.admin.users, href: "/admin/users", icon: Users, perm: "users" },
   ];
   const navItems = NAV_ITEMS.filter((item) => !item.perm || can(item.perm));
@@ -58,7 +60,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full w-[260px] bg-white border-r border-black/[0.06] z-50 flex flex-col transition-transform duration-200 md:translate-x-0 ${
+        className={`fixed top-0 left-0 h-full w-[260px] bg-white border-r border-black/[0.06] z-50 flex flex-col transition-transform duration-200 md:translate-x-0 print:hidden ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -114,6 +116,17 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
                 {t.admin.addProduct}
               </Link>
             </div>
+          )}
+
+          {can("quotes") && (
+            <Link
+              href="/admin/devis/new"
+              onClick={onClose}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-semibold text-magenta hover:bg-magenta/5 transition-all"
+            >
+              <Plus size={18} />
+              {t.admin.devis.newDevis}
+            </Link>
           )}
         </nav>
 

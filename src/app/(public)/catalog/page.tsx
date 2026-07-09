@@ -2,43 +2,104 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { RotateCcw, Download } from "lucide-react";
+import { 
+  RotateCcw, 
+  Download,
+  Shirt, 
+  Box, 
+  Image as ImageIcon, 
+  Sparkles, 
+  Scissors, 
+  Tag, 
+  Flame, 
+  Layers,
+  Printer,
+  Grid,
+  Search,
+  SlidersHorizontal
+} from "lucide-react";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
-import { getProducts, getAllSubcategories, type CatalogProduct } from "@/lib/catalog";
+import { getProducts, getCategories, type CatalogProduct, type CatalogCategory } from "@/lib/catalog";
 import { useLanguage } from "@/i18n";
+
+const IconMap = {
+  Shirt,
+  Box,
+  Image: ImageIcon,
+  Sparkles,
+  Scissors,
+  Tag,
+  Flame,
+  Layers,
+  Printer,
+  SquareScissors: Scissors
+};
+
+function CategoryIcon({ name, className }: { name: string; className?: string }) {
+  const IconComponent = IconMap[name as keyof typeof IconMap] || Grid;
+  return <IconComponent className={className} />;
+}
 
 export default function CatalogPage() {
   const [allProducts, setAllProducts] = useState<CatalogProduct[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [activeCategory, setActiveCategory] = useState("");
-  const [activeFinish, setActiveFinish] = useState("");
-  const { t } = useLanguage();
+  const [categories, setCategories] = useState<CatalogCategory[]>([]);
+  
+  const [activeCategory, setActiveCategory] = useState<string>("");
+  const [activeSubcategory, setActiveSubcategory] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const { locale, t } = useLanguage();
 
   useEffect(() => {
     let active = true;
-    Promise.all([getProducts(), getAllSubcategories()])
-      .then(([products, subs]) => {
+    Promise.all([getProducts(), getCategories()])
+      .then(([products, cats]) => {
         if (!active) return;
         setAllProducts(products);
-        setCategories([t.catalog.allSolutions, ...subs]);
-        setActiveCategory(t.catalog.allSolutions);
-        setActiveFinish(t.catalog.allFinishes);
+        setCategories(cats);
       })
       .catch(() => {});
     return () => {
       active = false;
     };
-  }, [t.catalog.allSolutions, t.catalog.allFinishes]);
+  }, []);
 
-  const filtered = activeCategory === t.catalog.allSolutions
-    ? allProducts
-    : allProducts.filter((p) => p.subcategory === activeCategory);
+  const getProductCount = (categoryId: string) => {
+    return allProducts.filter(p => p.categoryId === categoryId).length;
+  };
+
+  const activeCategoryObj = categories.find(c => c.id === activeCategory);
+
+  // Available subcategories for the active category
+  const availableSubcategories = activeCategory
+    ? Array.from(new Set(allProducts.filter(p => p.categoryId === activeCategory).map(p => p.subcategory)))
+    : [];
+
+  const filtered = allProducts.filter((p) => {
+    const matchesCategory = !activeCategory || p.categoryId === activeCategory;
+    const matchesSubcategory = !activeSubcategory || p.subcategory === activeSubcategory;
+    const matchesSearch = searchQuery.trim() === "" ||
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.subcategory.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.specifications && Object.values(p.specifications).some((val) => 
+        String(val).toLowerCase().includes(searchQuery.toLowerCase())
+      ));
+    return matchesCategory && matchesSubcategory && matchesSearch;
+  });
+
+  const handleCategorySelect = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    setActiveSubcategory("");
+  };
+
   const newArrivals = allProducts.filter((p) => p.newArrival).slice(0, 6);
 
   return (
     <>
+      {/* Premium Hero Banner */}
       <section className="bg-surface-container-low py-14 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 end-0 w-1/3 h-full bg-gradient-to-l from-magenta/5 to-transparent rtl:bg-gradient-to-r" />
@@ -74,8 +135,9 @@ export default function CatalogPage() {
         </div>
       </section>
 
+      {/* New Arrivals Section */}
       {newArrivals.length > 0 && (
-        <section className="py-12 px-4 md:px-16 bg-white">
+        <section className="py-12 px-4 md:px-16 bg-white border-b border-black/[0.03]">
           <div className="max-w-[1280px] mx-auto">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
               <div>
@@ -96,95 +158,222 @@ export default function CatalogPage() {
         </section>
       )}
 
-      <section className="py-10 sm:py-12 lg:py-16 px-4 md:px-16">
+      {/* Main Catalog View */}
+      <section className="py-10 sm:py-12 lg:py-16 px-4 md:px-16 bg-slate-50/50">
         <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12">
-          <aside className="hidden lg:block w-full lg:w-72 shrink-0 space-y-10 lg:sticky lg:top-28 h-fit">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm"
-            >
-              <h3 className="text-lg font-bold text-on-surface mb-6">{t.catalog.categories}</h3>
-              <div className="space-y-3">
-                {categories.map((cat) => (
+          
+          {/* Desktop Left Sidebar: Premium Category Cards */}
+          <aside className="hidden lg:block w-full lg:w-80 shrink-0 space-y-8 lg:sticky lg:top-28 h-fit">
+            <div className="bg-white p-6 rounded-3xl border border-black/[0.04] shadow-md shadow-slate-100/50">
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-black/[0.03]">
+                <h3 className="text-lg font-extrabold text-on-surface flex items-center gap-2">
+                  <SlidersHorizontal size={18} className="text-magenta" />
+                  {t.catalog.categories}
+                </h3>
+                {activeCategory && (
                   <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`w-full text-start text-sm py-2 px-3 rounded-lg transition-all ${
-                      activeCategory === cat
-                        ? "bg-magenta/10 text-magenta font-bold"
-                        : "text-on-surface-variant hover:bg-surface-container"
-                    }`}
+                    onClick={() => { setActiveCategory(""); setActiveSubcategory(""); }}
+                    className="text-xs font-bold text-magenta hover:underline"
                   >
-                    {cat}
+                    {locale === "ar" ? "إعادة تعيين" : "Réinitialiser"}
                   </button>
-                ))}
+                )}
               </div>
+              
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleCategorySelect("")}
+                  className={`w-full flex items-center justify-between text-start text-sm py-3 px-4 rounded-2xl transition-all duration-300 font-bold ${
+                    activeCategory === ""
+                      ? "bg-gradient-to-r from-magenta to-magenta-dark text-white shadow-lg shadow-magenta/15"
+                      : "text-on-surface-variant hover:bg-slate-50 hover:text-on-surface"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Grid size={18} />
+                    <span>{t.catalog.allSolutions}</span>
+                  </div>
+                  <span className={`text-xs px-2.5 py-0.5 rounded-full ${activeCategory === "" ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                    {allProducts.length}
+                  </span>
+                </button>
 
-              <div className="mt-8 pt-8 border-t border-black/5">
-                <h3 className="text-lg font-bold text-on-surface mb-6">{t.catalog.materialFinish}</h3>
-                <div className="space-y-3">
-                  {t.catalog.finishes.map((f) => (
+                {categories.map((cat) => {
+                  const count = getProductCount(cat.id);
+                  if (count === 0) return null;
+                  const isActive = activeCategory === cat.id;
+                  
+                  return (
                     <button
-                      key={f}
-                      onClick={() => setActiveFinish(f)}
-                      className={`w-full text-start text-sm py-2 px-3 rounded-lg transition-all ${
-                        activeFinish === f
-                          ? "bg-cyan/10 text-cyan-dark font-bold"
-                          : "text-on-surface-variant hover:bg-surface-container"
+                      key={cat.id}
+                      onClick={() => handleCategorySelect(cat.id)}
+                      className={`w-full flex items-center justify-between text-start text-sm py-3 px-4 rounded-2xl transition-all duration-300 ${
+                        isActive
+                          ? "bg-magenta/10 text-magenta font-extrabold border border-magenta/20"
+                          : "text-on-surface-variant hover:bg-slate-50 hover:text-on-surface border border-transparent"
                       }`}
                     >
-                      {f}
+                      <div className="flex items-center gap-3">
+                        <CategoryIcon name={cat.icon || ""} className={`transition-transform duration-300 ${isActive ? "scale-110" : ""}`} />
+                        <span>{cat.name}</span>
+                      </div>
+                      <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full transition-all duration-300 ${
+                        isActive ? "bg-magenta text-white" : "bg-slate-100 text-slate-500"
+                      }`}>
+                        {count}
+                      </span>
                     </button>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-
-              <button
-                onClick={() => { setActiveCategory(t.catalog.allSolutions); setActiveFinish(t.catalog.allFinishes); }}
-                className="w-full mt-8 flex items-center justify-center gap-2 border border-black/10 text-on-surface-variant py-3 rounded-xl text-xs font-bold tracking-wide uppercase hover:bg-surface-container-low transition-colors"
-              >
-                <RotateCcw size={14} /> {t.catalog.resetFilters}
-              </button>
-            </motion.div>
+            </div>
           </aside>
 
+          {/* Right Product Grid Column */}
           <div className="flex-grow">
-            {/* Mobile category filter — swipeable chips (desktop uses the sidebar) */}
-            <div className="lg:hidden -mx-4 px-4 mb-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex gap-2 w-max">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`shrink-0 whitespace-nowrap text-xs font-bold tracking-wide px-4 py-2.5 rounded-full border transition-all active:scale-95 ${
-                      activeCategory === cat
-                        ? "bg-on-surface text-white border-on-surface"
-                        : "bg-white text-on-surface-variant border-black/10"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+            
+            {/* Mobile Category Selector: Horizontal Scrollable Premium Chips */}
+            <div className="lg:hidden -mx-4 px-4 mb-6 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-2.5 w-max py-1">
+                <button
+                  onClick={() => handleCategorySelect("")}
+                  className={`shrink-0 flex items-center gap-2 text-xs font-bold tracking-wide px-5 py-3 rounded-2xl border transition-all active:scale-95 shadow-sm ${
+                    activeCategory === ""
+                      ? "bg-magenta text-white border-magenta shadow-magenta/10"
+                      : "bg-white text-on-surface-variant border-black/[0.04]"
+                  }`}
+                >
+                  <Grid size={14} />
+                  {t.catalog.allSolutions}
+                </button>
+                {categories.map((cat) => {
+                  const count = getProductCount(cat.id);
+                  if (count === 0) return null;
+                  const isActive = activeCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategorySelect(cat.id)}
+                      className={`shrink-0 flex items-center gap-2 text-xs font-bold tracking-wide px-5 py-3 rounded-2xl border transition-all active:scale-95 shadow-sm ${
+                        isActive
+                          ? "bg-magenta text-white border-magenta shadow-magenta/10"
+                          : "bg-white text-on-surface-variant border-black/[0.04]"
+                      }`}
+                    >
+                      <CategoryIcon name={cat.icon || ""} />
+                      {cat.name}
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-400"}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 lg:mb-8 gap-4">
-              <p className="text-sm text-on-surface-variant">
-                {t.catalog.showing} <span className="font-bold text-on-surface">{filtered.length}</span> {t.catalog.professionalResults}
-              </p>
+            {/* Premium Search & Information Bar */}
+            <div className="bg-white rounded-3xl p-5 border border-black/[0.04] shadow-sm mb-6 lg:mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2.5 self-start md:self-auto">
+                <div className="p-2 rounded-xl bg-cyan/10 text-cyan-dark">
+                  <Grid size={18} />
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-on-surface text-base">
+                    {activeCategoryObj ? activeCategoryObj.name : t.catalog.allSolutions}
+                  </h4>
+                  <p className="text-xs text-on-surface-variant/70">
+                    {t.catalog.showing} <span className="font-bold text-on-surface">{filtered.length}</span> {t.catalog.professionalResults}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="w-full md:w-80 relative">
+                <input
+                  type="text"
+                  placeholder={
+                    locale === "ar" ? "البحث (مثال: i3200، 3200مم)..." :
+                    locale === "en" ? "Search (e.g. i3200, 3200mm)..." :
+                    "Rechercher (ex. i3200, 3200mm)..."
+                  }
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-12 py-3 text-sm rounded-2xl border border-black/[0.06] focus:border-magenta focus:ring-1 focus:ring-magenta focus:outline-none transition-all shadow-inner bg-slate-50/50"
+                />
+                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/40" />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-magenta text-xs font-bold"
+                  >
+                    {locale === "ar" ? "مسح" : locale === "en" ? "Clear" : "Effacer"}
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
-              {filtered.map((product, i) => (
-                <ProductCard key={product.id} product={product} index={i} />
-              ))}
-            </div>
+            {/* Dynamic Subcategory Filter Pills (rendered only when category is active) */}
+            {activeCategory && availableSubcategories.length > 1 && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-wrap gap-2 mb-6"
+              >
+                <button
+                  onClick={() => setActiveSubcategory("")}
+                  className={`text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm ${
+                    activeSubcategory === ""
+                      ? "bg-cyan text-white shadow-cyan/10"
+                      : "bg-white text-on-surface-variant border border-black/[0.03] hover:bg-slate-50"
+                  }`}
+                >
+                  {locale === "ar" ? "الكل" : "Tout"}
+                </button>
+                {availableSubcategories.map((sub) => (
+                  <button
+                    key={sub}
+                    onClick={() => setActiveSubcategory(sub)}
+                    className={`text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm ${
+                      activeSubcategory === sub
+                        ? "bg-cyan text-white shadow-cyan/10"
+                        : "bg-white text-on-surface-variant border border-black/[0.03] hover:bg-slate-50"
+                    }`}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Products Grid */}
+            {filtered.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+                {filtered.map((product, i) => (
+                  <ProductCard key={product.id} product={product} index={i} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 bg-white rounded-3xl border border-black/[0.03] shadow-sm">
+                <div className="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-4">
+                  <Grid size={24} />
+                </div>
+                <h3 className="text-lg font-bold text-on-surface mb-2">Aucun produit trouvé</h3>
+                <p className="text-sm text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+                  Nous n'avons trouvé aucun produit correspondant à vos filtres. Essayez de réinitialiser vos critères.
+                </p>
+                <button 
+                  onClick={() => { setActiveCategory(""); setActiveSubcategory(""); setSearchQuery(""); }}
+                  className="mt-6 inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase bg-magenta text-white px-6 py-3 rounded-full hover:shadow-lg hover:shadow-magenta/20 transition-all"
+                >
+                  <RotateCcw size={14} /> {locale === "ar" ? "إعادة تعيين" : "Réinitialiser les filtres"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="section-y px-4 md:px-16">
+      {/* Catalog Technical Fiche Callout */}
+      <section className="section-y px-4 md:px-16 bg-white">
         <div className="max-w-[1280px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

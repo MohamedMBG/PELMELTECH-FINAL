@@ -29,6 +29,9 @@ export interface CatalogProduct {
   ctaLabel: string;
   createdAt: string;
   updatedAt: string;
+  catalogPdf?: string;
+  features?: string[];
+  applications?: string[];
 }
 
 export interface CatalogCategory {

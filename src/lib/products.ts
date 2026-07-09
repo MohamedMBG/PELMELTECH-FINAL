@@ -282,20 +282,55 @@ export function getProductPath(product: { name?: string; slug?: string }): strin
 export function getProductDetail(product: Product): ProductDetail {
   const details = categoryDetails[product.subcategory] ?? categoryDetails["Standard Printers"];
   const priceDisplay = product.quoteOnly || product.price === null
-    ? "Request quote"
+    ? "Sur devis / Request quote"
     : `$${product.price.toFixed(2)}${product.specifications?.usageType ? `/${product.specifications.usageType}` : ""}`;
 
-  return {
-    fiche: [
-      { label: "Product", value: product.name },
-      { label: "Category", value: product.subcategory },
-      { label: "Price", value: priceDisplay },
-      ...details.fiche.map((row, index) => ({
+  const fiche: TechnicalRow[] = [
+    { label: "Produit / Product", value: product.name },
+    { label: "Catégorie / Category", value: product.subcategory || product.categoryName || "" },
+    { label: "Prix / Price", value: priceDisplay },
+  ];
+
+  if (product.specifications && Object.keys(product.specifications).length > 0) {
+    const specLabels: Record<string, string> = {
+      printhead: "Tête d'impression / Printhead",
+      printingWidth: "Largeur / Width",
+      speed: "Vitesse / Speed",
+      resolution: "Résolution / Resolution",
+      dimensions: "Dimensions",
+      weight: "Poids / Weight",
+      power: "Alimentation / Power",
+    };
+
+    for (const [key, value] of Object.entries(product.specifications)) {
+      if (key === "usageType") continue;
+      const label = specLabels[key] || key.charAt(0).toUpperCase() + key.slice(1);
+      fiche.push({
+        label,
+        value: String(value),
+      });
+    }
+  } else {
+    details.fiche.forEach((row, index) => {
+      fiche.push({
         label: row.label,
-        value: details.values[index],
-      })),
-    ],
-    highlights: details.highlights,
-    applications: details.applications,
+        value: details.values[index] || "À vérifier",
+      });
+    });
+  }
+
+  const highlights = Array.isArray(product.features) && product.features.length > 0
+    ? product.features
+    : details.highlights;
+
+  const applications = Array.isArray(product.applications) && product.applications.length > 0
+    ? product.applications
+    : details.applications;
+
+  return {
+    fiche,
+    highlights,
+    applications,
   };
 }
+

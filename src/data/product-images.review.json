@@ -1,0 +1,198 @@
+{
+  "DECOUPE 1200mm CCD CAMERA.pdf": {
+    "slug": "machine-de-decoupe-1200mm-avec-camera-ccd",
+    "mainImage": "/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "LASER 1390 UNE TETE 130-150W CCD MAMERA.pdf": {
+    "slug": "machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w",
+    "mainImage": "/images/products/main/machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "MACHINE CNC DECOUPE 1600x2500mm.pdf": {
+    "slug": "machine-decoupe-cnc-1600x2500mm-fraiseuse",
+    "mainImage": "/images/products/main/machine-decoupe-cnc-1600x2500mm-fraiseuse.webp",
+    "secondaryImages": [],
+    "status": "failed",
+    "selectedPage": 1,
+    "notes": "Rognage échoué: extract_area: bad extract area"
+  },
+  "MACHINE D'IMPRESSIN EASYJET UV ROLL TO ROLL 1800mm DEUX TETES I3200.pdf": {
+    "slug": "machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE D'IMPRESSION ECO 1800mm TETE-DEUX TETES I3200.pdf": {
+    "slug": "machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE D'IMPRESSION ECO SOLVENT 3200mm DEUX-QUATRE TETES I3200.pdf": {
+    "slug": "machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE D'IMPRESSION FLATBED UV 1290 TROIS TETES I3200.pdf": {
+    "slug": "machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200.webp",
+    "secondaryImages": [
+      "/images/products/secondary/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE D'IMPRESSION UV FLATED 2513 RICOH HEADS.pdf": {
+    "slug": "machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6",
+    "mainImage": "/images/products/main/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6.webp",
+    "secondaryImages": [
+      "/images/products/secondary/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE DE DECOUPE A4.pdf": {
+    "slug": "machine-de-decoupe-a4-plotter-de-decoupe-de-bureau",
+    "mainImage": "/images/products/main/machine-de-decoupe-a4-plotter-de-decoupe-de-bureau.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE DE DECOUPE CCD CAMERA 1200mm.pdf": {
+    "slug": "machine-de-decoupe-1200mm-avec-camera-ccd",
+    "mainImage": "/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE DTF 30CM DEUX TETEX I3200-XP600.pdf": {
+    "slug": "machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600",
+    "mainImage": "/images/products/main/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600.webp",
+    "secondaryImages": [
+      "/images/products/secondary/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE DTF 600cm TWO HEADS I3200-XP600.pdf": {
+    "slug": "machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600",
+    "mainImage": "/images/products/main/machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "MACHINE DTG 4050 DEUX TETES I3200.pdf": {
+    "slug": "machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE ECO SOLVENT 3200mm XLINE QUATRE TETES I3200.pdf": {
+    "slug": "machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "MACHINE ELECTRIC DE LAMINATION 1630mm.pdf": {
+    "slug": "lamineuse-electrique-industrielle-1630mm",
+    "mainImage": "/images/products/main/lamineuse-electrique-industrielle-1630mm.webp",
+    "secondaryImages": [
+      "/images/products/secondary/lamineuse-electrique-industrielle-1630mm-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE FLATBED DE DECOUPE FC5070E.pdf": {
+    "slug": "table-de-decoupe-a-plat-flatbed-fc5070e",
+    "mainImage": "/images/products/main/table-de-decoupe-a-plat-flatbed-fc5070e.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE GRAND FORMAT 3200mm 4TETES I3200.pdf": {
+    "slug": "machine-d-impression-eco-solvant-grand-format-3200mm-4-tetes-epson-i3200",
+    "mainImage": "/images/products/main/machine-d-impression-eco-solvant-grand-format-3200mm-4-tetes-epson-i3200.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "MACHINE SOLVENT ROLL TO ROLL 3200mm QUATRE TETES KONICA MINOLTA.pdf": {
+    "slug": "machine-d-impression-solvant-roll-to-roll-3200mm-4-tetes-konica-minolta-512i",
+    "mainImage": "/images/products/main/machine-d-impression-solvant-roll-to-roll-3200mm-4-tetes-konica-minolta-512i.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Produit isolé et détouré avec précision à partir de la page 1."
+  },
+  "MACHINE TABLE UV 6090 TROIS TETES XP600-I3200.pdf": {
+    "slug": "machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600",
+    "mainImage": "/images/products/main/machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE UV DTF 30CM TETES I3200-XP600.pdf": {
+    "slug": "machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600",
+    "mainImage": "/images/products/main/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600.webp",
+    "secondaryImages": [
+      "/images/products/secondary/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "MACHINE UV DTF 700mm 3PCS TETES I3200 U1.pdf": {
+    "slug": "machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1",
+    "mainImage": "/images/products/main/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1.webp",
+    "secondaryImages": [
+      "/images/products/secondary/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1-secondary-1.webp"
+    ],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "PRESSE A CHAUD PNEUMATIQUE 60x40.pdf": {
+    "slug": "presse-a-chaud-pneumatique-60x40cm",
+    "mainImage": "/images/products/main/presse-a-chaud-pneumatique-60x40cm.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  },
+  "TABLE DE DECOUPE FC7090U.pdf": {
+    "slug": "table-de-decoupe-a-plat-flatbed-fc7090u",
+    "mainImage": "/images/products/main/table-de-decoupe-a-plat-flatbed-fc7090u.webp",
+    "secondaryImages": [],
+    "status": "clean",
+    "selectedPage": 1,
+    "notes": "Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond."
+  }
+}

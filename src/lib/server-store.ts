@@ -18,6 +18,7 @@ const DATA_FILE = path.join(DATA_DIR, "store.json");
 type Product = Record<string, unknown> & { id: string };
 type Category = Record<string, unknown> & { id: string };
 type Quote = Record<string, unknown> & { id: string };
+type Devis = Record<string, unknown> & { id: string };
 
 /** Sections a member account can be granted access to. */
 export const ALL_PERMISSIONS = ["products", "categories", "quotes", "users"] as const;
@@ -41,6 +42,7 @@ interface Store {
   products: Product[];
   categories: Category[];
   quotes: Quote[];
+  devis: Devis[];
   users: User[];
 }
 
@@ -71,6 +73,7 @@ function seed(): Store {
     products: JSON.parse(JSON.stringify(productsSeed)),
     categories: JSON.parse(JSON.stringify(categoriesSeed)),
     quotes: [],
+    devis: [],
     users: [],
   };
 }
@@ -79,6 +82,7 @@ function readFileStore(): Store {
   try {
     const store = JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Store;
     store.users ??= []; // older stores predate the users table
+    store.devis ??= []; // older stores predate the devis table
     return store;
   } catch {
     const store = seed();
@@ -123,6 +127,14 @@ async function initDb(db: Sql): Promise<void> {
   `;
   await db`
     CREATE TABLE IF NOT EXISTS pelmel_quotes (
+      id text PRIMARY KEY,
+      data jsonb NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )
+  `;
+  await db`
+    CREATE TABLE IF NOT EXISTS pelmel_devis (
       id text PRIMARY KEY,
       data jsonb NOT NULL,
       created_at timestamptz NOT NULL DEFAULT now(),
@@ -424,6 +436,94 @@ export async function deleteQuote(id: string): Promise<boolean> {
   }
 
   const rows = await db`DELETE FROM pelmel_quotes WHERE id = ${id} RETURNING id`;
+  return rows.length > 0;
+}
+
+// --- Devis (admin-created quotations / sales) ---
+
+export async function getDevisList(): Promise<Devis[]> {
+  const db = await getDb();
+  if (!db) return readFileStore().devis;
+
+  const rows = await db`
+    SELECT data
+    FROM pelmel_devis
+    ORDER BY COALESCE(data->>'createdAt', '') DESC
+  `;
+  return rows.map((row) => rowData<Devis>(row)).filter(Boolean) as Devis[];
+}
+
+export async function getDevis(id: string): Promise<Devis | undefined> {
+  const db = await getDb();
+  if (!db) return readFileStore().devis.find((d) => d.id === id);
+  const [row] = await db`SELECT data FROM pelmel_devis WHERE id = ${id} LIMIT 1`;
+  return rowData<Devis>(row);
+}
+
+export async function createDevis(data: Record<string, unknown>): Promise<Devis> {
+  const db = await getDb();
+  const id = generateId();
+  const devis: Devis = {
+    ...data,
+    id,
+    number: `DEV-${new Date().getFullYear()}-${id.slice(-5).toUpperCase()}`,
+    status: "draft",
+    createdAt: now(),
+    updatedAt: now(),
+  } as Devis;
+
+  if (!db) {
+    const store = readFileStore();
+    store.devis.unshift(devis);
+    writeFileStore(store);
+    return devis;
+  }
+
+  await db`
+    INSERT INTO pelmel_devis (id, data)
+    VALUES (${devis.id}, ${JSON.stringify(devis)}::jsonb)
+  `;
+  return devis;
+}
+
+export async function updateDevis(id: string, data: Record<string, unknown>): Promise<Devis | undefined> {
+  const db = await getDb();
+
+  if (!db) {
+    const store = readFileStore();
+    const idx = store.devis.findIndex((d) => d.id === id);
+    if (idx === -1) return undefined;
+    // id/number/createdAt are immutable once issued.
+    const { id: _i, number: _n, createdAt: _c, ...patch } = data;
+    store.devis[idx] = { ...store.devis[idx], ...patch, updatedAt: now() };
+    writeFileStore(store);
+    return store.devis[idx];
+  }
+
+  const existing = await getDevis(id);
+  if (!existing) return undefined;
+  const { id: _i, number: _n, createdAt: _c, ...patch } = data;
+  const updated: Devis = { ...existing, ...patch, updatedAt: now() };
+  await db`
+    UPDATE pelmel_devis
+    SET data = ${JSON.stringify(updated)}::jsonb, updated_at = now()
+    WHERE id = ${id}
+  `;
+  return updated;
+}
+
+export async function deleteDevis(id: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    const store = readFileStore();
+    const next = store.devis.filter((d) => d.id !== id);
+    if (next.length === store.devis.length) return false;
+    store.devis = next;
+    writeFileStore(store);
+    return true;
+  }
+
+  const rows = await db`DELETE FROM pelmel_devis WHERE id = ${id} RETURNING id`;
   return rows.length > 0;
 }
 

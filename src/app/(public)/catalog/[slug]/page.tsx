@@ -23,7 +23,29 @@ export default function ProductPage({ params }: ProductPageProps) {
   const { slug } = use(params);
   const [product, setProduct] = useState<CatalogProduct | null | undefined>(undefined);
   const [relatedProducts, setRelatedProducts] = useState<CatalogProduct[]>([]);
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
+
+  const labels = {
+    fr: {
+      whatsappCTA: "Discuter sur WhatsApp",
+      whatsappMsg: (name: string) => `Bonjour, je suis intéressé par le produit : ${name}. Pouvez-vous me donner plus d'informations ?`,
+      downloadFiche: "Fiche technique (PDF)",
+    },
+    en: {
+      whatsappCTA: "Chat on WhatsApp",
+      whatsappMsg: (name: string) => `Hello, I am interested in the product: ${name}. Can you please provide more information?`,
+      downloadFiche: "Technical sheet (PDF)",
+    },
+    ar: {
+      whatsappCTA: "اتصل بنا على واتساب",
+      whatsappMsg: (name: string) => `مرحباً، أنا مهتم بالمنتج: ${name}. هل يمكنك تزويدي بمزيد من المعلومات؟`,
+      downloadFiche: "البطاقة التقنية (PDF)",
+    },
+  }[locale] || {
+    whatsappCTA: "Discuter sur WhatsApp",
+    whatsappMsg: (name: string) => `Bonjour, je suis intéressé par le produit : ${name}. Pouvez-vous me donner plus d'informations ?`,
+    downloadFiche: "Fiche technique (PDF)",
+  };
 
   useEffect(() => {
     let active = true;
@@ -83,7 +105,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {product.description}
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href={`/contact?product=${encodeURIComponent(product.name)}`}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-magenta px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-magenta/15 transition-all hover:bg-magenta-dark active:scale-[0.98]"
@@ -91,21 +113,35 @@ export default function ProductPage({ params }: ProductPageProps) {
                   {t.productDetail.requestQuote}
                   <MessageCircle size={15} />
                 </Link>
-                <Link
-                  href="/catalog"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-on-surface transition-all hover:border-cyan/40 hover:bg-cyan/5 active:scale-[0.98]"
+
+                <a
+                  href={`https://wa.me/212660400881?text=${encodeURIComponent(labels.whatsappMsg(product.name))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-emerald-600/15 transition-all hover:bg-emerald-700 active:scale-[0.98]"
                 >
-                  {t.productDetail.browseProducts}
-                  <ArrowRight size={15} className="rtl:rotate-180" />
-                </Link>
+                  {labels.whatsappCTA}
+                  <MessageCircle size={15} />
+                </a>
+
+                {product.catalogPdf && (
+                  <a
+                    href={product.catalogPdf}
+                    download
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-on-surface transition-all hover:border-cyan/40 hover:bg-cyan/5 active:scale-[0.98]"
+                  >
+                    {labels.downloadFiche}
+                    <FileText size={15} />
+                  </a>
+                )}
               </div>
             </div>
 
             <div className="lg:col-span-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-3 shadow-2xl shadow-black/[0.08]">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface-container">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white">
                   {product.imageUrl ? (
-                    <Image src={product.imageUrl} alt={`${product.name} product image`} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                    <Image src={product.imageUrl} alt={`${product.name} product image`} fill priority className="object-contain p-4" sizes="(max-width: 1024px) 100vw, 50vw" />
                   ) : (
                     <div className="flex h-full items-center justify-center text-on-surface-variant/30">
                       <FileText size={48} />

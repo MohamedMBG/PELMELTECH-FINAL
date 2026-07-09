@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PelMelTech - Fiche de Validation Visuelle</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      margin: 0;
+      padding: 30px;
+    }
+    header {
+      max-width: 1300px;
+      margin: 0 auto 30px auto;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h1 {
+      font-size: 26px;
+      margin: 0;
+    }
+    .stats {
+      display: flex;
+      gap: 12px;
+    }
+    .stat-box {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #e2e8f0;
+    }
+    .stat-box.clean { background-color: #dcfce7; color: #166534; }
+    .stat-box.acceptable { background-color: #e0f2fe; color: #0369a1; }
+    .stat-box.needs-crop { background-color: #fef9c3; color: #854d0e; }
+    .stat-box.failed { background-color: #fee2e2; color: #991b1b; }
+    
+    .grid {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .card.status-clean { border-left: 6px solid #22c55e; }
+    .card.status-acceptable { border-left: 6px solid #0ea5e9; }
+    .card.status-needs_manual_crop { border-left: 6px solid #eab308; }
+    .card.status-failed { border-left: 6px solid #ef4444; }
+    
+    .info h3 {
+      margin: 0 0 6px 0;
+      font-size: 18px;
+    }
+    .pdf-name {
+      font-size: 11px;
+      color: #64748b;
+      font-family: monospace;
+      margin-bottom: 12px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .status-badge.clean { background-color: #dcfce7; color: #166534; }
+    .status-badge.acceptable { background-color: #e0f2fe; color: #0369a1; }
+    .status-badge.needs_manual_crop { background-color: #fef9c3; color: #854d0e; }
+    .status-badge.failed { background-color: #fee2e2; color: #991b1b; }
+    
+    .img-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .img-title {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .img-box {
+      width: 220px;
+      height: 165px;
+      border: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .img-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .no-img {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .notes-section {
+      background-color: #f8fafc;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .notes-section strong {
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>PelMelTech - Visual Image Validation Review</h1>
+      <p style="margin: 4px 0 0 0; color: #64748b;">Review sheet showing the results of clean product visual re-extractions</p>
+    </div>
+    <div class="stats">
+      <div class="stat-box">Total: 23</div>
+      <div class="stat-box clean">Clean: 22</div>
+      <div class="stat-box acceptable">Acceptable: 0</div>
+      <div class="stat-box needs-crop">Needs Crop: 0</div>
+      <div class="stat-box failed">Failed: 1</div>
+    </div>
+  </header>
+  
+  <div class="grid">
+
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine de Découpe 1200mm avec Caméra CCD</h3>
+        <div class="pdf-name">DECOUPE 1200mm CCD CAMERA.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-de-decoupe-1200mm-avec-camera-ccd-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine Découpe Laser Co2 1390 avec Caméra CCD (Une Tête, 130W-150W)</h3>
+        <div class="pdf-name">LASER 1390 UNE TETE 130-150W CCD MAMERA.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-failed">
+      <div class="info">
+        <h3>Machine Découpe CNC 1600x2500mm (Fraiseuse)</h3>
+        <div class="pdf-name">MACHINE CNC DECOUPE 1600x2500mm.pdf</div>
+        <div class="status-badge failed">failed</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-decoupe-cnc-1600x2500mm-fraiseuse-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-decoupe-cnc-1600x2500mm-fraiseuse.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Rognage échoué: extract_area: bad extract area<br>
+        <strong>Recommended action:</strong> <span style="color: #b45309; font-weight: 600;">High priority: manually locate and upload product visual.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression EasyJet UV Roll-to-Roll 1800mm (2 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE D'IMPRESSIN EASYJET UV ROLL TO ROLL 1800mm DEUX TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression Éco-Solvant 1800mm (1 ou 2 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE D'IMPRESSION ECO 1800mm TETE-DEUX TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression Éco-Solvant 3200mm (2 ou 4 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE D'IMPRESSION ECO SOLVENT 3200mm DEUX-QUATRE TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression UV Flatbed 1290 (3 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE D'IMPRESSION FLATBED UV 1290 TROIS TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression UV Flatbed 2513 (Têtes Ricoh GEN5/GEN6)</h3>
+        <div class="pdf-name">MACHINE D'IMPRESSION UV FLATED 2513 RICOH HEADS.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine de Découpe A4 (Plotter de Découpe de Bureau)</h3>
+        <div class="pdf-name">MACHINE DE DECOUPE A4.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-de-decoupe-a4-plotter-de-decoupe-de-bureau-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-de-decoupe-a4-plotter-de-decoupe-de-bureau.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine de Découpe 1200mm avec Caméra CCD</h3>
+        <div class="pdf-name">MACHINE DE DECOUPE CCD CAMERA 1200mm.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-de-decoupe-1200mm-avec-camera-ccd-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression DTF 30cm (2 Têtes Epson i3200 / XP600)</h3>
+        <div class="pdf-name">MACHINE DTF 30CM DEUX TETEX I3200-XP600.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression DTF 60cm (2 Têtes Epson i3200 / XP600)</h3>
+        <div class="pdf-name">MACHINE DTF 600cm TWO HEADS I3200-XP600.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression DTG Direct-to-Garment 4050 (2 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE DTG 4050 DEUX TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression Éco-Solvant XLine 3200mm (4 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE ECO SOLVENT 3200mm XLINE QUATRE TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Lamineuse Électrique Industrielle 1630mm</h3>
+        <div class="pdf-name">MACHINE ELECTRIC DE LAMINATION 1630mm.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/lamineuse-electrique-industrielle-1630mm-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/lamineuse-electrique-industrielle-1630mm.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/lamineuse-electrique-industrielle-1630mm-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Table de Découpe à Plat Flatbed FC5070E</h3>
+        <div class="pdf-name">MACHINE FLATBED DE DECOUPE FC5070E.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/table-de-decoupe-a-plat-flatbed-fc5070e-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/table-de-decoupe-a-plat-flatbed-fc5070e.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression Éco-Solvant Grand Format 3200mm (4 Têtes Epson i3200)</h3>
+        <div class="pdf-name">MACHINE GRAND FORMAT 3200mm 4TETES I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-eco-solvant-grand-format-3200mm-4-tetes-epson-i3200-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-eco-solvant-grand-format-3200mm-4-tetes-epson-i3200.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression Solvant Roll-to-Roll 3200mm (4 Têtes Konica Minolta 512i)</h3>
+        <div class="pdf-name">MACHINE SOLVENT ROLL TO ROLL 3200mm QUATRE TETES KONICA MINOLTA.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-solvant-roll-to-roll-3200mm-4-tetes-konica-minolta-512i-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-solvant-roll-to-roll-3200mm-4-tetes-konica-minolta-512i.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Produit isolé et détouré avec précision à partir de la page 1.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression UV Flatbed de Table 6090 (3 Têtes Epson i3200 / XP600)</h3>
+        <div class="pdf-name">MACHINE TABLE UV 6090 TROIS TETES XP600-I3200.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression UV DTF 30cm (Têtes Epson i3200 / XP600)</h3>
+        <div class="pdf-name">MACHINE UV DTF 30CM TETES I3200-XP600.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Machine d'Impression UV DTF Roll-to-Roll 700mm (3 Têtes Epson i3200 U1)</h3>
+        <div class="pdf-name">MACHINE UV DTF 700mm 3PCS TETES I3200 U1.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        <br><br><strong>Secondary image available:</strong> <a href="../public/images/products/secondary/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1-secondary-1.webp" target="_blank">View secondary visual</a>
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Presse à Chaud Pneumatique 60x40cm</h3>
+        <div class="pdf-name">PRESSE A CHAUD PNEUMATIQUE 60x40.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/presse-a-chaud-pneumatique-60x40cm-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/presse-a-chaud-pneumatique-60x40cm.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+    <div class="card status-clean">
+      <div class="info">
+        <h3>Table de Découpe à Plat Flatbed FC7090U</h3>
+        <div class="pdf-name">TABLE DE DECOUPE FC7090U.pdf</div>
+        <div class="status-badge clean">clean</div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">ORIGINAL RENDER (Page 1)</div>
+        <div class="img-box">
+          <img src="../public/images/products/original-renders/table-de-decoupe-a-plat-flatbed-fc7090u-page-1.png" alt="Original Page Render">
+        </div>
+      </div>
+      
+      <div class="img-section">
+        <div class="img-title">EXTRACTED MAIN (1200x900)</div>
+        <div class="img-box" style="background-color: white;">
+          <img src="../public/images/products/main/table-de-decoupe-a-plat-flatbed-fc7090u.webp" alt="Extracted Main Visual">
+        </div>
+      </div>
+      
+      <div class="notes-section">
+        <strong>Source page:</strong> Page 1<br>
+        <strong>Extraction notes:</strong> Visuel extrait proprement des images embarquées (Embedded) sans texte ni fond.<br>
+        <strong>Recommended action:</strong> <span style="color: #166534; font-weight: 600;">Proceed with this asset.</span>
+        
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

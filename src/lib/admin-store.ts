@@ -4,7 +4,7 @@
  * is instantly visible on the public site for all visitors.
  */
 
-import { AdminProduct, AdminCategory, QuoteRequest, AdminUser, Permission } from "./admin-types";
+import { AdminProduct, AdminCategory, QuoteRequest, Devis, AdminUser, Permission } from "./admin-types";
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -71,6 +71,33 @@ export function updateQuoteStatus(id: string, status: QuoteRequest["status"]): P
 
 export function deleteQuote(id: string): Promise<{ ok: boolean }> {
   return api(`/api/quotes/${id}`, { method: "DELETE" });
+}
+
+// --- Devis (admin-created quotations) ---
+
+export type NewDevis = Pick<
+  Devis,
+  "customerName" | "company" | "email" | "phone" | "address" | "items" | "taxRate" | "notes"
+>;
+
+export function getDevisList(): Promise<Devis[]> {
+  return api("/api/devis");
+}
+
+export function getDevis(id: string): Promise<Devis> {
+  return api(`/api/devis/${id}`);
+}
+
+export function createDevis(data: NewDevis): Promise<Devis> {
+  return api("/api/devis", { method: "POST", body: JSON.stringify(data) });
+}
+
+export function updateDevis(id: string, data: Partial<Devis>): Promise<Devis> {
+  return api(`/api/devis/${id}`, { method: "PATCH", body: JSON.stringify(data) });
+}
+
+export function deleteDevis(id: string): Promise<{ ok: boolean }> {
+  return api(`/api/devis/${id}`, { method: "DELETE" });
 }
 
 // --- Users ---
