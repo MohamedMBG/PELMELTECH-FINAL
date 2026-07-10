@@ -493,8 +493,8 @@ export async function updateDevis(id: string, data: Record<string, unknown>): Pr
     const store = readFileStore();
     const idx = store.devis.findIndex((d) => d.id === id);
     if (idx === -1) return undefined;
-    // id/number/createdAt are immutable once issued.
-    const { id: _i, number: _n, createdAt: _c, ...patch } = data;
+    // id/number/createdAt and the createdBy trace are immutable once issued.
+    const { id: _i, number: _n, createdAt: _c, createdById: _ci, createdByName: _cn, ...patch } = data;
     store.devis[idx] = { ...store.devis[idx], ...patch, updatedAt: now() };
     writeFileStore(store);
     return store.devis[idx];

@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import { getDevisList, createDevis } from "@/lib/server-store";
-import { hasPerm, forbidden } from "@/lib/session";
+import { getSessionUser, can, forbidden } from "@/lib/session";
 import type { DevisItem } from "@/lib/admin-types";
 
 export async function GET() {
-  if (!(await hasPerm("quotes"))) return forbidden();
+  const user = await getSessionUser();
+  if (!can(user, "quotes")) return forbidden();
   return NextResponse.json(await getDevisList());
 }
 
 export async function POST(req: Request) {
-  if (!(await hasPerm("quotes"))) return forbidden();
+  const user = await getSessionUser();
+  if (!can(user, "quotes")) return forbidden();
   const data = await req.json();
 
   if (!data.customerName) {
@@ -37,6 +39,9 @@ export async function POST(req: Request) {
     items,
     taxRate: Math.max(0, Math.min(100, Number(data.taxRate) || 0)),
     notes: String(data.notes || "").slice(0, 2000),
+    // Trace: stamped server-side from the session, never trusted from the client.
+    createdById: user!.id,
+    createdByName: user!.name,
   });
   return NextResponse.json(devis, { status: 201 });
 }

@@ -85,6 +85,8 @@ export interface Devis {
   taxRate: number; // percent, e.g. 20
   notes: string;
   status: "draft" | "sent" | "accepted";
+  createdById: string; // admin who set the prices
+  createdByName: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -97,6 +97,11 @@ export default function DevisDetailPage() {
               <p className="text-2xl font-extrabold tracking-widest text-magenta">{d.quotation}</p>
               <p className="text-sm font-mono font-semibold text-on-surface mt-1">{devis.number}</p>
               <p className="text-xs text-on-surface-variant mt-1">{formatDate(devis.createdAt)}</p>
+              {devis.createdByName && (
+                <p className="text-xs text-on-surface-variant mt-1">
+                  {d.preparedBy}: <span className="font-semibold">{devis.createdByName}</span>
+                </p>
+              )}
             </div>
           </div>
 

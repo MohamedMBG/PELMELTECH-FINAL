@@ -488,6 +488,7 @@ const ar: Translations = {
       statusAccepted: "مقبول",
       date: "التاريخ",
       number: "رقم",
+      preparedBy: "أعدّه",
     },
     recentProducts: "المنتجات الأخيرة",
     viewAll: "عرض الكل",

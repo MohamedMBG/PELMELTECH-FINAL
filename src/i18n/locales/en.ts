@@ -477,6 +477,7 @@ const en = {
       statusAccepted: "Accepted",
       date: "Date",
       number: "No.",
+      preparedBy: "Prepared by",
     },
     recentProducts: "Recent Products",
     viewAll: "View All",

@@ -74,6 +74,7 @@ export default function DevisListPage() {
                 <tr className="border-b border-black/[0.06] bg-[#f8f9fb] text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface-variant/60">
                   <th className="py-3 px-5">{t.admin.devis.number}</th>
                   <th className="py-3 px-5">{t.admin.client}</th>
+                  <th className="py-3 px-5">{t.admin.devis.preparedBy}</th>
                   <th className="py-3 px-5">{t.admin.devis.date}</th>
                   <th className="py-3 px-5 text-center">{t.admin.status}</th>
                   <th className="py-3 px-5 text-right">{t.admin.devis.total}</th>
@@ -88,6 +89,7 @@ export default function DevisListPage() {
                       <p className="font-semibold text-on-surface">{d.customerName}</p>
                       {d.company && <p className="text-xs text-on-surface-variant">{d.company}</p>}
                     </td>
+                    <td className="py-4 px-5 text-on-surface-variant text-xs">{d.createdByName || "—"}</td>
                     <td className="py-4 px-5 text-on-surface-variant text-xs">{formatDate(d.createdAt)}</td>
                     <td className="py-4 px-5 text-center">
                       <span className="text-xs font-semibold text-on-surface-variant">{statusLabel[d.status]}</span>

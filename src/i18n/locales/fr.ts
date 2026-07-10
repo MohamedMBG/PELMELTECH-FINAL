@@ -494,6 +494,7 @@ const fr: Translations = {
       statusAccepted: "Accepté",
       date: "Date",
       number: "N°",
+      preparedBy: "Établi par",
     },
     recentProducts: "Produits récents",
     viewAll: "Tout voir",
