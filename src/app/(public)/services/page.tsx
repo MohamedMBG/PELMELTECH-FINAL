@@ -35,14 +35,6 @@ export default function ServicesPage() {
     image: SERVICE_IMAGES[i],
   }));
 
-  const workflow = [
-    { title: t.process.steps[0].title, desc: t.process.steps[0].desc },
-    { title: t.process.steps[1].title, desc: t.process.steps[1].desc },
-    { title: t.process.steps[2].title, desc: t.process.steps[2].desc },
-    { title: t.process.steps[2].title, desc: t.process.steps[2].desc },
-    { title: t.process.steps[3].title, desc: t.process.steps[3].desc },
-  ];
-
   return (
     <>
       <section className="relative section-y px-4 md:px-16 overflow-hidden">
@@ -117,38 +109,76 @@ export default function ServicesPage() {
           />
 
           <div className="relative">
-            <motion.div
-              className="hidden md:block absolute top-10 left-[10%] right-[10%] h-[2px] origin-left"
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="w-full h-full bg-gradient-to-r from-magenta/20 via-cyan-dark/30 to-magenta/20" />
-            </motion.div>
+            {/* Connector track spans only between the first and last node centers (1/8 → 7/8) */}
+            <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-[2px] -translate-y-1/2">
+              <div className="absolute inset-0 bg-black/5" />
+              <motion.div
+                className="absolute inset-0 origin-left bg-gradient-to-r from-magenta/40 via-cyan-dark/50 to-magenta/40"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              />
+              {/* Traveling pulse conveys "process flow" */}
+              <motion.div
+                className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-cyan-dark shadow-[0_0_12px_2px_rgba(0,180,216,0.6)]"
+                initial={{ left: "0%", opacity: 0 }}
+                whileInView={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 2, delay: 0.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.5 }}
+              />
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {t.process.steps.map((step, i) => {
                 const Icon = WORKFLOW_ICONS[i] || WORKFLOW_ICONS[0];
                 const color = WORKFLOW_COLORS[i] || WORKFLOW_COLORS[0];
+                const delay = 0.2 + i * 0.15;
                 return (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.7, delay: 0.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
                     className="relative z-10 text-center group"
                   >
-                    <div className="relative mx-auto mb-6 w-20 h-20">
+                    <motion.div
+                      className="relative mx-auto mb-6 w-20 h-20"
+                      initial={{ scale: 0.3, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ type: "spring", stiffness: 220, damping: 15, delay: delay + 0.15 }}
+                    >
                       <motion.div
-                        className="relative w-20 h-20 bg-white border border-black/5 rounded-full flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500"
+                        className="relative z-10 w-20 h-20 bg-white border border-black/5 rounded-full flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ type: "spring", stiffness: 400, damping: 15 }}
                       >
                         <Icon size={28} className={`${color} transition-transform duration-300 group-hover:scale-110`} />
                       </motion.div>
-                    </div>
+                      {/* Draw-in ring */}
+                      <svg className="absolute inset-0 w-full h-full -rotate-90 z-0" viewBox="0 0 80 80">
+                        <motion.circle
+                          cx="40" cy="40" r="39" fill="none" strokeWidth="2" strokeLinecap="round"
+                          className="stroke-magenta/40"
+                          initial={{ pathLength: 0 }}
+                          whileInView={{ pathLength: 1 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ duration: 1, delay: delay + 0.25, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </svg>
+                      {/* Step number badge */}
+                      <motion.span
+                        className="absolute -top-1 -right-1 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-on-surface text-white text-[11px] font-bold shadow-md"
+                        initial={{ scale: 0, opacity: 0 }}
+                        whileInView={{ scale: 1, opacity: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 14, delay: delay + 0.4 }}
+                      >
+                        {i + 1}
+                      </motion.span>
+                    </motion.div>
                     <h4 className="text-lg font-bold text-on-surface mb-2">{step.title}</h4>
                     <p className="text-sm text-on-surface-variant">{step.desc}</p>
                   </motion.div>
