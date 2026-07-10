@@ -259,7 +259,7 @@ export default function NewDevisPage() {
             {buyItems.length > 0 && (
               <div className="flex justify-between pt-3 border-t border-black/[0.06] text-sm">
                 <span className="text-on-surface-variant">{d.buySubtotal}</span>
-                <span className="font-semibold">${buyTotal.toFixed(2)}</span>
+                <span className="font-semibold">{buyTotal.toFixed(2)} DH</span>
               </div>
             )}
           </section>
@@ -278,7 +278,7 @@ export default function NewDevisPage() {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">{d.subtotal}</span>
-                <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                <span className="font-semibold">{subtotal.toFixed(2)} DH</span>
               </div>
               <div className="flex items-center justify-between gap-2">
                 <span className="text-on-surface-variant flex items-center gap-2">
@@ -294,11 +294,11 @@ export default function NewDevisPage() {
                   />
                   %
                 </span>
-                <span className="font-semibold">${tax.toFixed(2)}</span>
+                <span className="font-semibold">{tax.toFixed(2)} DH</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-black/[0.06] text-base">
                 <span className="font-bold">{d.total}</span>
-                <span className="font-extrabold text-magenta">${total.toFixed(2)}</span>
+                <span className="font-extrabold text-magenta">{total.toFixed(2)} DH</span>
               </div>
             </div>
           </section>

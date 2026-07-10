@@ -283,7 +283,7 @@ export function getProductDetail(product: Product): ProductDetail {
   const details = categoryDetails[product.subcategory] ?? categoryDetails["Standard Printers"];
   const priceDisplay = product.quoteOnly || product.price === null
     ? "Sur devis / Request quote"
-    : `$${product.price.toFixed(2)}${product.specifications?.usageType ? `/${product.specifications.usageType}` : ""}`;
+    : `${product.price.toFixed(2)} DH${product.specifications?.usageType ? `/${product.specifications.usageType}` : ""}`;
 
   const fiche: TechnicalRow[] = [
     { label: "Produit / Product", value: product.name },

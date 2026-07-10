@@ -132,8 +132,8 @@ export default function DevisDetailPage() {
                 <tr key={i}>
                   <td className="py-2.5 text-on-surface">{it.description}</td>
                   <td className="py-2.5 text-right text-on-surface-variant">{it.quantity}</td>
-                  <td className="py-2.5 text-right text-on-surface-variant">${it.unitPrice.toFixed(2)}</td>
-                  <td className="py-2.5 text-right font-semibold text-on-surface">${lineAmount(it).toFixed(2)}</td>
+                  <td className="py-2.5 text-right text-on-surface-variant">{it.unitPrice.toFixed(2)} DH</td>
+                  <td className="py-2.5 text-right font-semibold text-on-surface">{lineAmount(it).toFixed(2)} DH</td>
                 </tr>
               ))}
             </tbody>
@@ -143,15 +143,15 @@ export default function DevisDetailPage() {
             <div className="w-full max-w-xs space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">{d.subtotal}</span>
-                <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                <span className="font-semibold">{subtotal.toFixed(2)} DH</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">{d.tax} ({devis.taxRate}%)</span>
-                <span className="font-semibold">${tax.toFixed(2)}</span>
+                <span className="font-semibold">{tax.toFixed(2)} DH</span>
               </div>
               <div className="flex justify-between pt-2 border-t-2 border-on-surface text-base">
                 <span className="font-bold">{d.total}</span>
-                <span className="font-extrabold text-magenta">${total.toFixed(2)}</span>
+                <span className="font-extrabold text-magenta">{total.toFixed(2)} DH</span>
               </div>
             </div>
           </div>
@@ -175,8 +175,8 @@ export default function DevisDetailPage() {
                     <tr key={i}>
                       <td className="py-2.5 text-on-surface">{it.description}</td>
                       <td className="py-2.5 text-right text-on-surface-variant">{it.quantity}</td>
-                      <td className="py-2.5 text-right text-on-surface-variant">${it.unitPrice.toFixed(2)}</td>
-                      <td className="py-2.5 text-right font-semibold text-on-surface">${lineAmount(it).toFixed(2)}</td>
+                      <td className="py-2.5 text-right text-on-surface-variant">{it.unitPrice.toFixed(2)} DH</td>
+                      <td className="py-2.5 text-right font-semibold text-on-surface">{lineAmount(it).toFixed(2)} DH</td>
                     </tr>
                   ))}
                 </tbody>
@@ -184,7 +184,7 @@ export default function DevisDetailPage() {
               <div className="flex justify-end">
                 <div className="w-full max-w-xs flex justify-between text-sm border-t-2 border-on-surface pt-2">
                   <span className="font-bold">{d.buySubtotal}</span>
-                  <span className="font-extrabold text-on-surface">${buyTotal.toFixed(2)}</span>
+                  <span className="font-extrabold text-on-surface">{buyTotal.toFixed(2)} DH</span>
                 </div>
               </div>
             </div>

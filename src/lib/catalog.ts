@@ -102,7 +102,7 @@ export async function getSubcategories(parentId: string): Promise<CatalogCategor
 export function formatPrice(product: CatalogProduct, quoteLabel?: string): string {
   if (product.quoteOnly || product.price === null) return quoteLabel || "Request quote";
   const unit = product.specifications?.usageType;
-  const formatted = `$${product.price.toFixed(2)}`;
+  const formatted = `${product.price.toFixed(2)} DH`;
   return unit ? `${formatted}/${unit}` : formatted;
 }
 

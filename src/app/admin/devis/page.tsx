@@ -95,7 +95,7 @@ export default function DevisListPage() {
                       <span className="text-xs font-semibold text-on-surface-variant">{statusLabel[d.status]}</span>
                     </td>
                     <td className="py-4 px-5 text-right font-bold text-magenta">
-                      ${devisTotal(d).toFixed(2)}
+                      {devisTotal(d).toFixed(2)} DH
                     </td>
                     <td className="py-4 px-5 text-right">
                       <div className="flex items-center justify-end gap-1">

@@ -184,7 +184,7 @@ export default function ProductsPage() {
                         {product.quoteOnly ? (
                           <span className="italic text-xs">{t.admin.requestQuote}</span>
                         ) : (
-                          `$${product.price?.toFixed(2)}`
+                          `${product.price?.toFixed(2)} DH`
                         )}
                       </td>
                       <td className="py-3 px-5 text-center">

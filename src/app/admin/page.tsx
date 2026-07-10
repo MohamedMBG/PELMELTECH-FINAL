@@ -71,7 +71,7 @@ export default function AdminDashboard() {
   ];
 
   const money = (n: number) =>
-    n >= 1000 ? `$${(n / 1000).toFixed(1)}k` : `$${n.toFixed(0)}`;
+    n >= 1000 ? `${(n / 1000).toFixed(1)}k DH` : `${n.toFixed(0)} DH`;
 
   const metrics = [
     { label: t.admin.catalogValue, value: money(stats.catalogValue), sub: t.admin.pricedProducts, icon: DollarSign },
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
                       </td>
                       <td className="py-3 pr-4 text-on-surface-variant">{product.categoryName}</td>
                       <td className="py-3 pr-4 font-mono text-on-surface-variant">
-                        {product.quoteOnly ? <span className="italic text-xs">{t.admin.quote}</span> : `$${product.price?.toFixed(2)}`}
+                        {product.quoteOnly ? <span className="italic text-xs">{t.admin.quote}</span> : `${product.price?.toFixed(2)} DH`}
                       </td>
                       <td className="py-3"><StatusBadge status={product.status} /></td>
                     </tr>
