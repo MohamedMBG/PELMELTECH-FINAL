@@ -105,6 +105,16 @@ const ar: Translations = {
     browseCatalog: "تصفح الكتالوج",
   },
 
+  machines: {
+    tag: "أسطول آلاتنا",
+    title: "الآلات التي",
+    titleAccent: "تصنع الفرق",
+    description:
+      "طابعات DTF، إيكو سولفنت، UV فلاتبيد، قص ليزر وأكثر — معدات صناعية جاهزة للإنتاج.",
+    viewAll: "عرض جميع الآلات",
+    discover: "اكتشف",
+  },
+
   portfolio: {
     tag: "أعمالنا",
     title: "أعمال مميزة",
@@ -469,6 +479,9 @@ const ar: Translations = {
       unitPrice: "سعر الوحدة",
       amount: "المبلغ",
       addLine: "إضافة بند",
+      buyItems: "المشتريات",
+      addBuy: "إضافة شراء",
+      buySubtotal: "إجمالي المشتريات",
       pickProduct: "اختر منتجًا…",
       taxRate: "الضريبة (%)",
       subtotal: "المجموع الفرعي",

@@ -103,6 +103,16 @@ const en = {
     browseCatalog: "Browse Catalog",
   },
 
+  machines: {
+    tag: "Our Machine Fleet",
+    title: "The machines that",
+    titleAccent: "make the difference",
+    description:
+      "DTF, eco-solvent, UV flatbed, laser cutting and more — industrial equipment ready to produce.",
+    viewAll: "View all machines",
+    discover: "Discover",
+  },
+
   portfolio: {
     tag: "Portfolio",
     title: "Featured Work",
@@ -458,6 +468,9 @@ const en = {
       unitPrice: "Unit Price",
       amount: "Amount",
       addLine: "Add line",
+      buyItems: "Purchases (Buy)",
+      addBuy: "Add purchase",
+      buySubtotal: "Purchases total",
       pickProduct: "Pick a product…",
       taxRate: "Tax rate (%)",
       subtotal: "Subtotal",

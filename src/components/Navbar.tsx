@@ -83,63 +83,65 @@ export default function Navbar() {
       }`}
     >
       <nav className="flex justify-between items-center h-16 lg:h-20 px-4 sm:px-6 md:px-16 max-w-[1280px] mx-auto">
-        <Link href="/" className="flex items-center gap-1.5">
+        <Link href="/" className="group flex items-center gap-1.5">
           <Image
             src="/images/pelmeltech/logo_pelmeltech.png"
             alt="PelmelTech"
             width={44}
             height={44}
-            className="h-9 lg:h-10 w-auto"
+            className="h-9 lg:h-10 w-auto transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
             priority
           />
           <span className="text-[20px] lg:text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
-            elmel<span className="text-cyan">Tech</span>
+            elmel<span className="text-cyan transition-colors group-hover:text-magenta">Tech</span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-8">
-          {NAV_LINKS.map((link) =>
-            link.hasMegaMenu ? (
-              <div
-                key={link.href}
-                className="relative"
-                onMouseEnter={openMegaMenu}
-                onMouseLeave={closeMegaMenu}
-              >
+        <div className="hidden lg:flex items-center gap-1">
+          {NAV_LINKS.map((link) => {
+            const active = pathname === link.href || (link.hasMegaMenu && megaMenuOpen);
+            const inner = (
+              <>
+                <span className="relative z-10 flex items-center gap-1">
+                  {link.label}
+                  {link.hasMegaMenu && (
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${megaMenuOpen ? "rotate-180" : ""}`}
+                    />
+                  )}
+                </span>
+                {/* hover pill */}
+                <span className="absolute inset-0 rounded-full bg-surface-container-low opacity-0 scale-90 group-hover/nav:opacity-100 group-hover/nav:scale-100 transition-all duration-200" />
+                {/* underline */}
+                <span
+                  className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-magenta transition-all duration-300 ${
+                    active ? "w-5" : "w-0 group-hover/nav:w-5"
+                  }`}
+                />
+              </>
+            );
+            const cls = `group/nav relative flex items-center px-3.5 py-2 rounded-full text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
+              active ? "text-magenta" : "text-on-surface-variant hover:text-cyan-dark"
+            }`;
+            return link.hasMegaMenu ? (
+              <div key={link.href} onMouseEnter={openMegaMenu} onMouseLeave={closeMegaMenu}>
                 <button
                   onClick={() => setMegaMenuOpen((v) => !v)}
                   aria-expanded={megaMenuOpen}
                   aria-haspopup="true"
-                  className={`flex items-center gap-1 text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
-                    pathname === link.href || megaMenuOpen
-                      ? "text-magenta"
-                      : "text-on-surface-variant hover:text-cyan-dark"
-                  }`}
+                  className={cls}
                 >
-                  {link.label}
-                  <ChevronDown
-                    size={14}
-                    className={`transition-transform duration-200 ${
-                      megaMenuOpen ? "rotate-180" : ""
-                    }`}
-                  />
+                  {inner}
                 </button>
               </div>
             ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
-                  pathname === link.href
-                    ? "text-magenta after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:bg-magenta"
-                    : "text-on-surface-variant hover:text-cyan-dark"
-                }`}
-              >
-                {link.label}
+              <Link key={link.href} href={link.href} className={cls}>
+                {inner}
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-3">
@@ -165,9 +167,9 @@ export default function Navbar() {
             href="https://wa.me/15550123456"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full text-xs font-bold tracking-[0.1em] uppercase hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-green-500/20"
+            className="group hidden sm:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full text-xs font-bold tracking-[0.1em] uppercase hover:brightness-110 hover:-translate-y-0.5 transition-all active:scale-95 shadow-lg shadow-green-500/20 hover:shadow-green-500/40"
           >
-            <MessageCircle size={14} className="shrink-0" />
+            <MessageCircle size={14} className="shrink-0 group-hover:rotate-12 transition-transform" />
             <span>WhatsApp</span>
           </a>
 

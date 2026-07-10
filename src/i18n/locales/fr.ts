@@ -105,6 +105,16 @@ const fr: Translations = {
     browseCatalog: "Voir le catalogue",
   },
 
+  machines: {
+    tag: "Notre parc machines",
+    title: "Les machines qui",
+    titleAccent: "font la différence",
+    description:
+      "Imprimantes DTF, éco-solvant, UV flatbed, découpe laser et plus — un équipement industriel prêt à produire.",
+    viewAll: "Voir toutes les machines",
+    discover: "Découvrir",
+  },
+
   portfolio: {
     tag: "Réalisations",
     title: "Travaux en vedette",
@@ -475,6 +485,9 @@ const fr: Translations = {
       unitPrice: "Prix unitaire",
       amount: "Montant",
       addLine: "Ajouter une ligne",
+      buyItems: "Achats",
+      addBuy: "Ajouter un achat",
+      buySubtotal: "Total des achats",
       pickProduct: "Choisir un produit…",
       taxRate: "TVA (%)",
       subtotal: "Sous-total",

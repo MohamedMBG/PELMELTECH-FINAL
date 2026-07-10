@@ -5,6 +5,7 @@ import CapabilityStrip from "@/components/CapabilityStrip";
 import ServicesPreview from "@/components/ServicesPreview";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import CatalogPreview from "@/components/CatalogPreview";
+import MachinesShowcase from "@/components/MachinesShowcase";
 import PortfolioPreview from "@/components/PortfolioPreview";
 import ProcessSection from "@/components/ProcessSection";
 import InvestorSection from "@/components/InvestorSection";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <ServicesPreview />
       <WhyChooseUs />
       <CatalogPreview />
+      <MachinesShowcase />
       <PortfolioPreview />
       <ProcessSection />
       <InvestorSection />

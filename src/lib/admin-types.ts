@@ -82,6 +82,7 @@ export interface Devis {
   phone: string;
   address: string;
   items: DevisItem[];
+  buyItems: DevisItem[]; // purchases/costs, priced manually, no tax
   taxRate: number; // percent, e.g. 20
   notes: string;
   status: "draft" | "sent" | "accepted";

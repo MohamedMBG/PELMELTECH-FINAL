@@ -77,7 +77,7 @@ export function deleteQuote(id: string): Promise<{ ok: boolean }> {
 
 export type NewDevis = Pick<
   Devis,
-  "customerName" | "company" | "email" | "phone" | "address" | "items" | "taxRate" | "notes"
+  "customerName" | "company" | "email" | "phone" | "address" | "items" | "buyItems" | "taxRate" | "notes"
 >;
 
 export function getDevisList(): Promise<Devis[]> {
