@@ -26,6 +26,7 @@ export default function NewDevisPage() {
   const [taxRate, setTaxRate] = useState(20);
   const [notes, setNotes] = useState("");
   const [items, setItems] = useState<DevisItem[]>([{ ...emptyItem }]);
+  const [buyItems, setBuyItems] = useState<DevisItem[]>([]);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
@@ -43,9 +44,14 @@ export default function NewDevisPage() {
     updateItem(idx, { description: p.name, unitPrice: typeof p.price === "number" ? p.price : 0 });
   }
 
+  function updateBuyItem(idx: number, patch: Partial<DevisItem>) {
+    setBuyItems((prev) => prev.map((it, i) => (i === idx ? { ...it, ...patch } : it)));
+  }
+
   const subtotal = items.reduce((s, it) => s + lineAmount(it), 0);
   const tax = subtotal * (taxRate / 100);
   const total = subtotal + tax;
+  const buyTotal = buyItems.reduce((s, it) => s + lineAmount(it), 0);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -63,6 +69,7 @@ export default function NewDevisPage() {
         phone: phone.trim(),
         address: address.trim(),
         items: cleanItems,
+        buyItems: buyItems.filter((it) => it.description.trim()),
         taxRate,
         notes: notes.trim(),
       });
@@ -187,6 +194,74 @@ export default function NewDevisPage() {
               <Plus size={16} />
               {d.addLine}
             </button>
+          </section>
+
+          {/* Buy / purchases */}
+          <section className="bg-white rounded-2xl border border-black/[0.06] p-5 md:p-6 space-y-3">
+            <h2 className="text-sm font-bold text-on-surface">{d.buyItems}</h2>
+
+            {buyItems.map((it, idx) => (
+              <div key={idx} className="grid grid-cols-12 gap-2 items-start">
+                <div className="col-span-12 md:col-span-5">
+                  <input
+                    className={inputCls}
+                    placeholder={d.itemDescription}
+                    value={it.description}
+                    onChange={(e) => updateBuyItem(idx, { description: e.target.value })}
+                  />
+                </div>
+                <div className="col-span-3 md:col-span-2">
+                  <input
+                    type="number"
+                    min={0}
+                    step={1}
+                    className={inputCls}
+                    placeholder={d.quantity}
+                    value={it.quantity}
+                    onChange={(e) => updateBuyItem(idx, { quantity: Number(e.target.value) })}
+                  />
+                </div>
+                <div className="col-span-4 md:col-span-2">
+                  <input
+                    type="number"
+                    min={0}
+                    step={0.01}
+                    className={inputCls}
+                    placeholder={d.unitPrice}
+                    value={it.unitPrice}
+                    onChange={(e) => updateBuyItem(idx, { unitPrice: Number(e.target.value) })}
+                  />
+                </div>
+                <div className="col-span-4 md:col-span-2 py-2 text-sm font-semibold text-on-surface text-right">
+                  ${lineAmount(it).toFixed(2)}
+                </div>
+                <div className="col-span-1 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setBuyItems((prev) => prev.filter((_, i) => i !== idx))}
+                    className="p-2 rounded-lg hover:bg-red-50 text-on-surface-variant hover:text-red-500 transition-colors"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setBuyItems((prev) => [...prev, { ...emptyItem }])}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-dark hover:text-cyan mt-1"
+            >
+              <Plus size={16} />
+              {d.addBuy}
+            </button>
+
+            {buyItems.length > 0 && (
+              <div className="flex justify-between pt-3 border-t border-black/[0.06] text-sm">
+                <span className="text-on-surface-variant">{d.buySubtotal}</span>
+                <span className="font-semibold">${buyTotal.toFixed(2)}</span>
+              </div>
+            )}
           </section>
 
           {/* Totals + notes */}

@@ -82,7 +82,7 @@ export default function Navbar() {
           : "bg-white/60 backdrop-blur-md"
       }`}
     >
-      <nav className="flex justify-between items-center h-16 lg:h-20 px-4 sm:px-6 md:px-16 max-w-[1280px] mx-auto">
+      <nav className="flex justify-between items-center gap-4 h-16 lg:h-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1280px] mx-auto">
         <Link href="/" className="group flex items-center gap-1.5">
           <Image
             src="/images/pelmeltech/logo_pelmeltech.png"
@@ -98,7 +98,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden xl:flex items-center gap-0.5">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href || (link.hasMegaMenu && megaMenuOpen);
             const inner = (
@@ -122,7 +122,7 @@ export default function Navbar() {
                 />
               </>
             );
-            const cls = `group/nav relative flex items-center px-3.5 py-2 rounded-full text-xs font-bold tracking-[0.1em] uppercase transition-colors ${
+            const cls = `group/nav relative flex items-center px-3 py-2 rounded-full text-[11px] font-bold tracking-[0.08em] uppercase whitespace-nowrap transition-colors ${
               active ? "text-magenta" : "text-on-surface-variant hover:text-cyan-dark"
             }`;
             return link.hasMegaMenu ? (
@@ -175,7 +175,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-on-surface"
+            className="xl:hidden p-2 text-on-surface"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
           >
@@ -200,7 +200,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 overflow-hidden"
+            className="xl:hidden bg-white/95 backdrop-blur-xl border-t border-black/5 overflow-hidden"
           >
             <div className="flex flex-col p-5 sm:p-6 gap-1 max-h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-5rem)] overflow-y-auto">
               {/* Mobile language switcher */}

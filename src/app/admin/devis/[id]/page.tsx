@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { getDevis, updateDevis } from "@/lib/admin-store";
-import { lineAmount, devisSubtotal, devisTax, devisTotal } from "@/lib/devis";
+import { lineAmount, devisSubtotal, devisTax, devisTotal, devisBuyTotal } from "@/lib/devis";
 import type { Devis } from "@/lib/admin-types";
 import { useLanguage } from "@/i18n";
 
@@ -44,6 +44,8 @@ export default function DevisDetailPage() {
   const subtotal = devisSubtotal(devis);
   const tax = devisTax(devis);
   const total = devisTotal(devis);
+  const buyItems = devis.buyItems ?? [];
+  const buyTotal = devisBuyTotal(devis);
 
   return (
     <>
@@ -153,6 +155,40 @@ export default function DevisDetailPage() {
               </div>
             </div>
           </div>
+
+          {buyItems.length > 0 && (
+            <div className="mt-10">
+              <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-on-surface-variant/60 mb-2">
+                {d.buyItems}
+              </p>
+              <table className="w-full text-sm mb-4">
+                <thead>
+                  <tr className="border-b-2 border-on-surface text-[10px] font-bold tracking-[0.1em] uppercase text-on-surface-variant/70">
+                    <th className="py-2 text-left">{d.itemDescription}</th>
+                    <th className="py-2 text-right w-16">{d.quantity}</th>
+                    <th className="py-2 text-right w-28">{d.unitPrice}</th>
+                    <th className="py-2 text-right w-28">{d.amount}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/[0.06]">
+                  {buyItems.map((it, i) => (
+                    <tr key={i}>
+                      <td className="py-2.5 text-on-surface">{it.description}</td>
+                      <td className="py-2.5 text-right text-on-surface-variant">{it.quantity}</td>
+                      <td className="py-2.5 text-right text-on-surface-variant">${it.unitPrice.toFixed(2)}</td>
+                      <td className="py-2.5 text-right font-semibold text-on-surface">${lineAmount(it).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="flex justify-end">
+                <div className="w-full max-w-xs flex justify-between text-sm border-t-2 border-on-surface pt-2">
+                  <span className="font-bold">{d.buySubtotal}</span>
+                  <span className="font-extrabold text-on-surface">${buyTotal.toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {devis.notes && (
             <div className="mt-10 pt-4 border-t border-black/[0.06]">

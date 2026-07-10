@@ -16,26 +16,27 @@ const IMAGES = [
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+// ponytail: dropped animated blur() — GPU-expensive filter is the main jank source
 const slideVariants = {
   initial: (dir: number) => ({
-    x: dir > 0 ? "40%" : "-40%",
+    x: dir > 0 ? "35%" : "-35%",
     opacity: 0,
-    scale: 0.94,
-    filter: "blur(6px)",
+    scale: 0.96,
   }),
   animate: {
     x: 0,
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? "-30%" : "30%",
+    x: dir > 0 ? "-25%" : "25%",
     opacity: 0,
-    scale: 0.96,
-    filter: "blur(4px)",
+    scale: 0.97,
   }),
 };
+
+// spring gives natural momentum instead of a fixed-duration ramp
+const slideSpring = { type: "spring", stiffness: 260, damping: 32, mass: 0.9 } as const;
 
 export default function ServicesPreview() {
   const [current, setCurrent] = useState(0);
@@ -148,7 +149,7 @@ export default function ServicesPreview() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                transition={{ duration: 0.55, ease }}
+                transition={slideSpring}
                 className="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.15fr_1fr]"
               >
                 <div className="relative h-64 md:h-full overflow-hidden">
