@@ -43,10 +43,9 @@ export type PelmelBotContent = {
 };
 
 export const PELMELBOT_CONTACT = {
-  phonePrimary: "+212 6 60 40 08 81",
-  phoneSecondary: "+212 5 20 73 71 32",
+  phonePrimary: "0660400881",
   email: "pelmeltechpurchasing@gmail.com",
-  whatsApp: "+212 6 60 40 08 81",
+  whatsApp: "0660400881",
 };
 
 const whatsAppBaseUrl = "https://wa.me/212660400881?text=";
@@ -169,7 +168,7 @@ const enUi: PelmelBotUi = {
   typingLabel: "PelmelBot is typing",
   contactLinksLabel: "PelmelTech contact details",
   contactDetails:
-    "Phone: +212 6 60 40 08 81\nPhone: +212 5 20 73 71 32\nEmail: pelmeltechpurchasing@gmail.com\nWhatsApp: +212 6 60 40 08 81",
+    "Phone: 0660400881\nEmail: pelmeltechpurchasing@gmail.com\nWhatsApp: 0660400881",
   contactPhoneLabel: "Phone:",
   contactEmailLabel: "Email:",
   contactWhatsAppLabel: "WhatsApp:",
@@ -193,7 +192,7 @@ const frUi: PelmelBotUi = {
   typingLabel: "PelmelBot écrit",
   contactLinksLabel: "Coordonnées PelmelTech",
   contactDetails:
-    "Téléphone : +212 6 60 40 08 81\nTéléphone : +212 5 20 73 71 32\nEmail : pelmeltechpurchasing@gmail.com\nWhatsApp : +212 6 60 40 08 81",
+    "Téléphone : 0660400881\nEmail : pelmeltechpurchasing@gmail.com\nWhatsApp : 0660400881",
   contactPhoneLabel: "Téléphone :",
   contactEmailLabel: "Email :",
   contactWhatsAppLabel: "WhatsApp :",
@@ -217,7 +216,7 @@ const arUi: PelmelBotUi = {
   typingLabel: "PelmelBot يكتب",
   contactLinksLabel: "بيانات التواصل مع PelmelTech",
   contactDetails:
-    "الهاتف: +212 6 60 40 08 81\nالهاتف: +212 5 20 73 71 32\nالبريد الإلكتروني: pelmeltechpurchasing@gmail.com\nواتساب: +212 6 60 40 08 81",
+    "الهاتف: 0660400881\nالبريد الإلكتروني: pelmeltechpurchasing@gmail.com\nواتساب: 0660400881",
   contactPhoneLabel: "الهاتف:",
   contactEmailLabel: "البريد الإلكتروني:",
   contactWhatsAppLabel: "واتساب:",

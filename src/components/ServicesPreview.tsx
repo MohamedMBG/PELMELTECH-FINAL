@@ -12,7 +12,12 @@ const IMAGES = [
   "/images/pelmeltech/service-event-printing.webp",
   "/images/pelmeltech/service-banner-printing.webp",
   "/images/pelmeltech/service-panel-printing.webp",
+  "/images/pelmeltech/service-repair-maintenance.png",
 ];
+
+// swipe (touch) / drag (cursor) commit threshold
+const DRAG_THRESHOLD = 80;
+const DRAG_VELOCITY = 400;
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -150,7 +155,14 @@ export default function ServicesPreview() {
                 animate="animate"
                 exit="exit"
                 transition={slideSpring}
-                className="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.15fr_1fr]"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -DRAG_THRESHOLD || info.velocity.x < -DRAG_VELOCITY) paginate(1);
+                  else if (info.offset.x > DRAG_THRESHOLD || info.velocity.x > DRAG_VELOCITY) paginate(-1);
+                }}
+                className="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.15fr_1fr] cursor-grab active:cursor-grabbing"
               >
                 <div className="relative h-64 md:h-full overflow-hidden">
                   <motion.div

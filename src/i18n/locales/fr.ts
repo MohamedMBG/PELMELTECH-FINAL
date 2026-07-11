@@ -11,13 +11,21 @@ const fr: Translations = {
   },
 
   hero: {
-    badge: "Solutions d'impression premium",
     headline: ["Des impressions", "d'exception", "conçues pour", "les marques."],
     description:
-      "Bannières grand format, panneaux d'exposition et supports événementiels — conçus avec précision pour les marques exigeantes.",
+      "Fabricant marocain de machines d’impression et de solutions grand format, PelmelTech accompagne les professionnels avec des équipements fiables, précis et adaptés aux exigences du marché.",
     exploreWork: "Découvrir nos réalisations",
     requestQuote: "Demander un devis",
     scrollToExplore: "Défiler pour explorer",
+    machineMoments: {
+      title: "Aperçu de nos machines",
+      dtf: "Impression DTF",
+      ecoSolvent: "Éco-solvant grand format",
+      uvFlatbed: "UV flatbed",
+      uvRoll: "UV rouleau à rouleau",
+      sublimation: "Impression sublimation",
+      cutting: "Découpe vinyle",
+    },
     stats: {
       projects: "Projets",
       satisfaction: "Satisfaction",
@@ -62,6 +70,11 @@ const fr: Translations = {
         desc: "Impression sur substrats rigides Dibond et acrylique pour des installations de qualité galerie.",
         tag: "Premium",
       },
+      {
+        title: "Réparation & Maintenance",
+        desc: "Faites appel à nos propres techniciens pour la réparation, l'entretien et la maintenance sur site de vos machines d'impression — diagnostic rapide et pièces d'origine.",
+        tag: "Support",
+      },
     ],
   },
 
@@ -90,7 +103,6 @@ const fr: Translations = {
     ],
     stats: [
       { label: "Projets livrés" },
-      { label: "Années d'expérience" },
       { label: "m² imprimés" },
       { label: "Garantie qualité" },
     ],
@@ -166,19 +178,30 @@ const fr: Translations = {
     ],
   },
 
-  investor: {
-    tag: "Partenariat",
-    title: "Conçu pour les marques, les événements et",
-    titleAccent: "la production à grande échelle",
+  advantages: {
+    tag: "Nos avantages",
+    title: "Pourquoi les clients choisissent",
+    titleAccent: "PelmelTech",
     description:
-      "PelmelTech collabore avec des agences, des organisateurs d'événements, des entreprises et des partenaires stratégiques pour offrir une production d'impression premium à toute échelle.",
-    partners: [
-      "Agences",
-      "Organisateurs d'événements",
-      "Entreprises",
-      "Partenaires",
+      "Des machines fiables, des équipes réactives et un vrai support — tout ce qu'il faut pour garder votre production en marche.",
+    items: [
+      {
+        title: "Techniciens rapides",
+        desc: "Des techniciens qualifiés interviennent rapidement pour l'installation, la maintenance et les réparations.",
+      },
+      {
+        title: "Support réactif",
+        desc: "Une vraie assistance avant et après la vente — par téléphone, à distance ou sur site.",
+      },
+      {
+        title: "Machines de haute qualité",
+        desc: "Des équipements éprouvés et durables de fabricants de confiance, testés avant livraison.",
+      },
+      {
+        title: "Service après-vente et pièces",
+        desc: "Garantie et disponibilité des pièces de rechange pour prolonger la durée de vie de vos machines.",
+      },
     ],
-    cta: "Discuter d'un partenariat",
   },
 
   cta: {

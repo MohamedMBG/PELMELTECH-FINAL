@@ -10,8 +10,8 @@ export default function AnimatedBackground() {
       {/* Technical Print Grid Overlay */}
       <div className="absolute inset-0 bg-[url('/images/pelmeltech/bg-print-grid.svg')] bg-repeat opacity-40 z-0" />
 
-      {/* Halftone Pattern Overlay */}
-      <div className="absolute inset-0 bg-[url('/images/pelmeltech/bg-halftone-pattern.svg')] bg-repeat opacity-50 z-0" />
+      {/* Halftone Pattern Overlay — fades toward the center so content stays clean */}
+      <div className="absolute inset-0 z-0 bg-[url('/images/pelmeltech/bg-halftone-pattern.svg')] opacity-[0.05] [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_75%)]" />
 
       {/* CMYK decorative blurs — animations pause for reduced-motion users */}
       <div className="absolute inset-0 z-0">

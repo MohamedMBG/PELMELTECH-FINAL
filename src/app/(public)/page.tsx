@@ -8,7 +8,7 @@ import CatalogPreview from "@/components/CatalogPreview";
 import MachinesShowcase from "@/components/MachinesShowcase";
 import PortfolioPreview from "@/components/PortfolioPreview";
 import ProcessSection from "@/components/ProcessSection";
-import InvestorSection from "@/components/InvestorSection";
+import AdvantagesSection from "@/components/AdvantagesSection";
 import CTASection from "@/components/CTASection";
 import { useLanguage } from "@/i18n";
 
@@ -25,7 +25,7 @@ export default function HomePage() {
       <MachinesShowcase />
       <PortfolioPreview />
       <ProcessSection />
-      <InvestorSection />
+      <AdvantagesSection />
       <CTASection
         title={t.cta.homeTitle}
         description={t.cta.homeDescription}

@@ -56,7 +56,7 @@ export default function Footer() {
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
               <Clock size={14} className="text-magenta shrink-0" />
-              Open weekdays - Closes 6:30 PM
+              De lundi à vendredi, de 8:30 à 6:30
             </li>
             <li className="flex items-start gap-3 text-sm text-on-surface-variant">
               <MapPin size={14} className="text-cyan shrink-0 mt-0.5" />
@@ -66,6 +66,18 @@ export default function Footer() {
               <Phone size={14} className="text-cyan shrink-0" />
               <a href="tel:+212520737132" className="hover:text-on-surface transition-colors">
                 05 20 73 71 32
+              </a>
+            </li>
+            <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+              <Phone size={14} className="text-cyan shrink-0" />
+              <a href="tel:+212660400894" className="hover:text-on-surface transition-colors">
+                06 60 40 08 94
+              </a>
+            </li>
+            <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+              <Phone size={14} className="text-cyan shrink-0" />
+              <a href="tel:+212660400881" className="hover:text-on-surface transition-colors">
+                06 60 40 08 81
               </a>
             </li>
           </ul>

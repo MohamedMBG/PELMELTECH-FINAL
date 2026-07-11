@@ -93,7 +93,7 @@ export default function Navbar() {
             priority
           />
           <span className="text-[20px] lg:text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
-            elmel<span className="text-cyan transition-colors group-hover:text-magenta">Tech</span>
+            elmel<span className="text-magenta transition-colors group-hover:text-cyan">Tech</span>
           </span>
         </Link>
 

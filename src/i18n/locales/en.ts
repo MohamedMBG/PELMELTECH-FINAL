@@ -9,13 +9,21 @@ const en = {
   },
 
   hero: {
-    badge: "Premium Printing Solutions",
     headline: ["Print", "experiences", "built for", "brands."],
     description:
-      "Large-format banners, exhibition panels, and event branding — engineered with precision for brands that demand impact.",
+      "A Moroccan manufacturer of printing machines and large-format solutions, PelmelTech supports professionals with reliable, precise equipment adapted to market requirements.",
     exploreWork: "Explore Our Work",
     requestQuote: "Request a Quote",
     scrollToExplore: "Scroll to explore",
+    machineMoments: {
+      title: "A glimpse of our machines",
+      dtf: "DTF printing",
+      ecoSolvent: "Large-format eco-solvent",
+      uvFlatbed: "UV flatbed",
+      uvRoll: "UV roll-to-roll",
+      sublimation: "Sublimation printing",
+      cutting: "Vinyl cutting",
+    },
     stats: {
       projects: "Projects",
       satisfaction: "Satisfaction",
@@ -60,6 +68,11 @@ const en = {
         desc: "Rigid substrate printing on Dibond and acrylic for gallery-grade installations.",
         tag: "Premium",
       },
+      {
+        title: "Repair & Maintenance",
+        desc: "Call our in-house technicians for on-site repair, servicing and maintenance of your printing equipment — fast diagnostics and genuine parts.",
+        tag: "Support",
+      },
     ],
   },
 
@@ -88,7 +101,6 @@ const en = {
     ],
     stats: [
       { label: "Projects Delivered" },
-      { label: "Years Experience" },
       { label: "sqm Printed" },
       { label: "Quality Guarantee" },
     ],
@@ -164,14 +176,30 @@ const en = {
     ],
   },
 
-  investor: {
-    tag: "Partnership",
-    title: "Built for Brands, Events, and",
-    titleAccent: "Scalable Production",
+  advantages: {
+    tag: "Our Advantages",
+    title: "Why Clients Choose",
+    titleAccent: "PelmelTech",
     description:
-      "PelmelTech collaborates with agencies, event organizers, companies, and strategic partners to deliver premium print production at any scale.",
-    partners: ["Agencies", "Event Organizers", "Companies", "Partners"],
-    cta: "Discuss Partnership",
+      "Reliable machines, fast people, and real support — everything you need to keep your production running.",
+    items: [
+      {
+        title: "Fast Technicians",
+        desc: "Skilled technicians intervene quickly for installation, maintenance, and repairs.",
+      },
+      {
+        title: "Responsive Support",
+        desc: "Real assistance before and after the sale — by phone, remotely, or on site.",
+      },
+      {
+        title: "High-Quality Machines",
+        desc: "Proven, durable equipment from trusted manufacturers, tested before delivery.",
+      },
+      {
+        title: "After-Sales Service & Parts",
+        desc: "Warranty coverage and spare parts availability to keep your machines running longer.",
+      },
+    ],
   },
 
   cta: {

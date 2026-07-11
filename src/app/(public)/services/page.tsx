@@ -85,14 +85,10 @@ export default function ServicesPage() {
               <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
                 {t.whyChooseUs.description}
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div className="p-4 rounded-xl bg-surface-container-low border border-black/5">
                   <span className="text-magenta font-extrabold text-lg block">99.8%</span>
                   <span className="text-xs text-on-surface-variant font-bold tracking-wide uppercase">{t.whyChooseUs.reasons[0].title}</span>
-                </div>
-                <div className="p-4 rounded-xl bg-surface-container-low border border-black/5">
-                  <span className="text-cyan-dark font-extrabold text-lg block">10+</span>
-                  <span className="text-xs text-on-surface-variant font-bold tracking-wide uppercase">{t.whyChooseUs.stats[1].label}</span>
                 </div>
               </div>
             </div>
