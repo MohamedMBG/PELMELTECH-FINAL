@@ -34,10 +34,141 @@ export default function HomeHero() {
   const machineRow = [...machines, ...machines];
 
   return (
-    <section className="relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden lg:min-h-[calc(100dvh-5rem)]">
-      <div className="pointer-events-none absolute -end-40 top-0 -z-10 h-[34rem] w-[34rem] rounded-full bg-magenta/[0.045] blur-[120px]" />
+    <section className="relative isolate overflow-hidden">
+      {/* ── Mobile: immersive "press proof" hero ── */}
+      <div className="relative flex min-h-[calc(100dvh-4rem)] flex-col justify-end bg-[#150a10] lg:hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0"
+            animate={reduceMotion ? undefined : { scale: [1.06, 1.14, 1.06] }}
+            transition={reduceMotion ? undefined : { duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Image
+              src="/images/pelmeltech/hero-large-format-printer.webp"
+              alt="PelmelTech large-format printer in production"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[62%_center]"
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-[#150a10]/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#150a10] via-[#150a10]/50 to-[#150a10]/10" />
+          <div className="absolute inset-0 bg-[url('/images/pelmeltech/bg-halftone-pattern.svg')] opacity-[0.07] mix-blend-overlay" />
+        </div>
 
-      <div className="mx-auto flex min-h-[inherit] w-full max-w-[1400px] flex-col items-center justify-center px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-8 xl:px-16">
+        {/* proof-sheet furniture: registration corners + CMYK calibration strip */}
+        <div aria-hidden className="absolute start-4 top-4 z-10 h-4 w-4 border-s border-t border-white/40" />
+        <div aria-hidden className="absolute end-4 top-4 z-10 h-4 w-4 border-e border-t border-white/40" />
+        <div aria-hidden className="absolute end-4 top-1/3 z-10 flex flex-col gap-1">
+          {["#00abec", "#e20074", "#ffd400", "#1a1a2b"].map((c) => (
+            <span key={c} className="h-2.5 w-2.5 rounded-[1px] ring-1 ring-white/25" style={{ backgroundColor: c }} />
+          ))}
+        </div>
+
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-5 pt-5"
+        >
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60">Pelmeltech</span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60">CMYK · N°01</span>
+        </motion.div>
+
+        <div className="relative z-10 px-5 pb-7 pt-36">
+          <h1 className="text-[clamp(2.5rem,11vw,3.6rem)] font-extrabold leading-[0.95] tracking-[-0.045em] text-white">
+            {headline.map((line, index) => (
+              <span key={line} className="block overflow-hidden pb-[0.08em]">
+                <motion.span
+                  className={`block ${index === 1 ? "text-[#ff3d94]" : ""}`}
+                  initial={reduceMotion ? false : { y: "110%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.9, delay: 0.18 + index * 0.12, ease }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease }}
+            className="mt-4 max-w-[46ch] text-[13.5px] leading-6 text-white/70"
+          >
+            {t.hero.description}
+          </motion.p>
+
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.58, ease }}
+            className="mt-6 flex flex-col gap-2.5"
+          >
+            <Link
+              href="/contact"
+              className="group inline-flex h-[52px] items-center justify-center gap-3 rounded-full bg-magenta text-xs font-bold uppercase tracking-[0.14em] text-white transition active:scale-[0.98]"
+            >
+              {t.hero.requestQuote}
+              <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-300 group-active:translate-x-1 rtl:rotate-180" />
+            </Link>
+            <Link
+              href="/portfolio"
+              className="inline-flex h-[52px] items-center justify-center rounded-full border border-white/25 bg-white/5 text-xs font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition active:scale-[0.98]"
+            >
+              {t.hero.exploreWork}
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.75 }}
+            className="mt-7 grid grid-cols-3 border-t border-white/15 pt-4"
+          >
+            {stats.map((stat, index) => (
+              <div key={stat.label} className={`min-w-0 ${index > 0 ? "border-s border-white/10 ps-4" : ""}`}>
+                <strong className="block text-[22px] font-extrabold tracking-[-0.04em] text-white">{stat.value}</strong>
+                <span className="mt-0.5 block truncate text-[9px] font-bold uppercase tracking-[0.12em] text-white/50">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── Mobile: swipeable machine reel ── */}
+      <div className="relative bg-[#150a10] pb-9 pt-2 lg:hidden">
+        <div className="mb-4 flex items-center gap-3 px-5">
+          <span className="h-1.5 w-1.5 rounded-full bg-magenta" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/50">
+            {t.hero.machineMoments.title}
+          </span>
+          <span className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" />
+        </div>
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {machines.map((machine, index) => (
+            <div key={machine.label} className="relative h-36 w-[13rem] shrink-0 snap-start overflow-hidden rounded-2xl">
+              <Image src={machine.image} alt={machine.label} fill sizes="208px" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#150a10]/90 via-[#150a10]/15 to-transparent" />
+              <span className="absolute start-3 top-2.5 text-[9px] font-bold tracking-[0.2em] text-white/45">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="absolute inset-x-3 bottom-2.5 truncate text-[10px] font-bold uppercase tracking-[0.1em] text-white">
+                {machine.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Desktop: original layout, unchanged ── */}
+      <div className="pointer-events-none absolute -end-40 top-0 -z-10 hidden h-[34rem] w-[34rem] rounded-full bg-magenta/[0.045] blur-[120px] lg:block" />
+
+      <div className="mx-auto hidden min-h-[calc(100dvh-5rem)] w-full max-w-[1400px] flex-col items-center justify-center px-5 py-10 sm:px-8 sm:py-12 lg:flex lg:px-12 lg:py-8 xl:px-16">
         <div className="grid w-full items-center gap-10 md:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-14 xl:gap-20">
           <div className="relative z-10 max-w-[630px] lg:py-8">
             <h1 className="text-[clamp(2.7rem,6.1vw,5.8rem)] font-extrabold leading-[0.94] tracking-[-0.055em] text-on-surface">
@@ -209,7 +340,7 @@ export default function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-px bg-outline-variant/35" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-px bg-outline-variant/35 lg:block" />
     </section>
   );
 }
