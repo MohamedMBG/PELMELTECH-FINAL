@@ -26,8 +26,8 @@ export default function CapabilityStrip() {
                 transition={{ duration: 0.5, delay: i * 0.06, ease }}
                 className="flex items-center gap-3 text-on-surface-variant hover:text-on-surface transition-colors group"
               >
-                <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 group-hover:bg-cyan/8 transition-colors">
-                  <Icon size={16} className="text-cyan-dark" />
+                <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 group-hover:bg-magenta/8 transition-colors">
+                  <Icon size={16} className="text-magenta-dark" />
                 </div>
                 <span className="text-[10px] font-bold tracking-[0.12em] uppercase">{label}</span>
               </motion.div>

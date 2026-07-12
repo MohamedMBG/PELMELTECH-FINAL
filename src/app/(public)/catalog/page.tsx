@@ -379,10 +379,11 @@ export default function CatalogPage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-surface-container-high rounded-3xl p-8 sm:p-12 md:p-20 border border-black/5 shadow-xl relative overflow-hidden"
+            className="bg-surface-container-high rounded-3xl p-8 sm:p-12 md:p-20 border border-black/5 shadow-xl relative overflow-hidden bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/pelmeltech/catalog-callout.png')" }}
           >
-            <div className="absolute top-0 end-0 w-[400px] h-[400px] bg-cyan/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 rtl:-translate-x-1/2" />
-            <div className="absolute bottom-0 start-0 w-[300px] h-[300px] bg-magenta/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2 rtl:translate-x-1/2" />
+            {/* left scrim keeps text readable over the product image */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent rtl:bg-gradient-to-l" />
 
             <div className="relative z-10 max-w-xl">
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface leading-tight mb-6">

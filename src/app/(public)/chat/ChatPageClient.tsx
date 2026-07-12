@@ -85,7 +85,7 @@ export default function ChatPageClient() {
           align-items: center;
           min-height: calc(100dvh - 4rem);
           overflow: hidden;
-          padding: 2.5rem 1.25rem 3.5rem;
+          padding: 3rem 1.25rem 4rem;
           background:
             radial-gradient(60% 45% at 50% 0%, rgba(226, 0, 116, 0.05), transparent 70%),
             linear-gradient(180deg, #faf8ff 0%, #f2f0f7 100%);
@@ -94,7 +94,7 @@ export default function ChatPageClient() {
         @media (min-width: 1024px) {
           .pmb-stage {
             min-height: calc(100dvh - 5rem);
-            padding: 3.5rem 2rem 4rem;
+            padding: 4.5rem 2rem 5rem;
           }
         }
 
@@ -119,7 +119,7 @@ export default function ChatPageClient() {
         /* Header */
         .pmb-head {
           text-align: center;
-          margin-bottom: 1.75rem;
+          margin-bottom: 2.5rem;
           animation: pmbRise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .pmb-eyebrow {
@@ -131,7 +131,7 @@ export default function ChatPageClient() {
           text-transform: uppercase;
         }
         .pmb-title {
-          margin: 0.5rem 0 0;
+          margin: 0.75rem 0 0;
           color: #1a1a2b;
           font-size: clamp(1.75rem, 4.5vw, 2.5rem);
           font-weight: 800;
@@ -142,8 +142,8 @@ export default function ChatPageClient() {
           color: #e20074;
         }
         .pmb-desc {
-          margin: 0.7rem auto 0;
-          max-width: 30rem;
+          margin: 1rem auto 0;
+          max-width: 32rem;
           color: #534346;
           font-size: 1rem;
           line-height: 1.55;
@@ -153,8 +153,8 @@ export default function ChatPageClient() {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 0.5rem;
-          margin: 1.15rem 0 0;
+          gap: 0.6rem;
+          margin: 1.5rem 0 0;
           padding: 0;
           list-style: none;
         }
@@ -177,7 +177,7 @@ export default function ChatPageClient() {
         /* Chat frame — clean, modern, soft */
         .pmb-frame {
           width: 100%;
-          height: min(860px, calc(100dvh - 14rem));
+          height: min(860px, calc(100dvh - 16rem));
           min-height: 560px;
           display: flex;
           overflow: hidden;

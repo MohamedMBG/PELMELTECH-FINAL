@@ -8,7 +8,7 @@
     "subcategory": "Plotter de Découpe",
     "imageUrl": "/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp",
     "catalogPdf": "/catalogs/raw/DECOUPE 1200mm CCD CAMERA.pdf",
-    "shortDescription": "Plotter de découpe 1200mm avec caméra CCD pour une découpe de contour automatique d'une précision remarquable, même sur les longues séries.",
+    "shortDescription": "Caméra CCD 4 points, correction automatique de la distorsion et découpe de contour au 1/10mm : le 1200mm qui aligne vos stickers imprimés sans reprise, série après série.",
     "description": "Ce plotter de découpe 1200mm est équipé d'une caméra CCD qui détecte automatiquement les repères d'impression et corrige la trajectoire de coupe en temps réel. Résultat : des contours parfaitement alignés sur vos vinyles, stickers et transferts textiles, sans reprise manuelle. Sa largeur de 1200mm couvre la majorité des formats du marché de la signalétique, et son entraînement précis garantit une découpe fidèle du premier au dernier mètre. Un outil fiable pour les ateliers d'enseigne et de personnalisation qui veulent gagner en cadence sans sacrifier la qualité.",
     "specifications": {
       "printhead": "À vérifier",
@@ -51,7 +51,7 @@
     "subcategory": "Découpe Laser",
     "imageUrl": "/images/products/main/machine-decoupe-laser-co2-1390-avec-camera-ccd-une-tete-130w-150w.webp",
     "catalogPdf": "/catalogs/raw/LASER 1390 UNE TETE 130-150W CCD MAMERA.pdf",
-    "shortDescription": "Découpe laser CO2 1390 de 130W à 150W avec caméra CCD : puissance, précision et découpe de contour automatique sur bois, acrylique et plus encore.",
+    "shortDescription": "Tube laser CO2 130-150W, table nid d'abeille et repérage caméra CCD : une puissance qui traverse le bois épais et l'acrylique sans carboniser les bords, contour après contour.",
     "description": "La découpe laser CO2 1390 combine un tube laser de 130W à 150W avec une caméra CCD de reconnaissance de contours pour découper et graver avec une précision millimétrique. Bois, acrylique, cuir, mousse, textile : sa surface de travail 1300x900mm et sa puissance élevée permettent d'attaquer les matériaux épais tout en gardant des bords nets et propres. La caméra CCD repère automatiquement les motifs imprimés et ajuste la découpe, un atout décisif pour les enseignes, la PLV et le maquettisme. Une machine polyvalente pensée pour la production quotidienne.",
     "specifications": {
       "printhead": "À vérifier",
@@ -95,7 +95,7 @@
     "subcategory": "Fraiseuse CNC",
     "imageUrl": "/images/products/main/machine-decoupe-cnc-1600x2500mm-fraiseuse.webp",
     "catalogPdf": "/catalogs/raw/MACHINE CNC DECOUPE 1600x2500mm.pdf",
-    "shortDescription": "Fraiseuse CNC 1600x2500mm pour l'usinage du bois, du PVC, de l'aluminium et de l'acrylique : la solution robuste pour la menuiserie et l'enseigne.",
+    "shortDescription": "Broche haute vitesse sur structure renforcée : cette CNC 1600x2500mm usine bois, PVC, aluminium composite et acrylique au 1/100mm, panneau entier en une seule fixation.",
     "description": "Avec sa table de travail de 1600x2500mm, cette fraiseuse CNC accueille les panneaux grand format en une seule passe : bois, MDF, PVC, acrylique, aluminium composite. Sa structure lourde absorbe les vibrations pour un usinage propre et régulier, tandis que sa commande numérique assure une répétabilité parfaite sur les grandes séries. Découpe, gravure, rainurage, perçage : elle s'adapte aussi bien à la fabrication d'enseignes et de PLV qu'à la menuiserie et à l'agencement. Un investissement durable pour les ateliers qui veulent produire plus vite et plus précis.",
     "specifications": {
       "printhead": "À vérifier",
@@ -138,7 +138,7 @@
     "subcategory": "Impression Roll to Roll",
     "imageUrl": "/images/products/main/machine-d-impression-easyjet-uv-roll-to-roll-1800mm-2-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE D'IMPRESSIN EASYJET UV ROLL TO ROLL 1800mm DEUX TETES I3200.pdf",
-    "shortDescription": "Imprimante UV Roll-to-Roll EasyJet 1800mm à 2 têtes Epson i3200 : impression et séchage UV instantané pour des supports souples prêts à poser.",
+    "shortDescription": "UV LED refroidies par eau, encre figée à la sortie des buses : l'EasyJet 1800mm imprime et durcit en une passe, bâche ou vinyle prêt à poser sans attendre le séchage.",
     "description": "L'EasyJet UV Roll-to-Roll 1800mm imprime en bobine avec un séchage UV instantané : vos supports sortent secs, prêts à être laminés ou posés immédiatement. Ses deux têtes Epson i3200 délivrent des couleurs denses et des détails fins sur bâche, vinyle, film rétroéclairé ou toile canvas. L'encre UV résiste aux UV solaires et aux intempéries, idéale pour la signalétique extérieure longue durée. Une largeur de 1800mm et une alimentation en continu qui font de cette machine un vrai poste de production pour les imprimeurs grand format.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -182,7 +182,7 @@
     "subcategory": "Impression Éco-Solvant",
     "imageUrl": "/images/products/main/machine-d-impression-eco-solvant-1800mm-1-ou-2-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE D'IMPRESSION ECO 1800mm TETE-DEUX TETES I3200.pdf",
-    "shortDescription": "Imprimante éco-solvant 1800mm en configuration 1 ou 2 têtes Epson i3200 : le format le plus polyvalent pour lancer ou développer votre activité d'impression.",
+    "shortDescription": "1 ou 2 têtes Epson i3200 selon votre cadence : cette 1800mm imprime bâches et adhésifs en couleurs franches, sans traitement préalable, pour un coût d'entrée maîtrisé.",
     "description": "Cette imprimante éco-solvant 1800mm est le choix de référence pour la signalétique et la communication visuelle. Disponible en 1 ou 2 têtes Epson i3200 selon votre volume de production, elle imprime bâches, vinyles adhésifs, affiches et kakemonos avec des couleurs éclatantes et une excellente tenue en extérieur. L'encre éco-solvant, économique et sans odeur agressive, adhère sur une large gamme de supports sans traitement préalable. Simple à prendre en main, robuste à l'usage : une machine qui rentabilise chaque mètre carré imprimé.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -226,7 +226,7 @@
     "subcategory": "Impression Éco-Solvant",
     "imageUrl": "/images/products/main/machine-d-impression-eco-solvant-3200mm-2-ou-4-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE D'IMPRESSION ECO SOLVENT 3200mm DEUX-QUATRE TETES I3200.pdf",
-    "shortDescription": "Imprimante éco-solvant 3200mm à 2 ou 4 têtes Epson i3200, jusqu'à 90m²/h : la production grand format à pleine cadence.",
+    "shortDescription": "Jusqu'à 90m²/h en 720dpi, chauffage avant/arrière et dérouleur-enrouleur automatiques : la 3200mm taillée pour avaler les gros volumes de bâche sans surveillance constante.",
     "description": "Conçue pour la production intensive, cette imprimante éco-solvant 3200mm atteint jusqu'à 90m²/h en configuration 4 têtes Epson i3200 (60m²/h en 2 têtes), avec une résolution de 720dpi. Son système de chauffage intégré avant et arrière et son séchage à air assurent des impressions sèches en sortie de machine, tandis que le dérouleur et l'enrouleur électriques automatisent le travail en bobine. L'alimentation d'encre en continu avec nettoyage automatique des têtes réduit les interventions et les pertes. La machine qu'il faut pour honorer les gros volumes de bâches, banderoles et signalétique sans compromis sur les délais.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -270,7 +270,7 @@
     "subcategory": "Impression UV Flatbed",
     "imageUrl": "/images/products/main/machine-d-impression-uv-flatbed-1290-3-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE D'IMPRESSION FLATBED UV 1290 TROIS TETES I3200.pdf",
-    "shortDescription": "Imprimante UV à plat 1290 à 3 têtes Epson i3200 : imprimez directement sur bois, verre, métal et PVC avec un rendu haute définition.",
+    "shortDescription": "Plateau à hauteur réglable, encre blanche et vernis en une passe : la 1290 imprime en relief directement sur bois, verre, métal ou PVC, sans traitement ni marquage.",
     "description": "L'imprimante UV Flatbed 1290 imprime directement sur les supports rigides : bois, verre, métal, carrelage, PVC, jusqu'aux objets de forme irrégulière grâce au réglage de hauteur du plateau. Ses trois têtes Epson i3200 combinent vitesse et finesse d'impression, avec encre blanche et vernis pour des effets de relief et des rendus premium sur supports foncés ou transparents. Le séchage UV instantané fige l'encre à la sortie des buses : aucune bavure, aucune attente. L'outil idéal pour la décoration, la PLV et la personnalisation d'objets à forte valeur ajoutée.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -314,7 +314,7 @@
     "subcategory": "Impression UV Flatbed",
     "imageUrl": "/images/products/main/machine-d-impression-uv-flatbed-2513-tetes-ricoh-gen5-gen6.webp",
     "catalogPdf": "/catalogs/raw/MACHINE D'IMPRESSION UV FLATED 2513 RICOH HEADS.pdf",
-    "shortDescription": "Imprimante UV à plat 2513 équipée de têtes industrielles Ricoh GEN5/GEN6 : le grand format rigide en qualité et cadence industrielles.",
+    "shortDescription": "Têtes Ricoh GEN5/GEN6, plateau 2500x1300mm et supports jusqu'à 100mm d'épaisseur : la 2513 imprime en 600x2400dpi à une cadence industrielle pour la PLV en volume.",
     "description": "L'UV Flatbed 2513 est une plateforme d'impression industrielle : son plateau de 2500x1300mm accueille les panneaux entiers, et ses têtes Ricoh GEN5/GEN6 — réputées pour leur longévité et leur constance — enchaînent les heures de production sans faiblir. Impression directe sur bois, verre, métal, dibond, carrelage ou PVC, avec encre blanche pour les supports foncés et vernis pour les finitions haut de gamme. Le séchage UV instantané permet la manipulation immédiate des pièces. La machine des ateliers qui produisent de la PLV et de la décoration en volume.",
     "specifications": {
       "printhead": "RICOH",
@@ -358,7 +358,7 @@
     "subcategory": "Plotter de Découpe",
     "imageUrl": "/images/products/main/machine-de-decoupe-a4-plotter-de-decoupe-de-bureau.webp",
     "catalogPdf": "/catalogs/raw/MACHINE DE DECOUPE A4.pdf",
-    "shortDescription": "Plotter de découpe A4 compact : la personnalisation de précision sur votre bureau, idéal pour stickers, étiquettes et petits formats.",
+    "shortDescription": "Le format A4 qui tient sur un coin de bureau : découpe nette de stickers, étiquettes et pochoirs, prêt à brancher pour votre premier atelier de personnalisation.",
     "description": "Compact et précis, ce plotter de découpe A4 s'installe sur un coin de bureau et découpe vinyles, stickers, étiquettes et pochoirs avec une netteté professionnelle. Compatible avec les logiciels de découpe du marché, il se pilote en quelques clics et convient aussi bien aux créateurs et boutiques de personnalisation qu'aux ateliers qui veulent un second poste dédié aux petits formats. Faible encombrement, prise en main immédiate, résultat impeccable : le format d'entrée idéal dans la découpe professionnelle.",
     "specifications": {
       "printhead": "À vérifier",
@@ -401,7 +401,7 @@
     "subcategory": "Plotter de Découpe",
     "imageUrl": "/images/products/main/machine-de-decoupe-1200mm-avec-camera-ccd.webp",
     "catalogPdf": "/catalogs/raw/MACHINE DE DECOUPE CCD CAMERA 1200mm.pdf",
-    "shortDescription": "Plotter de découpe 1200mm avec caméra CCD : découpe de contour automatique, rapide et précise pour vos vinyles et impressions.",
+    "shortDescription": "Traction régulière sur les longs métrages et recalage caméra CCD à chaque passage : le 1200mm pensé pour s'intégrer directement derrière votre imprimante grand format.",
     "description": "Ce plotter 1200mm intègre une caméra CCD qui lit les repères d'impression et recale automatiquement la découpe sur le visuel : vos stickers, lettrages et transferts sortent parfaitement détourés, série après série. Sa largeur de 1200mm couvre les formats courants de la signalétique, et son moteur d'entraînement assure une traction régulière même sur les longs métrages. Compatible avec les principaux logiciels de découpe, il s'intègre sans friction dans votre chaîne de production impression-découpe.",
     "specifications": {
       "printhead": "À vérifier",
@@ -444,7 +444,7 @@
     "subcategory": "Impression DTF",
     "imageUrl": "/images/products/main/machine-d-impression-dtf-30cm-2-tetes-epson-i3200-xp600.webp",
     "catalogPdf": "/catalogs/raw/MACHINE DTF 30CM DEUX TETEX I3200-XP600.pdf",
-    "shortDescription": "Imprimante DTF 30cm à 2 têtes Epson i3200/XP600, 1440dpi et jusqu'à 11m²/h : le transfert textile professionnel en format compact.",
+    "shortDescription": "1440dpi, jusqu'à 11m²/h et seulement 20kg sur le comptoir : la DTF 30cm transforme n'importe quel textile, clair ou foncé, en support imprimable à la demande.",
     "description": "Cette imprimante DTF 30cm à double tête (Epson i3200 ou XP600) imprime vos motifs sur film transfert en 1440dpi, blanc compris, avec un débit allant jusqu'à 11m²/h en mode production. Le procédé DTF transfère sur coton, polyester et tissus mélangés, clairs ou foncés, sans écraser la matière ni limiter les couleurs. Compacte et économique en encre, c'est la machine idéale pour lancer une activité de personnalisation textile ou absorber les commandes de t-shirts, sweats et sacs sans sous-traiter. Un rendu souple, opaque et résistant au lavage.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -490,7 +490,7 @@
     "subcategory": "Impression DTF",
     "imageUrl": "/images/products/main/machine-d-impression-dtf-60cm-2-tetes-epson-i3200-xp600.webp",
     "catalogPdf": "/catalogs/raw/MACHINE DTF 600cm TWO HEADS I3200-XP600.pdf",
-    "shortDescription": "Imprimante DTF 60cm à 2 têtes Epson i3200/XP600 : le double de largeur pour produire vos transferts textiles en série.",
+    "shortDescription": "Deux fois la surface utile de la 30cm par passage : la DTF 60cm aligne plusieurs motifs côte à côte pour faire chuter le coût par transfert en production sérieuse.",
     "description": "Avec sa laize de 60cm, cette imprimante DTF double la surface utile par passage : plusieurs motifs côte à côte, des planches de transferts optimisées et un coût au motif en nette baisse. Ses deux têtes Epson i3200 ou XP600 impriment couleurs et blanc en simultané pour des transferts opaques et éclatants sur tous textiles, clairs ou foncés. Pensée pour la production régulière, elle alimente sans peine un atelier de personnalisation qui traite t-shirts, sweats, sportswear et sacs en volume. Le bon choix pour passer du DTF artisanal au DTF de série.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -534,7 +534,7 @@
     "subcategory": "Impression DTG",
     "imageUrl": "/images/products/main/machine-d-impression-dtg-direct-to-garment-4050-2-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE DTG 4050 DEUX TETES I3200.pdf",
-    "shortDescription": "Imprimante DTG 4050 à 2 têtes Epson i3200 : impression directe sur vêtement, du t-shirt unique à la petite série, avec un toucher incomparable.",
+    "shortDescription": "Encre blanche recirculée en continu, plateau 40x50cm : la DTG 4050 imprime à même la fibre pour un toucher coton et un rendu photo qu'aucun transfert n'égale.",
     "description": "La DTG 4050 imprime directement sur le vêtement : le motif pénètre la fibre pour un toucher doux et un rendu photo impossible à obtenir par transfert. Ses deux têtes Epson i3200 impriment couleurs et blanc à haute vitesse, sur coton clair comme foncé, avec un plateau 40x50cm qui couvre les formats d'impression textile les plus demandés. Idéale pour la personnalisation à l'unité, les petites séries et l'impression à la demande : chargez le t-shirt, lancez l'impression, c'est prêt à fixer. La qualité boutique, à l'échelle d'un atelier.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -578,7 +578,7 @@
     "subcategory": "Impression Éco-Solvant",
     "imageUrl": "/images/products/main/machine-d-impression-eco-solvant-xline-3200mm-4-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE ECO SOLVENT 3200mm XLINE QUATRE TETES I3200.pdf",
-    "shortDescription": "Imprimante éco-solvant XLine 3200mm à 4 têtes Epson i3200 : la référence haut débit pour la bâche et la signalétique grand format.",
+    "shortDescription": "4 têtes i3200 en 2400dpi CMJN : la XLine 3200mm enchaîne bâches, posters, stickers et textiles techniques sans jamais ralentir la cadence.",
     "description": "La XLine 3200mm en configuration 4 têtes Epson i3200 est taillée pour les ateliers qui impriment tous les jours, toute la journée. Sa laize de 3,2 mètres permet de produire bâches, banderoles et visuels géants d'un seul tenant, sans raccord, avec des couleurs profondes et une régularité irréprochable d'un bout à l'autre de la bobine. Châssis renforcé, alimentation d'encre en continu, gestion précise de la tension du média : chaque détail est pensé pour la production intensive. La partenaire des imprimeurs grand format qui ne veulent jamais refuser une commande.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -622,7 +622,7 @@
     "subcategory": "Lamination",
     "imageUrl": "/images/products/main/lamineuse-electrique-industrielle-1630mm.webp",
     "catalogPdf": "/catalogs/raw/MACHINE ELECTRIC DE LAMINATION 1630mm.pdf",
-    "shortDescription": "Lamineuse électrique 1630mm avec sécurité anti-pincement et arrêt automatique : une finition sans bulles pour toutes vos impressions grand format.",
+    "shortDescription": "Rouleaux silicone, sécurité anti-pincement et compteur de métrage : la lamineuse 1630mm pose le film sans bulle ni pli, à froid comme à chaud.",
     "description": "Cette lamineuse électrique 1630mm protège et sublime vos impressions : le film de lamination est appliqué sous pression régulière, sans bulles ni plis, pour une finition brillante, mate ou anti-UV qui prolonge la durée de vie de vos visuels. Son système de contrôle intègre une sécurité anti-pincement, un compteur de métrage précis et un arrêt automatique en fin de visuel — la lamination devient simple, rapide et sans gâche. Compatible avec la laize des imprimantes 1600mm, elle complète naturellement votre chaîne de production signalétique.",
     "specifications": {
       "printhead": "À vérifier",
@@ -665,7 +665,7 @@
     "subcategory": "Table de Découpe",
     "imageUrl": "/images/products/main/table-de-decoupe-a-plat-flatbed-fc5070e.webp",
     "catalogPdf": "/catalogs/raw/MACHINE FLATBED DE DECOUPE FC5070E.pdf",
-    "shortDescription": "Table de découpe à plat FC5070E : découpe et rainage de précision sur feuilles, cartons et vinyles, sans entraînement par rouleau.",
+    "shortDescription": "Aspiration adaptative, double lame demi/pleine chair et repérage caméra autonome : la FC5070E découpe crystal label, UV DTF, magnétique et carton sans jamais désaligner le repère.",
     "description": "La table de découpe à plat FC5070E maintient le support immobile par aspiration pendant que la tête découpe, mi-chair ou pleine chair, avec une précision constante : parfait pour les supports rigides ou délicats qu'un plotter à rouleau ne peut pas entraîner. Étiquettes, stickers en planche, cartons, maquettes de packaging : elle découpe et raine dans la même passe, en s'alignant automatiquement sur les repères d'impression. Son format 500x700mm en fait l'outil de prototypage et de petite série idéal pour les studios graphiques et les imprimeurs.",
     "specifications": {
       "printhead": "À vérifier",
@@ -708,7 +708,7 @@
     "subcategory": "Impression Grand Format",
     "imageUrl": "/images/products/main/machine-d-impression-eco-solvant-grand-format-3200mm-4-tetes-epson-i3200.webp",
     "catalogPdf": "/catalogs/raw/MACHINE GRAND FORMAT 3200mm 4TETES I3200.pdf",
-    "shortDescription": "Imprimante éco-solvant grand format 3200mm à 4 têtes Epson i3200 : couvrez les très grands formats d'un seul tenant, à haute cadence.",
+    "shortDescription": "Quatre têtes i3200 qui travaillent en parallèle sur 3,2m de large : de quoi sortir bâches événementielles et habillages de façade en une seule pièce, sans raccord visible.",
     "description": "Cette imprimante grand format 3200mm à 4 têtes Epson i3200 produit les visuels géants — bâches événementielles, habillages de façade, banderoles — d'une seule pièce, sans soudure ni raccord. Ses quatre têtes travaillent en parallèle pour une cadence de production élevée, avec des couleurs saturées et stables sur toute la largeur. L'encre éco-solvant garantit une excellente tenue en extérieur tout en restant économique à l'usage. Une machine de production pure, pour les imprimeurs qui livrent du grand format en volume et en délai serré.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -752,7 +752,7 @@
     "subcategory": "Impression Solvant",
     "imageUrl": "/images/products/main/machine-d-impression-solvant-roll-to-roll-3200mm-4-tetes-konica-minolta-512i.webp",
     "catalogPdf": "/catalogs/raw/MACHINE SOLVENT ROLL TO ROLL 3200mm QUATRE TETES KONICA MINOLTA.pdf",
-    "shortDescription": "Imprimante solvant Roll-to-Roll 3200mm à 4 têtes Konica Minolta 512i : le cheval de trait de l'impression bâche extérieure.",
+    "shortDescription": "Têtes industrielles Konica Minolta 512i réputées pour leur longévité : cette 3200mm imprime une bâche qui tient des années dehors, pluie et plein soleil compris.",
     "description": "Équipée de quatre têtes industrielles Konica Minolta 512i, cette imprimante solvant 3200mm est conçue pour une seule chose : produire de la bâche extérieure en grande quantité, à coût d'encre minimal. L'encre solvant pénètre le support pour une résistance maximale au soleil, à la pluie et à l'abrasion — vos visuels affichés en extérieur tiennent dans la durée. Le système Roll-to-Roll enchaîne les bobines de 3,2 mètres avec une intervention minimale de l'opérateur. La solution la plus rentable au mètre carré pour l'affichage publicitaire et l'événementiel.",
     "specifications": {
       "printhead": "KONICA MINOLTA",
@@ -796,7 +796,7 @@
     "subcategory": "Impression UV Flatbed",
     "imageUrl": "/images/products/main/machine-d-impression-uv-flatbed-de-table-6090-3-tetes-epson-i3200-xp600.webp",
     "catalogPdf": "/catalogs/raw/MACHINE TABLE UV 6090 TROIS TETES XP600-I3200.pdf",
-    "shortDescription": "Imprimante UV de table 6090 à 3 têtes Epson i3200/XP600 : la personnalisation d'objets haute définition en format compact.",
+    "shortDescription": "Plateau 60x90cm à hauteur réglable : la 6090 imprime couleurs, blanc et vernis sur coffrets, coques et objets rigides, prête à livrer dès la sortie des buses.",
     "description": "L'imprimante UV de table 6090 met l'impression directe sur objets à la portée de tous les ateliers : son plateau 60x90cm accueille panneaux, plaques, coffrets, coques et objets publicitaires, avec un réglage de hauteur pour les supports épais. Ses trois têtes Epson i3200 ou XP600 impriment couleurs, blanc et vernis pour des rendus premium avec effets de relief, y compris sur supports foncés ou transparents. Le séchage UV instantané permet d'enchaîner les pièces sans temps mort. Compacte, précise, polyvalente : l'entrée idéale dans l'impression UV.",
     "specifications": {
       "printhead": "Epson XP600",
@@ -840,7 +840,7 @@
     "subcategory": "Impression UV DTF",
     "imageUrl": "/images/products/main/machine-d-impression-uv-dtf-30cm-tetes-epson-i3200-xp600.webp",
     "catalogPdf": "/catalogs/raw/MACHINE UV DTF 30CM TETES I3200-XP600.pdf",
-    "shortDescription": "Imprimante UV DTF 30cm (têtes Epson i3200/XP600) : des stickers de transfert premium qui s'appliquent sur n'importe quel objet, sans machine de presse.",
+    "shortDescription": "Un sticker qui se pose à froid, à la raclette, sur verre, métal ou plastique : les transferts UV DTF de cette 30cm tiennent 3 à 5 ans face aux rayures, à l'eau et au soleil.",
     "description": "L'UV DTF produit des stickers de transfert nouvelle génération : imprimés en couleurs, blanc et vernis sur film spécial, ils se transfèrent à froid sur pratiquement n'importe quelle surface — mugs, gourdes, coques, stylos, verre, métal — d'une simple pression du doigt, sans presse ni chauffage. Avec sa laize de 30cm et ses têtes Epson i3200 ou XP600, cette machine délivre des transferts brillants, en relief, d'une résistance remarquable aux rayures et à l'eau. Le procédé le plus simple et le plus rentable pour lancer une activité de personnalisation d'objets.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -884,7 +884,7 @@
     "subcategory": "Impression UV DTF",
     "imageUrl": "/images/products/main/machine-d-impression-uv-dtf-roll-to-roll-700mm-3-tetes-epson-i3200-u1.webp",
     "catalogPdf": "/catalogs/raw/MACHINE UV DTF 700mm 3PCS TETES I3200 U1.pdf",
-    "shortDescription": "Imprimante UV DTF Roll-to-Roll 700mm à 3 têtes Epson i3200 U1 : la production de stickers de transfert en continu, à l'échelle industrielle.",
+    "shortDescription": "Impression, vernis et laminage en une seule passe sur 700mm de laize : de quoi sortir des planches entières de transferts UV DTF prêts à échenilller, en continu.",
     "description": "Version production du procédé UV DTF, cette machine Roll-to-Roll de 700mm imprime et lamine les stickers de transfert en continu : couleurs, blanc et vernis déposés par trois têtes Epson i3200 U1, film de protection appliqué dans la foulée, bobine prête à échenilller en sortie. Sa laize de 700mm permet de produire des planches entières de transferts pour objets publicitaires, verrerie, coques et packaging. Les transferts s'appliquent à froid, sans presse, sur pratiquement toutes les surfaces. L'outil des ateliers qui vendent la personnalisation d'objets en volume.",
     "specifications": {
       "printhead": "Epson i3200",
@@ -928,7 +928,7 @@
     "subcategory": "Presse à Chaud",
     "imageUrl": "/images/products/main/presse-a-chaud-pneumatique-60x40cm.webp",
     "catalogPdf": "/catalogs/raw/PRESSE A CHAUD PNEUMATIQUE 60x40.pdf",
-    "shortDescription": "Presse à chaud pneumatique 60x40cm : pression parfaitement uniforme, température jusqu'à 250°C, pour des transferts impeccables à chaque pressage.",
+    "shortDescription": "Pression pneumatique identique à chaque cycle, 250°C et ouverture automatique en fin de temps : cette 60x40cm supprime les zones sous-pressées qui ruinent un transfert.",
     "description": "La pression pneumatique fait toute la différence : contrairement aux presses manuelles, cette presse 60x40cm applique une force rigoureusement identique sur toute la surface, à chaque cycle, quel que soit l'opérateur. Température réglable jusqu'à 250°C et minuterie précise au dixième de seconde garantissent une fixation parfaite des transferts DTF, sublimation et flex, sans zones sous-pressées ni brûlures. L'ouverture automatique en fin de cycle sécurise le travail et enchaîne les cadences. L'équipement indispensable pour fiabiliser votre production textile.",
     "specifications": {
       "printhead": "À vérifier",
@@ -971,7 +971,7 @@
     "subcategory": "Table de Découpe",
     "imageUrl": "/images/products/main/table-de-decoupe-a-plat-flatbed-fc7090u.webp",
     "catalogPdf": "/catalogs/raw/TABLE DE DECOUPE FC7090U.pdf",
-    "shortDescription": "Table de découpe à plat FC7090U : grand plateau 700x900mm pour découper et rainer cartons, vinyles et supports rigides avec une précision constante.",
+    "shortDescription": "700x900mm d'aspiration et alignement automatique sur repères : la FC7090U détoure vos films DTF et planches de stickers directement en sortie de four à poudre, sans faux-équerrage.",
     "description": "La FC7090U offre un plateau de découpe de 700x900mm : le support est plaqué par aspiration et reste parfaitement immobile pendant la découpe, ce qui autorise les matériaux qu'un plotter à rouleau ne peut pas traiter — cartons, planches d'étiquettes, films techniques, supports semi-rigides. Découpe mi-chair, pleine chair et rainage s'enchaînent dans la même passe, avec recalage automatique sur les repères d'impression. Un format généreux qui ouvre la porte au packaging, à la PLV et aux planches de stickers en série, avec la précision d'une découpe numérique.",
     "specifications": {
       "printhead": "À vérifier",

@@ -80,7 +80,7 @@ export default function PortfolioPage() {
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent" />
 
-          <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused]">
+          <div className="flex w-max gap-6 animate-marquee hover:[animation-play-state:paused]">
             {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
               <div
                 key={`${t.author}-${i}`}
