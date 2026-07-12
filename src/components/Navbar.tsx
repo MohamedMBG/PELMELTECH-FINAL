@@ -28,8 +28,6 @@ export default function Navbar() {
     { label: t.nav.home, href: "/", hasMegaMenu: false },
     { label: t.nav.services, href: "/services", hasMegaMenu: false },
     { label: t.nav.products, href: "/catalog", hasMegaMenu: true },
-    { label: t.nav.portfolio, href: "/portfolio", hasMegaMenu: false },
-    { label: t.nav.investors, href: "/investors", hasMegaMenu: false },
     { label: t.nav.contact, href: "/contact", hasMegaMenu: false },
     { label: "PelmelBot", href: "/chat", hasMegaMenu: false },
   ];

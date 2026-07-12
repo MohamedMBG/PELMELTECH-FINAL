@@ -115,7 +115,7 @@ export default function HomeHero() {
               <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-300 group-active:translate-x-1 rtl:rotate-180" />
             </Link>
             <Link
-              href="/portfolio"
+              href="/catalog"
               className="inline-flex h-[52px] items-center justify-center rounded-full border border-white/25 bg-white/5 text-xs font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition active:scale-[0.98]"
             >
               {t.hero.exploreWork}
@@ -213,7 +213,7 @@ export default function HomeHero() {
                 />
               </Link>
               <Link
-                href="/portfolio"
+                href="/catalog"
                 className="inline-flex min-h-12 items-center whitespace-nowrap rounded-full border border-outline-variant/70 px-6 py-3 text-xs font-bold uppercase tracking-[0.12em] text-on-surface transition duration-300 hover:-translate-y-0.5 hover:border-magenta hover:text-magenta active:translate-y-px sm:px-7"
               >
                 {t.hero.exploreWork}

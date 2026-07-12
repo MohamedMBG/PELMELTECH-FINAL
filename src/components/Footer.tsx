@@ -37,8 +37,6 @@ export default function Footer() {
           <ul className="space-y-3">
             <li><Link href="/services" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.footerServices}</Link></li>
             <li><Link href="/catalog" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.productCatalog}</Link></li>
-            <li><Link href="/portfolio" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.portfolio}</Link></li>
-            <li><Link href="/investors" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.investors}</Link></li>
           </ul>
         </div>
 

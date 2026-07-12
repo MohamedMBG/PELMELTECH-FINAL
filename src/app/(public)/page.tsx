@@ -6,7 +6,6 @@ import ServicesPreview from "@/components/ServicesPreview";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import CatalogPreview from "@/components/CatalogPreview";
 import MachinesShowcase from "@/components/MachinesShowcase";
-import PortfolioPreview from "@/components/PortfolioPreview";
 import ProcessSection from "@/components/ProcessSection";
 import AdvantagesSection from "@/components/AdvantagesSection";
 import CTASection from "@/components/CTASection";
@@ -23,7 +22,6 @@ export default function HomePage() {
       <WhyChooseUs />
       <CatalogPreview />
       <MachinesShowcase />
-      <PortfolioPreview />
       <ProcessSection />
       <AdvantagesSection />
       <CTASection
