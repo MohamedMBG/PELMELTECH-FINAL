@@ -6,6 +6,8 @@ const en = {
     portfolio: "Portfolio",
     investors: "Investors",
     contact: "Contact",
+    bot: "PelmelBot",
+    toggleMenu: "Toggle menu",
   },
 
   hero: {
@@ -238,6 +240,8 @@ const en = {
     phone: "Phone",
     email: "Email",
     productionHub: "Production Hub",
+    productionAddress: "Rue des Camelias, Casablanca, Morocco",
+    openingHours: "Monday to Friday, 8:30 AM to 6:30 PM",
     chatWhatsApp: "Chat via WhatsApp",
     showroom: "Our Showroom & Hub",
     visitUs: "Visit Us",
@@ -314,6 +318,14 @@ const en = {
     inStock: "In stock",
     outOfStock: "Out of stock",
     newArrival: "New arrival",
+    newArrivalsEyebrow: "New arrivals",
+    reset: "Reset",
+    all: "All",
+    searchPlaceholder: "Search (e.g. i3200, 3200mm)...",
+    clearSearch: "Clear",
+    noProductsFound: "No products found",
+    noProductsDescription:
+      "We could not find any products matching your filters. Try resetting your criteria.",
   },
 
   productDetail: {
@@ -328,6 +340,12 @@ const en = {
     highlights: "Highlights",
     bestApplications: "Best applications",
     relatedProducts: "Related products",
+    stock: "Stock",
+    whatsappCTA: "Chat on WhatsApp",
+    whatsappMessage:
+      "Hello, I am interested in the product: {name}. Can you please provide more information?",
+    downloadFiche: "Technical sheet (PDF)",
+    productImageAlt: "{name} product image",
   },
 
   megaMenu: {
@@ -695,6 +713,8 @@ const en = {
     requestQuote: "Request Quote",
     viewDetails: "View Details",
     details: "Details",
+    whatsApp: "WhatsApp",
+    email: "Email",
   },
 
   servicesPage: {

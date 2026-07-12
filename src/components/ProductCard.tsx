@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { type CatalogProduct, getProductPath, formatPrice } from "@/lib/catalog";
 import { useLanguage } from "@/i18n";
+import { localizeProduct } from "@/lib/localized-catalog";
 
 interface ProductCardProps {
   product: CatalogProduct;
@@ -14,8 +15,9 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, index }: ProductCardProps) {
   const productPath = getProductPath(product);
-  const displayPrice = formatPrice(product);
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
+  const displayProduct = localizeProduct(product, locale);
+  const displayPrice = formatPrice(displayProduct, t.productDetail.requestQuote);
 
   return (
     <motion.div
@@ -31,7 +33,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       <div className="h-44 sm:h-52 rounded-2xl bg-white relative overflow-hidden flex items-center justify-center border border-black/5">
         <Image
           src={product.imageUrl}
-          alt={product.name}
+          alt={t.productDetail.productImageAlt.replace("{name}", displayProduct.name)}
           fill
           className="object-contain transition-transform duration-700 group-hover:scale-105 p-2"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
@@ -40,7 +42,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           <span className={`absolute top-3 start-3 text-[10px] font-bold tracking-widest uppercase text-white px-3 py-1 rounded-full shadow-md z-10 ${
             product.badgeColor === "cyan" ? "bg-cyan" : "bg-magenta"
           }`}>
-            {product.badge}
+          {product.badge}
           </span>
         )}
         {product.newArrival && (
@@ -52,12 +54,12 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
       <div className="px-1.5 pt-4 pb-1">
         <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-on-surface-variant/60 mb-1 block">
-          {product.subcategory}
+          {displayProduct.subcategory}
         </span>
         <h4 className="text-lg font-bold text-on-surface mb-2 group-hover:text-magenta transition-colors">
-          {product.name}
+          {displayProduct.name}
         </h4>
-        <p className="text-sm text-on-surface-variant leading-relaxed mb-4 line-clamp-2">{product.shortDescription}</p>
+        <p className="text-sm text-on-surface-variant leading-relaxed mb-4 line-clamp-2">{displayProduct.shortDescription}</p>
         {product.specifications && (
           <div className="flex flex-wrap gap-1.5 mb-4">
             {product.specifications.printhead && product.specifications.printhead !== "À vérifier" && (

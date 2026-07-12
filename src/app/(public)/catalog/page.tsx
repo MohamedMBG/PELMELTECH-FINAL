@@ -23,6 +23,7 @@ import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
 import { getProducts, getCategories, type CatalogProduct, type CatalogCategory } from "@/lib/catalog";
 import { useLanguage } from "@/i18n";
+import { localizeCategory, localizeProduct, localizeSubcategory } from "@/lib/localized-catalog";
 
 const IconMap = {
   Shirt,
@@ -71,6 +72,7 @@ export default function CatalogPage() {
   };
 
   const activeCategoryObj = categories.find(c => c.id === activeCategory);
+  const displayActiveCategory = activeCategoryObj ? localizeCategory(activeCategoryObj, locale) : null;
 
   // Available subcategories for the active category
   const availableSubcategories = activeCategory
@@ -78,12 +80,13 @@ export default function CatalogPage() {
     : [];
 
   const filtered = allProducts.filter((p) => {
+    const displayProduct = localizeProduct(p, locale);
     const matchesCategory = !activeCategory || p.categoryId === activeCategory;
     const matchesSubcategory = !activeSubcategory || p.subcategory === activeSubcategory;
     const matchesSearch = searchQuery.trim() === "" ||
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.subcategory.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      displayProduct.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      displayProduct.subcategory.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      displayProduct.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (p.specifications && Object.values(p.specifications).some((val) => 
         String(val).toLowerCase().includes(searchQuery.toLowerCase())
       ));
@@ -142,7 +145,7 @@ export default function CatalogPage() {
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
               <div>
                 <span className="text-cyan-dark text-xs font-bold tracking-[0.2em] uppercase mb-2 block">
-                  Nouveau arrivage
+                  {t.catalog.newArrivalsEyebrow}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-on-surface">
                   {t.megaMenu.newArrivals}
@@ -175,7 +178,7 @@ export default function CatalogPage() {
                     onClick={() => { setActiveCategory(""); setActiveSubcategory(""); }}
                     className="text-xs font-bold text-magenta hover:underline"
                   >
-                    {locale === "ar" ? "إعادة تعيين" : "Réinitialiser"}
+                    {t.catalog.reset}
                   </button>
                 )}
               </div>
@@ -202,6 +205,7 @@ export default function CatalogPage() {
                   const count = getProductCount(cat.id);
                   if (count === 0) return null;
                   const isActive = activeCategory === cat.id;
+                  const displayCategory = localizeCategory(cat, locale);
                   
                   return (
                     <button
@@ -215,7 +219,7 @@ export default function CatalogPage() {
                     >
                       <div className="flex items-center gap-3">
                         <CategoryIcon name={cat.icon || ""} className={`transition-transform duration-300 ${isActive ? "scale-110" : ""}`} />
-                        <span>{cat.name}</span>
+                        <span>{displayCategory.name}</span>
                       </div>
                       <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full transition-all duration-300 ${
                         isActive ? "bg-magenta text-white" : "bg-slate-100 text-slate-500"
@@ -250,6 +254,7 @@ export default function CatalogPage() {
                   const count = getProductCount(cat.id);
                   if (count === 0) return null;
                   const isActive = activeCategory === cat.id;
+                  const displayCategory = localizeCategory(cat, locale);
                   return (
                     <button
                       key={cat.id}
@@ -261,7 +266,7 @@ export default function CatalogPage() {
                       }`}
                     >
                       <CategoryIcon name={cat.icon || ""} />
-                      {cat.name}
+                      {displayCategory.name}
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-400"}`}>
                         {count}
                       </span>
@@ -279,7 +284,7 @@ export default function CatalogPage() {
                 </div>
                 <div>
                   <h4 className="font-extrabold text-on-surface text-base">
-                    {activeCategoryObj ? activeCategoryObj.name : t.catalog.allSolutions}
+                    {displayActiveCategory ? displayActiveCategory.name : t.catalog.allSolutions}
                   </h4>
                   <p className="text-xs text-on-surface-variant/70">
                     {t.catalog.showing} <span className="font-bold text-on-surface">{filtered.length}</span> {t.catalog.professionalResults}
@@ -290,11 +295,7 @@ export default function CatalogPage() {
               <div className="w-full md:w-80 relative">
                 <input
                   type="text"
-                  placeholder={
-                    locale === "ar" ? "البحث (مثال: i3200، 3200مم)..." :
-                    locale === "en" ? "Search (e.g. i3200, 3200mm)..." :
-                    "Rechercher (ex. i3200, 3200mm)..."
-                  }
+                  placeholder={t.catalog.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-12 py-3 text-sm rounded-2xl border border-black/[0.06] focus:border-magenta focus:ring-1 focus:ring-magenta focus:outline-none transition-all shadow-inner bg-slate-50/50"
@@ -305,7 +306,7 @@ export default function CatalogPage() {
                     onClick={() => setSearchQuery("")}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-magenta text-xs font-bold"
                   >
-                    {locale === "ar" ? "مسح" : locale === "en" ? "Clear" : "Effacer"}
+                    {t.catalog.clearSearch}
                   </button>
                 )}
               </div>
@@ -326,7 +327,7 @@ export default function CatalogPage() {
                       : "bg-white text-on-surface-variant border border-black/[0.03] hover:bg-slate-50"
                   }`}
                 >
-                  {locale === "ar" ? "الكل" : "Tout"}
+                  {t.catalog.all}
                 </button>
                 {availableSubcategories.map((sub) => (
                   <button
@@ -338,7 +339,7 @@ export default function CatalogPage() {
                         : "bg-white text-on-surface-variant border border-black/[0.03] hover:bg-slate-50"
                     }`}
                   >
-                    {sub}
+                    {localizeSubcategory(sub, locale)}
                   </button>
                 ))}
               </motion.div>
@@ -356,15 +357,15 @@ export default function CatalogPage() {
                 <div className="mx-auto w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-4">
                   <Grid size={24} />
                 </div>
-                <h3 className="text-lg font-bold text-on-surface mb-2">Aucun produit trouvé</h3>
+                <h3 className="text-lg font-bold text-on-surface mb-2">{t.catalog.noProductsFound}</h3>
                 <p className="text-sm text-on-surface-variant max-w-sm mx-auto leading-relaxed">
-                  Nous n'avons trouvé aucun produit correspondant à vos filtres. Essayez de réinitialiser vos critères.
+                  {t.catalog.noProductsDescription}
                 </p>
                 <button 
                   onClick={() => { setActiveCategory(""); setActiveSubcategory(""); setSearchQuery(""); }}
                   className="mt-6 inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase bg-magenta text-white px-6 py-3 rounded-full hover:shadow-lg hover:shadow-magenta/20 transition-all"
                 >
-                  <RotateCcw size={14} /> {locale === "ar" ? "إعادة تعيين" : "Réinitialiser les filtres"}
+                  <RotateCcw size={14} /> {t.catalog.resetFilters}
                 </button>
               </div>
             )}

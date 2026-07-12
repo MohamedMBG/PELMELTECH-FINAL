@@ -8,6 +8,8 @@ const fr: Translations = {
     portfolio: "Réalisations",
     investors: "Partenaires",
     contact: "Contact",
+    bot: "PelmelBot",
+    toggleMenu: "Ouvrir le menu",
   },
 
   hero: {
@@ -240,6 +242,8 @@ const fr: Translations = {
     phone: "Téléphone",
     email: "E-mail",
     productionHub: "Centre de production",
+    productionAddress: "Rue des Camelias, Casablanca, Maroc",
+    openingHours: "Du lundi au vendredi, de 8h30 à 18h30",
     chatWhatsApp: "Discuter via WhatsApp",
     showroom: "Notre showroom",
     visitUs: "Nous rendre visite",
@@ -323,6 +327,14 @@ const fr: Translations = {
     inStock: "En stock",
     outOfStock: "Rupture de stock",
     newArrival: "Nouvel arrivage",
+    newArrivalsEyebrow: "Nouvel arrivage",
+    reset: "Réinitialiser",
+    all: "Tout",
+    searchPlaceholder: "Rechercher (ex. i3200, 3200mm)...",
+    clearSearch: "Effacer",
+    noProductsFound: "Aucun produit trouvé",
+    noProductsDescription:
+      "Nous n'avons trouvé aucun produit correspondant à vos filtres. Essayez de réinitialiser vos critères.",
   },
 
   productDetail: {
@@ -331,6 +343,12 @@ const fr: Translations = {
     ficheDescription:
       "Détails techniques du produit pour les spécifications et les demandes de devis.",
     requestQuote: "Demander un devis",
+    stock: "Stock",
+    whatsappCTA: "Discuter sur WhatsApp",
+    whatsappMessage:
+      "Bonjour, je suis interesse par le produit : {name}. Pouvez-vous me donner plus d'informations ?",
+    downloadFiche: "Fiche technique (PDF)",
+    productImageAlt: "Image du produit {name}",
     browseProducts: "Parcourir les produits",
     category: "Catégorie",
     price: "Prix",
@@ -706,6 +724,8 @@ const fr: Translations = {
 
   common: {
     requestQuote: "Demander un devis",
+    whatsApp: "WhatsApp",
+    email: "E-mail",
     viewDetails: "Voir les détails",
     details: "Détails",
   },

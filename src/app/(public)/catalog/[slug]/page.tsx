@@ -4,7 +4,7 @@ import { useEffect, useState, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CheckCircle2, FileText, MessageCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, FileText, MessageCircle } from "lucide-react";
 import {
   getProductBySlug,
   getProductPath,
@@ -14,6 +14,7 @@ import {
 } from "@/lib/catalog";
 import { getProductDetail } from "@/lib/products";
 import { useLanguage } from "@/i18n";
+import { localizeProduct } from "@/lib/localized-catalog";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -47,6 +48,8 @@ export default function ProductPage({ params }: ProductPageProps) {
     downloadFiche: "Fiche technique (PDF)",
   };
 
+  void labels;
+
   useEffect(() => {
     let active = true;
     getProductBySlug(slug)
@@ -78,8 +81,10 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   if (product === null) notFound();
 
-  const detail = getProductDetail(product);
-  const displayPrice = formatPrice(product);
+  const displayProduct = localizeProduct(product, locale);
+  const detail = getProductDetail(displayProduct, locale);
+  const displayPrice = formatPrice(displayProduct, t.productDetail.requestQuote);
+  const whatsappMessage = t.productDetail.whatsappMessage.replace("{name}", displayProduct.name);
 
   return (
     <>
@@ -99,15 +104,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {t.productDetail.technicalFiche}
               </span>
               <h1 className="max-w-2xl text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-on-surface md:text-6xl">
-                {product.name}
+                {displayProduct.name}
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-on-surface-variant md:text-lg">
-                {product.description}
+                {displayProduct.description}
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href={`/contact?product=${encodeURIComponent(product.name)}`}
+                  href={`/contact?product=${encodeURIComponent(displayProduct.name)}`}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-magenta px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-magenta/15 transition-all hover:bg-magenta-dark active:scale-[0.98]"
                 >
                   {t.productDetail.requestQuote}
@@ -115,12 +120,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                 </Link>
 
                 <a
-                  href={`https://wa.me/212660400881?text=${encodeURIComponent(labels.whatsappMsg(product.name))}`}
+                  href={`https://wa.me/212660400881?text=${encodeURIComponent(whatsappMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-emerald-600/15 transition-all hover:bg-emerald-700 active:scale-[0.98]"
                 >
-                  {labels.whatsappCTA}
+                  {t.productDetail.whatsappCTA}
                   <MessageCircle size={15} />
                 </a>
 
@@ -130,7 +135,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     download
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-on-surface transition-all hover:border-cyan/40 hover:bg-cyan/5 active:scale-[0.98]"
                   >
-                    {labels.downloadFiche}
+                    {t.productDetail.downloadFiche}
                     <FileText size={15} />
                   </a>
                 )}
@@ -141,7 +146,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-3 shadow-2xl shadow-black/[0.08]">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white">
                   {product.imageUrl ? (
-                    <Image src={product.imageUrl} alt={`${product.name} product image`} fill priority className="object-contain p-4" sizes="(max-width: 1024px) 100vw, 50vw" />
+                    <Image src={product.imageUrl} alt={t.productDetail.productImageAlt.replace("{name}", displayProduct.name)} fill priority className="object-contain p-4" sizes="(max-width: 1024px) 100vw, 50vw" />
                   ) : (
                     <div className="flex h-full items-center justify-center text-on-surface-variant/30">
                       <FileText size={48} />
@@ -152,7 +157,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   {product.newArrival && (
                     <div className="col-span-2 rounded-2xl bg-cyan/10 p-4">
                       <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-dark">
-                        Nouveau arrivage
+                        {t.catalog.newArrival}
                       </p>
                     </div>
                   )}
@@ -160,7 +165,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
                       {t.productDetail.category}
                     </p>
-                    <p className="mt-1 text-sm font-bold text-on-surface">{product.subcategory}</p>
+                    <p className="mt-1 text-sm font-bold text-on-surface">{displayProduct.subcategory}</p>
                   </div>
                   <div className="rounded-2xl bg-surface-container-low p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
@@ -170,12 +175,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                   </div>
                   <div className="col-span-2 rounded-2xl bg-surface-container-low p-4">
                     <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">
-                      Stock
+                      {t.productDetail.stock}
                     </p>
                     <p className={`mt-1 text-sm font-bold ${
                       product.stockStatus === "out-of-stock" ? "text-red-500" : "text-cyan-dark"
                     }`}>
-                      {product.stockStatus === "out-of-stock" ? "Out of stock" : "En stock"}
+                      {product.stockStatus === "out-of-stock" ? t.catalog.outOfStock : t.catalog.inStock}
                     </p>
                   </div>
                 </div>
@@ -248,19 +253,22 @@ export default function ProductPage({ params }: ProductPageProps) {
               {t.productDetail.relatedProducts}
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-              {relatedProducts.map((related) => (
-                <Link
-                  key={related.id}
-                  href={getProductPath(related)}
-                  className="group rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-black/[0.06]"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-container">
-                    <Image src={related.imageUrl} alt={`${related.name} product image`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
-                  </div>
-                  <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">{related.subcategory}</p>
-                  <h3 className="mt-1 text-base font-extrabold text-on-surface transition-colors group-hover:text-magenta">{related.name}</h3>
-                </Link>
-              ))}
+              {relatedProducts.map((related) => {
+                const displayRelated = localizeProduct(related, locale);
+                return (
+                  <Link
+                    key={related.id}
+                    href={getProductPath(related)}
+                    className="group rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-black/[0.06]"
+                  >
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-surface-container">
+                      <Image src={related.imageUrl} alt={t.productDetail.productImageAlt.replace("{name}", displayRelated.name)} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+                    </div>
+                    <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant/60">{displayRelated.subcategory}</p>
+                    <h3 className="mt-1 text-base font-extrabold text-on-surface transition-colors group-hover:text-magenta">{displayRelated.name}</h3>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>

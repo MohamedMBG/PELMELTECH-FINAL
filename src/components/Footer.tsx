@@ -54,11 +54,11 @@ export default function Footer() {
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
               <Clock size={14} className="text-magenta shrink-0" />
-              De lundi à vendredi, de 8:30 à 6:30
+              {t.contact.openingHours}
             </li>
             <li className="flex items-start gap-3 text-sm text-on-surface-variant">
               <MapPin size={14} className="text-cyan shrink-0 mt-0.5" />
-              <span>Rue des Camelias, Casablanca</span>
+              <span>{t.contact.productionAddress}</span>
             </li>
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
               <Phone size={14} className="text-cyan shrink-0" />

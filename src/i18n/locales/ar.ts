@@ -2,6 +2,8 @@ import type { Translations } from "../LanguageContext";
 
 const ar: Translations = {
   nav: {
+    bot: "PelmelBot",
+    toggleMenu: "فتح القائمة",
     home: "الرئيسية",
     services: "الخدمات",
     products: "المنتجات",
@@ -232,6 +234,8 @@ const ar: Translations = {
   },
 
   contact: {
+    productionAddress: "شارع الكاميليا، الدار البيضاء، المغرب",
+    openingHours: "من الاثنين إلى الجمعة، من 8:30 صباحا إلى 6:30 مساء",
     heroTitle: "لنطبع رؤيتك",
     heroDescription:
       "أخبرنا عن مشروعك وسنساعدك في اختيار حل الطباعة المناسب. الدقة والحرفية تبدأ بمحادثة.",
@@ -290,6 +294,14 @@ const ar: Translations = {
   },
 
   catalog: {
+    newArrivalsEyebrow: "وصل حديثا",
+    reset: "إعادة تعيين",
+    all: "الكل",
+    searchPlaceholder: "ابحث (مثال: i3200، 3200mm)...",
+    clearSearch: "مسح",
+    noProductsFound: "لم يتم العثور على منتجات",
+    noProductsDescription:
+      "لم نجد أي منتجات تطابق عوامل التصفية. حاول إعادة تعيين المعايير.",
     heroTag: "كتالوج المنتجات",
     heroTitle: "حلول طباعة دقيقة لكل وسيط",
     heroDescription:
@@ -323,6 +335,12 @@ const ar: Translations = {
   },
 
   productDetail: {
+    stock: "المخزون",
+    whatsappCTA: "تواصل عبر واتساب",
+    whatsappMessage:
+      "مرحبا، أنا مهتم بالمنتج: {name}. هل يمكنكم تزويدي بمزيد من المعلومات؟",
+    downloadFiche: "البطاقة التقنية (PDF)",
+    productImageAlt: "صورة المنتج {name}",
     backToCatalog: "العودة إلى الكتالوج",
     technicalFiche: "البطاقة التقنية",
     ficheDescription:
@@ -699,6 +717,8 @@ const ar: Translations = {
   },
 
   common: {
+    whatsApp: "واتساب",
+    email: "البريد الإلكتروني",
     requestQuote: "طلب عرض سعر",
     viewDetails: "عرض التفاصيل",
     details: "التفاصيل",

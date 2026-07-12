@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getParentCategories, getSubcategories } from "@/lib/catalog";
 import { useLanguage } from "@/i18n";
+import { localizeCategory } from "@/lib/localized-catalog";
 
 import categoriesData from "@/data/categories.json";
 
@@ -34,19 +35,23 @@ const staticCategories = (() => {
 
 export default function CatalogPreview() {
   const [previewCategories, setPreviewCategories] = useState<string[]>(staticCategories);
-  const { t } = useLanguage();
+  const { locale, t } = useLanguage();
 
   useEffect(() => {
     let active = true;
     (async () => {
       const parents = await getParentCategories();
       const groups = await Promise.all(parents.map((p) => getSubcategories(p.id)));
-      if (active) setPreviewCategories(groups.flatMap((subs) => subs.slice(0, 2).map((s) => s.name)));
+      if (active) {
+        setPreviewCategories(
+          groups.flatMap((subs) => subs.slice(0, 2).map((s) => localizeCategory(s, locale).name)),
+        );
+      }
     })().catch(() => {});
     return () => {
       active = false;
     };
-  }, []);
+  }, [locale]);
 
   return (
     <section className="section-y bg-background">

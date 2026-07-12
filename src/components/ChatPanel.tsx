@@ -239,7 +239,7 @@ type ChatPanelProps = {
 };
 
 export default function ChatPanel({ variant = "floating", active = true, onClose }: ChatPanelProps) {
-  const { locale } = useLanguage();
+  const { locale, t } = useLanguage();
   const botContent = PELMELBOT_CONTENT[locale];
   const { tree, ui } = botContent;
   const [events, setEvents] = useState<ChatEvent[]>([]);
@@ -513,7 +513,7 @@ export default function ChatPanel({ variant = "floating", active = true, onClose
           <div className={styles.contactLinks} aria-label={ui.contactLinksLabel}>
             <a href={getPelmelBotWhatsAppUrl(ui.whatsAppMessage)} target="_blank" rel="noopener noreferrer">
               <MessageCircle size={13} aria-hidden="true" />
-              WhatsApp
+              {t.common.whatsApp}
             </a>
             <a href={`tel:${PELMELBOT_CONTACT.phonePrimary.replace(/\s/g, "")}`}>
               <Phone size={13} aria-hidden="true" />
@@ -521,7 +521,7 @@ export default function ChatPanel({ variant = "floating", active = true, onClose
             </a>
             <a href={`mailto:${PELMELBOT_CONTACT.email}`}>
               <Mail size={13} aria-hidden="true" />
-              Email
+              {t.common.email}
             </a>
           </div>
         ) : null}

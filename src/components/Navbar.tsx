@@ -29,7 +29,7 @@ export default function Navbar() {
     { label: t.nav.services, href: "/services", hasMegaMenu: false },
     { label: t.nav.products, href: "/catalog", hasMegaMenu: true },
     { label: t.nav.contact, href: "/contact", hasMegaMenu: false },
-    { label: "PelmelBot", href: "/chat", hasMegaMenu: false },
+    { label: t.nav.bot, href: "/chat", hasMegaMenu: false },
   ];
 
   useEffect(() => {
@@ -168,13 +168,13 @@ export default function Navbar() {
             className="group hidden sm:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full text-xs font-bold tracking-[0.1em] uppercase hover:brightness-110 hover:-translate-y-0.5 transition-all active:scale-95 shadow-lg shadow-green-500/20 hover:shadow-green-500/40"
           >
             <MessageCircle size={14} className="shrink-0 group-hover:rotate-12 transition-transform" />
-            <span>WhatsApp</span>
+            <span>{t.common.whatsApp}</span>
           </a>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="xl:hidden p-2 text-on-surface"
-            aria-label="Toggle menu"
+            aria-label={t.nav.toggleMenu}
             aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -275,7 +275,7 @@ export default function Navbar() {
                 className="bg-[#25D366] text-white px-6 py-3 rounded-full text-xs font-bold tracking-[0.1em] uppercase text-center mt-4 flex items-center justify-center gap-2"
               >
                 <MessageCircle size={14} />
-                WhatsApp
+                {t.common.whatsApp}
               </a>
             </div>
           </motion.div>

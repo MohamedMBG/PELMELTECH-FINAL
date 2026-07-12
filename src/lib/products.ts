@@ -3,6 +3,7 @@ import {
   slugifyProductName,
   type CatalogProduct,
 } from "@/lib/catalog";
+import type { Locale } from "@/i18n";
 
 export type Product = CatalogProduct;
 
@@ -279,27 +280,41 @@ export function getProductPath(product: { name?: string; slug?: string }): strin
   return `/catalog/${slugifyProductName(product.name ?? "")}`;
 }
 
-export function getProductDetail(product: Product): ProductDetail {
+export function getProductDetail(product: Product, locale: Locale = "fr"): ProductDetail {
   const details = categoryDetails[product.subcategory] ?? categoryDetails["Standard Printers"];
+  const labels = {
+    product: { fr: "Produit", en: "Product", ar: "المنتج" },
+    category: { fr: "Categorie", en: "Category", ar: "الفئة" },
+    price: { fr: "Prix", en: "Price", ar: "السعر" },
+    quote: { fr: "Sur devis", en: "Request quote", ar: "حسب الطلب" },
+    toVerify: { fr: "A verifier", en: "To verify", ar: "قيد التحقق" },
+    printhead: { fr: "Tete d'impression", en: "Printhead", ar: "رأس الطباعة" },
+    width: { fr: "Largeur", en: "Width", ar: "العرض" },
+    speed: { fr: "Vitesse", en: "Speed", ar: "السرعة" },
+    resolution: { fr: "Resolution", en: "Resolution", ar: "الدقة" },
+    dimensions: { fr: "Dimensions", en: "Dimensions", ar: "الأبعاد" },
+    weight: { fr: "Poids", en: "Weight", ar: "الوزن" },
+    power: { fr: "Alimentation", en: "Power", ar: "الطاقة" },
+  };
   const priceDisplay = product.quoteOnly || product.price === null
-    ? "Sur devis / Request quote"
+    ? labels.quote[locale]
     : `${product.price.toFixed(2)} DH${product.specifications?.usageType ? `/${product.specifications.usageType}` : ""}`;
 
   const fiche: TechnicalRow[] = [
-    { label: "Produit / Product", value: product.name },
-    { label: "Catégorie / Category", value: product.subcategory || product.categoryName || "" },
-    { label: "Prix / Price", value: priceDisplay },
+    { label: labels.product[locale], value: product.name },
+    { label: labels.category[locale], value: product.subcategory || product.categoryName || "" },
+    { label: labels.price[locale], value: priceDisplay },
   ];
 
   if (product.specifications && Object.keys(product.specifications).length > 0) {
     const specLabels: Record<string, string> = {
-      printhead: "Tête d'impression / Printhead",
-      printingWidth: "Largeur / Width",
-      speed: "Vitesse / Speed",
-      resolution: "Résolution / Resolution",
-      dimensions: "Dimensions",
-      weight: "Poids / Weight",
-      power: "Alimentation / Power",
+      printhead: labels.printhead[locale],
+      printingWidth: labels.width[locale],
+      speed: labels.speed[locale],
+      resolution: labels.resolution[locale],
+      dimensions: labels.dimensions[locale],
+      weight: labels.weight[locale],
+      power: labels.power[locale],
     };
 
     for (const [key, value] of Object.entries(product.specifications)) {
@@ -314,7 +329,7 @@ export function getProductDetail(product: Product): ProductDetail {
     details.fiche.forEach((row, index) => {
       fiche.push({
         label: row.label,
-        value: details.values[index] || "À vérifier",
+        value: details.values[index] || labels.toVerify[locale],
       });
     });
   }
@@ -333,4 +348,3 @@ export function getProductDetail(product: Product): ProductDetail {
     applications,
   };
 }
-

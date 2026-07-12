@@ -7,10 +7,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getProducts, getProductPath, type CatalogProduct } from "@/lib/catalog";
 import { useLanguage } from "@/i18n";
+import { localizeProduct } from "@/lib/localized-catalog";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 function MachineCard({ product, discover }: { product: CatalogProduct; discover: string }) {
+  const { locale, t } = useLanguage();
+  const displayProduct = localizeProduct(product, locale);
   const ref = useRef<HTMLAnchorElement>(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
@@ -35,7 +38,7 @@ function MachineCard({ product, discover }: { product: CatalogProduct; discover:
       <div className="relative h-52 bg-gradient-to-b from-surface-container-high to-white flex items-center justify-center overflow-hidden">
         <Image
           src={product.imageUrl}
-          alt={product.name}
+          alt={t.productDetail.productImageAlt.replace("{name}", displayProduct.name)}
           fill
           className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
           sizes="320px"
@@ -53,10 +56,10 @@ function MachineCard({ product, discover }: { product: CatalogProduct; discover:
       </div>
       <div className="p-5">
         <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-cyan-dark mb-1.5 block">
-          {product.subcategory}
+          {displayProduct.subcategory}
         </span>
         <h4 className="text-base font-bold text-on-surface leading-snug mb-4 line-clamp-2 group-hover:text-magenta transition-colors">
-          {product.name}
+          {displayProduct.name}
         </h4>
         <span className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-on-surface-variant group-hover:text-magenta transition-colors">
           {discover}

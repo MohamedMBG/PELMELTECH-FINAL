@@ -64,7 +64,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-xs font-bold tracking-wide uppercase text-on-surface-variant/60 mb-1">{t.contact.productionHub}</p>
                     <p className="text-on-surface font-semibold">
-                      88 Print Avenue, Industrial Zone West,<br />Design District, CA 90210
+                      {t.contact.productionAddress}
                     </p>
                   </div>
                 </div>
