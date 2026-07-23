@@ -32,57 +32,54 @@ On first API access, the app creates these tables automatically and seeds produc
 
 Quotes are not seeded in production.
 
-## Render Backend
+## Vercel Application
 
-Deploy this repository as a Render Web Service. Render can read `render.yaml`.
+Deploy this repository once as a full-stack Next.js project on Vercel. Vercel
+serves the public pages and admin panel and runs the `/api/*` route handlers.
+Neon provides the persistent PostgreSQL database.
 
-Required environment variables on Render:
+Required production environment variables:
 
 - `DATABASE_URL`: Neon Postgres connection string.
-- `ADMIN_PASSWORD`: strong admin password.
+- `ADMIN_PASSWORD`: strong bootstrap administrator password.
 - `ADMIN_SECRET`: long random string for signed session cookies.
-
-Build command:
-
-```bash
-npm ci && npm run build
-```
-
-Start command:
-
-```bash
-npm run start -- -p $PORT
-```
-
-Health check path:
-
-```text
-/api/health
-```
-
-## Vercel Frontend
-
-Deploy the same repository to Vercel as a Next.js project.
-
-Set this Vercel environment variable after the Render backend URL exists:
-
-```text
-BACKEND_URL=https://your-render-service.onrender.com
-```
-
-When `BACKEND_URL` is set, Next proxies frontend calls from `/api/*` to the Render backend. This keeps the browser using same-origin `/api` URLs while the real backend runs on Render.
-
-Use the same `ADMIN_PASSWORD` and `ADMIN_SECRET` on Vercel and Render so the admin cookie can be verified consistently through the proxy.
 
 ## Production Checklist
 
 - Create Neon database.
-- Add `DATABASE_URL`, `ADMIN_PASSWORD`, and `ADMIN_SECRET` to Render.
-- Deploy Render backend and confirm `/api/health` returns `{ "ok": true }`.
-- Add `BACKEND_URL` to Vercel using the Render URL.
-- Add the same `ADMIN_PASSWORD` and `ADMIN_SECRET` to Vercel.
-- Deploy Vercel frontend.
+- Add `DATABASE_URL`, `ADMIN_PASSWORD`, and `ADMIN_SECRET` to Vercel.
+- Add the monthly backup variables described below.
+- Deploy the complete application to Vercel.
 - Test catalog loading, quote submission, admin login, and admin edits.
+
+## Monthly Encrypted Backup
+
+Vercel invokes `/api/cron/monthly-backup` at 03:00 UTC on the first day of
+each month. The route exports every application table, encrypts the snapshot
+with AES-256-GCM, places it in a ZIP archive, and sends it to the configured
+administrator through Resend.
+
+Configure these production environment variables:
+
+- `CRON_SECRET`: random value of at least 16 characters; Vercel sends it to the
+  protected cron route.
+- `BACKUP_ENCRYPTION_KEY`: a separate random value of at least 32 characters.
+  Store a copy in a password manager; an emailed archive cannot be restored
+  without it.
+- `RESEND_API_KEY`: API key for the Resend account.
+- `BACKUP_EMAIL_FROM`: sender on a domain verified by Resend.
+- `BACKUP_EMAIL_TO`: administrator who receives the archive.
+
+To decrypt and verify a downloaded archive without changing the live database:
+
+```bash
+BACKUP_ENCRYPTION_KEY="the-saved-secret" npm run backup:decrypt -- backup.zip output.json
+```
+
+The script refuses to overwrite an existing output file. Test this restore
+procedure after the first delivery and periodically afterward. Email backups
+are a secondary export; keep Neon recovery enabled and monitor failed cron
+invocations in Vercel.
 
 ## Scripts
 
@@ -91,4 +88,5 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run backup:decrypt -- backup.zip output.json
 ```

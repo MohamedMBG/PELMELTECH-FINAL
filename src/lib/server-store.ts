@@ -46,6 +46,12 @@ interface Store {
   users: User[];
 }
 
+export interface BackupSnapshot {
+  formatVersion: 1;
+  exportedAt: string;
+  data: Store;
+}
+
 type Sql = NeonQueryFunction<false, false>;
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -171,6 +177,48 @@ async function initDb(db: Sql): Promise<void> {
       `;
     }
   }
+}
+
+/**
+ * Returns a consistent logical export of every application-owned table.
+ * Passwords remain PBKDF2 hashes, never plaintext. The caller must encrypt
+ * this snapshot before it leaves the server.
+ */
+export async function createBackupSnapshot(): Promise<BackupSnapshot> {
+  const db = await getDb();
+  if (!db) {
+    return {
+      formatVersion: 1,
+      exportedAt: now(),
+      data: readFileStore(),
+    };
+  }
+
+  const [products, categories, quotes, devis, users] = await db.transaction(
+    (tx) => [
+      tx`SELECT data FROM pelmel_products ORDER BY id`,
+      tx`SELECT data FROM pelmel_categories ORDER BY id`,
+      tx`SELECT data FROM pelmel_quotes ORDER BY id`,
+      tx`SELECT data FROM pelmel_devis ORDER BY id`,
+      tx`SELECT data FROM pelmel_users ORDER BY id`,
+    ],
+    { isolationLevel: "RepeatableRead", readOnly: true },
+  );
+
+  const unpack = <T>(rows: Record<string, unknown>[]): T[] =>
+    rows.map((row) => rowData<T>(row)).filter((item): item is T => item !== undefined);
+
+  return {
+    formatVersion: 1,
+    exportedAt: now(),
+    data: {
+      products: unpack<Product>(products),
+      categories: unpack<Category>(categories),
+      quotes: unpack<Quote>(quotes),
+      devis: unpack<Devis>(devis),
+      users: unpack<User>(users),
+    },
+  };
 }
 
 // --- Products ---
