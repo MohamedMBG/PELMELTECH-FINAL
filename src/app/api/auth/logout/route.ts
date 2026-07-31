@@ -3,6 +3,14 @@ import { SESSION_COOKIE } from "@/lib/auth";
 
 export async function POST() {
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(SESSION_COOKIE, "", { path: "/", maxAge: 0 });
+  // Match the attributes the cookie was set with so browsers reliably overwrite
+  // and expire it.
+  res.cookies.set(SESSION_COOKIE, "", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 0,
+  });
   return res;
 }

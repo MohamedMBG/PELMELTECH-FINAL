@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
+import { getHealth } from "@/lib/health";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return NextResponse.json({
-    ok: true,
-    service: "pelmeltech-api",
-    hasDb: Boolean(process.env.DATABASE_URL),
-    timestamp: new Date().toISOString(),
-  });
+  const { httpStatus, body } = await getHealth();
+  return NextResponse.json(body, { status: httpStatus });
 }

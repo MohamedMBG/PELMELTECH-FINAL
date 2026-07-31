@@ -10,15 +10,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "test": "node --import tsx --test tests/config.test.ts tests/auth.test.ts tests/schema.test.ts tests/seed.test.ts tests/legacy-seed.test.ts tests/health.test.ts tests/db.integration.test.ts",
+    "config:check": "node --import tsx scripts/config-check.ts",
+    "db:init": "node --import tsx scripts/db-init.ts",
+    "seed:initial": "node --import tsx scripts/seed.ts",
+    "seed:sync:destructive": "node --import tsx scripts/seed.ts --prune",
     "backup:decrypt": "node scripts/decrypt-backup.mjs"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.1.0",
     "fflate": "^0.8.3",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.20.0",
     "next": "16.2.11",
+    "postgres": "^3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -30,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   }
 }

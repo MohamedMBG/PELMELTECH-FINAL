@@ -8,15 +8,24 @@
  * PBKDF2-hashed passwords and per-section permissions.
  */
 
-export const SESSION_COOKIE = "admin_session";
-const TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+import { getAdminPassword, getAdminSecret } from "@/lib/config";
 
+export const SESSION_COOKIE = "admin_session";
+export const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const TTL_MS = SESSION_TTL_MS;
+
+/**
+ * Session-signing secret. Delegates to the centralized config, which requires
+ * a real value in production and only falls back to an insecure default in
+ * development. Never returns the insecure default when NODE_ENV=production.
+ */
 export function getSecret(): string {
-  return process.env.ADMIN_SECRET || "dev-insecure-secret-change-me";
+  return getAdminSecret();
 }
 
+/** Bootstrap superadmin password. Required in production (see config). */
 export function getPassword(): string {
-  return process.env.ADMIN_PASSWORD || "admin";
+  return getAdminPassword();
 }
 
 const enc = new TextEncoder();
@@ -35,13 +44,45 @@ export function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
+async function sha256Hex(msg: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", enc.encode(msg));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Constant-time secret comparison with no length side channel. Both inputs are
+ * reduced to fixed-length SHA-256 digests before the constant-time compare, so
+ * neither the values nor their lengths leak. Edge-compatible (Web Crypto), so
+ * it is usable from middleware. Never logs either value.
+ */
+export async function safeCompareSecret(a: string, b: string): Promise<boolean> {
+  return safeEqual(await sha256Hex(a), await sha256Hex(b));
+}
+
 /** Reserved id for the env-configured bootstrap superadmin. */
 export const ROOT_USER_ID = "root";
 
-export async function createToken(secret: string, userId: string = ROOT_USER_ID): Promise<string> {
-  const exp = String(Date.now() + TTL_MS);
-  const payload = `${userId}.${exp}`;
+/** Sign a token with an explicit absolute expiry (ms since epoch). */
+async function signToken(secret: string, userId: string, expiresAtMs: number): Promise<string> {
+  const payload = `${userId}.${expiresAtMs}`;
   return `${payload}.${await hmacHex(secret, payload)}`;
+}
+
+export async function createToken(secret: string, userId: string = ROOT_USER_ID): Promise<string> {
+  return signToken(secret, userId, Date.now() + TTL_MS);
+}
+
+/**
+ * Test-only helper: sign a valid token with a caller-chosen expiry so tests can
+ * construct genuinely-signed expired/future tokens. Not used by production code
+ * and does not weaken verifyToken.
+ */
+export async function signTokenWithExpiry(
+  secret: string,
+  userId: string,
+  expiresAtMs: number,
+): Promise<string> {
+  return signToken(secret, userId, expiresAtMs);
 }
 
 /** Returns the userId if the token is valid and unexpired, else null. */

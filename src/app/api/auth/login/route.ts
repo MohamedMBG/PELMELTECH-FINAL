@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { SESSION_COOKIE, ROOT_USER_ID, getSecret, getPassword, createToken, safeEqual, verifyPassword } from "@/lib/auth";
+import { SESSION_COOKIE, ROOT_USER_ID, getSecret, getPassword, createToken, safeCompareSecret, verifyPassword } from "@/lib/auth";
 import { getUserByUsername } from "@/lib/server-store";
 
 export async function POST(req: Request) {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   let userId: string | null = null;
 
   // Bootstrap superadmin: blank username or "admin" + the env password.
-  if ((!name || name.toLowerCase() === "admin") && safeEqual(password, getPassword())) {
+  if ((!name || name.toLowerCase() === "admin") && (await safeCompareSecret(password, getPassword()))) {
     userId = ROOT_USER_ID;
   } else if (name) {
     const user = await getUserByUsername(name);

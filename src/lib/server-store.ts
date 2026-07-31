@@ -1,14 +1,17 @@
 /**
  * Server-side data store for products, categories, and quotes.
  *
- * Production uses Neon/Postgres when DATABASE_URL is configured. Local
- * development can still run without a database by falling back to data/store.json.
+ * Production uses Postgres (VPS or any standard server) when DATABASE_URL is
+ * configured. Local development can still run without a database by falling
+ * back to data/store.json.
  */
 
 import fs from "node:fs";
 import path from "node:path";
-import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import postgres from "postgres";
 import { hashPassword } from "@/lib/auth";
+import { isFileStoreAllowed } from "@/lib/config";
+import { ensureSchema, isSchemaComplete, TABLE_NAMES } from "@/lib/schema";
 import productsSeed from "@/data/products.json";
 import categoriesSeed from "@/data/categories.json";
 
@@ -52,10 +55,14 @@ export interface BackupSnapshot {
   data: Store;
 }
 
-type Sql = NeonQueryFunction<false, false>;
+type Sql = ReturnType<typeof postgres>;
 
 const databaseUrl = process.env.DATABASE_URL;
-const sql = databaseUrl ? neon(databaseUrl) : null;
+// ponytail: default pool (long-running server on the VPS). If deployed to a
+// serverless host instead, add { max: 1 } to avoid exhausting DB connections.
+// connect_timeout bounds how long a health check / request waits on an
+// unreachable DB instead of hanging.
+const sql = databaseUrl ? postgres(databaseUrl, { connect_timeout: 10 }) : null;
 let initPromise: Promise<void> | null = null;
 
 function generateId(): string {
@@ -84,7 +91,17 @@ function seed(): Store {
   };
 }
 
+/** Guard: the JSON file store is a development-only convenience. */
+function assertFileStoreAllowed(): void {
+  if (!isFileStoreAllowed()) {
+    throw new Error(
+      "DATABASE_URL is required in production; refusing to use the data/store.json fallback",
+    );
+  }
+}
+
 function readFileStore(): Store {
+  assertFileStoreAllowed();
   try {
     const store = JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Store;
     store.users ??= []; // older stores predate the users table
@@ -98,6 +115,7 @@ function readFileStore(): Store {
 }
 
 function writeFileStore(store: Store): void {
+  assertFileStoreAllowed();
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(DATA_FILE, JSON.stringify(store, null, 2));
 }
@@ -108,53 +126,45 @@ function rowData<T>(row: Record<string, unknown> | undefined): T | undefined {
 }
 
 async function getDb(): Promise<Sql | null> {
-  if (!sql) return null;
+  if (!sql) {
+    if (!isFileStoreAllowed()) {
+      throw new Error("DATABASE_URL is required in production but is not set");
+    }
+    return null;
+  }
   initPromise ??= initDb(sql);
   await initPromise;
   return sql;
 }
 
+/**
+ * Lightweight readiness probe for the health endpoint. Never throws and never
+ * exposes the connection string. Distinguishes "no DB configured" from
+ * "configured but unreachable" and reports whether the schema exists.
+ */
+export async function pingDb(): Promise<{ configured: boolean; reachable: boolean; schemaReady: boolean }> {
+  if (!sql) return { configured: false, reachable: false, schemaReady: false };
+  try {
+    await sql`SELECT 1`;
+    // schemaReady is true only when ALL five tables exist.
+    const rows = await sql<{ name: string }[]>`
+      SELECT t AS name
+      FROM unnest(${sql.array([...TABLE_NAMES])}::text[]) AS t
+      WHERE to_regclass('public.' || t) IS NOT NULL
+    `;
+    return {
+      configured: true,
+      reachable: true,
+      schemaReady: isSchemaComplete(rows.map((r) => r.name)),
+    };
+  } catch {
+    return { configured: true, reachable: false, schemaReady: false };
+  }
+}
+
 async function initDb(db: Sql): Promise<void> {
-  await db`
-    CREATE TABLE IF NOT EXISTS pelmel_products (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `;
-  await db`
-    CREATE TABLE IF NOT EXISTS pelmel_categories (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `;
-  await db`
-    CREATE TABLE IF NOT EXISTS pelmel_quotes (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `;
-  await db`
-    CREATE TABLE IF NOT EXISTS pelmel_devis (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `;
-  await db`
-    CREATE TABLE IF NOT EXISTS pelmel_users (
-      id text PRIMARY KEY,
-      data jsonb NOT NULL,
-      created_at timestamptz NOT NULL DEFAULT now(),
-      updated_at timestamptz NOT NULL DEFAULT now()
-    )
-  `;
+  // Shared schema source (also used by `npm run db:init`).
+  await ensureSchema(db);
 
   const [productCount] = await db`SELECT COUNT(*)::int AS count FROM pelmel_products`;
   if (Number(productCount?.count ?? 0) === 0) {
@@ -194,16 +204,16 @@ export async function createBackupSnapshot(): Promise<BackupSnapshot> {
     };
   }
 
-  const [products, categories, quotes, devis, users] = await db.transaction(
-    (tx) => [
+  const [products, categories, quotes, devis, users] = await db.begin(async (tx) => {
+    await tx`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY`;
+    return Promise.all([
       tx`SELECT data FROM pelmel_products ORDER BY id`,
       tx`SELECT data FROM pelmel_categories ORDER BY id`,
       tx`SELECT data FROM pelmel_quotes ORDER BY id`,
       tx`SELECT data FROM pelmel_devis ORDER BY id`,
       tx`SELECT data FROM pelmel_users ORDER BY id`,
-    ],
-    { isolationLevel: "RepeatableRead", readOnly: true },
-  );
+    ]);
+  });
 
   const unpack = <T>(rows: Record<string, unknown>[]): T[] =>
     rows.map((row) => rowData<T>(row)).filter((item): item is T => item !== undefined);
