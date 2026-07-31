@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --import tsx --test tests/config.test.ts tests/auth.test.ts tests/schema.test.ts tests/seed.test.ts tests/legacy-seed.test.ts tests/health.test.ts tests/db.integration.test.ts",
+    "test": "node --import tsx --test tests/config.test.ts tests/auth.test.ts tests/schema.test.ts tests/seed.test.ts tests/legacy-seed.test.ts tests/scripts-launch.test.ts tests/health.test.ts tests/db.integration.test.ts",
     "config:check": "node --import tsx scripts/config-check.ts",
     "db:init": "node --import tsx scripts/db-init.ts",
     "seed:initial": "node --import tsx scripts/seed.ts",
