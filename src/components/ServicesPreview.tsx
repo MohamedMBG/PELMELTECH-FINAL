@@ -137,7 +137,7 @@ export default function ServicesPreview() {
             <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/20 rtl:bg-gradient-to-l" />
             <div className="absolute inset-0 flex items-center justify-end pe-3">
               <p
-                className="text-[11px] font-bold text-on-surface/40 tracking-wide uppercase group-hover/peek:text-on-surface/70 transition-colors duration-300"
+                className="text-[11px] font-bold text-on-surface/70 tracking-wide uppercase group-hover/peek:text-on-surface transition-colors duration-300"
                 style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               >
                 {items[prevIdx].title}
@@ -255,7 +255,7 @@ export default function ServicesPreview() {
             <div className="absolute inset-0 bg-gradient-to-l from-background/90 via-background/50 to-background/20 rtl:bg-gradient-to-r" />
             <div className="absolute inset-0 flex items-center justify-start ps-3">
               <p
-                className="text-[11px] font-bold text-on-surface/40 tracking-wide uppercase group-hover/peek:text-on-surface/70 transition-colors duration-300"
+                className="text-[11px] font-bold text-on-surface/70 tracking-wide uppercase group-hover/peek:text-on-surface transition-colors duration-300"
                 style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
               >
                 {items[nextIdx].title}

@@ -80,14 +80,10 @@ export default function HomeHero() {
           <h1 className="text-[clamp(2.5rem,11vw,3.6rem)] font-extrabold leading-[0.95] tracking-[-0.045em] text-white">
             {headline.map((line, index) => (
               <span key={line} className="block overflow-hidden pb-[0.08em]">
-                <motion.span
-                  className={`block ${index === 1 ? "text-[#ff3d94]" : ""}`}
-                  initial={reduceMotion ? false : { y: "110%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.9, delay: 0.18 + index * 0.12, ease }}
-                >
+                {/* LCP text: rendered visible at first paint, not gated behind JS/animation */}
+                <span className={`block ${index === 1 ? "text-[#ff3d94]" : ""}`}>
                   {line}
-                </motion.span>
+                </span>
               </span>
             ))}
           </h1>
@@ -174,14 +170,10 @@ export default function HomeHero() {
             <h1 className="text-[clamp(2.7rem,6.1vw,5.8rem)] font-extrabold leading-[0.94] tracking-[-0.055em] text-on-surface">
               {headline.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
-                  <motion.span
-                    className={`block ${index === 1 ? "text-magenta" : ""}`}
-                    initial={reduceMotion ? false : { y: "110%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.9, delay: 0.14 + index * 0.1, ease }}
-                  >
+                  {/* LCP text: rendered visible at first paint, not gated behind JS/animation */}
+                  <span className={`block ${index === 1 ? "text-magenta" : ""}`}>
                     {line}
-                  </motion.span>
+                  </span>
                 </span>
               ))}
             </h1>
@@ -222,9 +214,10 @@ export default function HomeHero() {
           </div>
 
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, x: 36 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease }}
+            // Static container: the hero image (a desktop LCP candidate) must be
+            // painted at first render, never gated behind hydration/animation.
+            // The inner "breathing" scale animation below is purely decorative.
+            initial={false}
             className="relative mx-auto w-full max-w-[760px] lg:mx-0"
           >
             <div className="relative overflow-hidden rounded-[24px] bg-surface-container shadow-[0_30px_80px_rgba(45,29,39,0.16)] sm:rounded-[28px]">
@@ -284,9 +277,6 @@ export default function HomeHero() {
           </div>
 
           <div className="group/marquee relative">
-            <div className="pointer-events-none absolute inset-y-0 start-0 z-20 w-12 bg-gradient-to-r from-background to-transparent sm:w-28" />
-            <div className="pointer-events-none absolute inset-y-0 end-0 z-20 w-12 bg-gradient-to-l from-background to-transparent sm:w-28" />
-
             <div
               className="animate-marquee flex w-max gap-5 py-3 group-hover/marquee:[animation-play-state:paused] sm:gap-6"
               style={{ animationDuration: "38s" }}
@@ -340,7 +330,6 @@ export default function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 hidden h-px bg-outline-variant/35 lg:block" />
     </section>
   );
 }

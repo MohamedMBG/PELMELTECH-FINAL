@@ -218,6 +218,8 @@ const ar: Translations = {
     description:
       "طباعة دقيقة وتصنيع صناعي متميز للعلامات التجارية التي تسعى للتميز.",
     navigate: "التنقل",
+    website: "الموقع الإلكتروني",
+    share: "مشاركة",
     footerServices: "الخدمات",
     productCatalog: "كتالوج المنتجات",
     portfolio: "أعمالنا",

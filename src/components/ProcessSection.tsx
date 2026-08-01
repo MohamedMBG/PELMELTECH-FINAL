@@ -88,7 +88,7 @@ function StepCard({ step, index, total }: { step: { title: string; desc: string 
         <div className="mx-auto mb-3 h-px w-0 group-hover:w-8 bg-magenta/20 transition-all duration-500 ease-out" />
 
         <motion.p
-          className="text-[13px] text-on-surface-variant/50 leading-relaxed max-w-[200px] mx-auto group-hover:text-on-surface-variant/70 transition-colors duration-500"
+          className="text-[13px] text-on-surface-variant/80 leading-relaxed max-w-[200px] mx-auto group-hover:text-on-surface-variant transition-colors duration-500"
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

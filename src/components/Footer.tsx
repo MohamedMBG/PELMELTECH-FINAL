@@ -23,17 +23,17 @@ export default function Footer() {
             {t.footer.description}
           </p>
           <div className="flex gap-3">
-            <a href="#" className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-on-surface-variant hover:text-cyan hover:border-cyan transition-all">
-              <Globe size={16} />
+            <a href="#" aria-label={t.footer.website} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-on-surface-variant hover:text-cyan hover:border-cyan transition-all">
+              <Globe size={16} aria-hidden="true" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-on-surface-variant hover:text-magenta hover:border-magenta transition-all">
-              <Share2 size={16} />
+            <a href="#" aria-label={t.footer.share} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-on-surface-variant hover:text-magenta hover:border-magenta transition-all">
+              <Share2 size={16} aria-hidden="true" />
             </a>
           </div>
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-xs font-bold tracking-[0.1em] uppercase text-magenta">{t.footer.navigate}</h4>
+          <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-magenta">{t.footer.navigate}</h3>
           <ul className="space-y-3">
             <li><Link href="/services" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.footerServices}</Link></li>
             <li><Link href="/catalog" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.productCatalog}</Link></li>
@@ -41,7 +41,7 @@ export default function Footer() {
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-xs font-bold tracking-[0.1em] uppercase text-cyan-dark">{t.footer.legal}</h4>
+          <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-cyan-dark">{t.footer.legal}</h3>
           <ul className="space-y-3">
             <li><a href="#" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.termsOfService}</a></li>
             <li><a href="#" className="text-sm text-on-surface-variant hover:text-on-surface transition-colors">{t.footer.privacyPolicy}</a></li>
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-xs font-bold tracking-[0.1em] uppercase text-on-surface">{t.footer.contact}</h4>
+          <h3 className="text-xs font-bold tracking-[0.1em] uppercase text-on-surface">{t.footer.contact}</h3>
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-sm text-on-surface-variant">
               <Clock size={14} className="text-magenta shrink-0" />
@@ -83,10 +83,10 @@ export default function Footer() {
       </div>
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-16 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant/50">
+        <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant/80">
           {t.footer.copyright}
         </p>
-        <div className="flex gap-6 text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant/50">
+        <div className="flex gap-6 text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant/80">
           <a href="#" className="hover:text-on-surface-variant transition-colors">{t.footer.status}</a>
           <a href="#" className="hover:text-on-surface-variant transition-colors">{t.footer.cookies}</a>
           <a href="#" className="hover:text-on-surface-variant transition-colors">{t.footer.security}</a>

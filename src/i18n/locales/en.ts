@@ -217,6 +217,8 @@ const en = {
     description:
       "Precision printing and premium industrial fabrication for brands that demand excellence.",
     navigate: "Navigate",
+    website: "Website",
+    share: "Share",
     footerServices: "Services",
     productCatalog: "Product Catalog",
     portfolio: "Portfolio",

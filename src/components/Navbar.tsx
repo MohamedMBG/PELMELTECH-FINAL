@@ -88,7 +88,6 @@ export default function Navbar() {
             width={44}
             height={44}
             className="h-9 lg:h-10 w-auto transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
-            priority
           />
           <span className="text-[20px] lg:text-[22px] font-extrabold tracking-tight text-on-surface leading-none">
             elmel<span className="text-magenta transition-colors group-hover:text-cyan">Tech</span>

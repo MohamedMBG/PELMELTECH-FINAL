@@ -219,6 +219,8 @@ const fr: Translations = {
     description:
       "Impression de précision et fabrication industrielle premium pour les marques qui exigent l'excellence.",
     navigate: "Navigation",
+    website: "Site web",
+    share: "Partager",
     footerServices: "Services",
     productCatalog: "Catalogue produits",
     portfolio: "Réalisations",

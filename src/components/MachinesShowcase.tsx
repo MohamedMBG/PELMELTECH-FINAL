@@ -58,9 +58,9 @@ function MachineCard({ product, discover }: { product: CatalogProduct; discover:
         <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-cyan-dark mb-1.5 block">
           {displayProduct.subcategory}
         </span>
-        <h4 className="text-base font-bold text-on-surface leading-snug mb-4 line-clamp-2 group-hover:text-magenta transition-colors">
+        <h3 className="text-base font-bold text-on-surface leading-snug mb-4 line-clamp-2 group-hover:text-magenta transition-colors">
           {displayProduct.name}
-        </h4>
+        </h3>
         <span className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-on-surface-variant group-hover:text-magenta transition-colors">
           {discover}
           <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform rtl:rotate-180" />

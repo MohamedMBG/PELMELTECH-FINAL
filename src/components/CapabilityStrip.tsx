@@ -12,7 +12,7 @@ export default function CapabilityStrip() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-6 border-y border-black/5 bg-white">
+    <section className="py-6 border-b border-black/5 bg-white">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
         <div className="flex flex-wrap justify-center lg:justify-between items-center gap-x-6 sm:gap-x-10 gap-y-4">
           {t.capabilities.map((label, i) => {
