@@ -92,7 +92,7 @@ export default function DevisDetailPage() {
               <p className="text-xs text-on-surface-variant mt-2 leading-relaxed">
                 88 Print Avenue, Industrial Zone West<br />
                 Design District, CA 90210<br />
-                projects@pelmeltech.com · +1 (555) 012-3456
+                projects@pelmeltech.com · 05 20 73 71 32
               </p>
             </div>
             <div className="text-right">

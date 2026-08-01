@@ -37,6 +37,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# local-only credential/infra reference — NEVER commit
+*.local.md
+CREDENTIALS.local.md
+
 # vercel
 .vercel
 

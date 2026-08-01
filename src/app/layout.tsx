@@ -22,6 +22,10 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "PelmelTech | High-Impact Industrial Precision Printing",
   description: "Premium large format printing, event graphics, banners, panels, and custom production. Industrial precision meets luxury craftsmanship.",
+  icons: {
+    icon: "/images/pelmeltech/logo_pelmeltech.png",
+    apple: "/images/pelmeltech/logo_pelmeltech.png",
+  },
 };
 
 export default function RootLayout({

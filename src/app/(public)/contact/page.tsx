@@ -45,7 +45,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-xs font-bold tracking-wide uppercase text-on-surface-variant/60 mb-1">{t.contact.phone}</p>
-                    <p className="text-on-surface font-semibold">+1 (555) 012-3456</p>
+                    <p className="text-on-surface font-semibold">05 20 73 71 32</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
