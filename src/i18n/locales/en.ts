@@ -12,8 +12,10 @@ const en = {
 
   hero: {
     headline: ["Print", "experiences", "built for", "brands."],
+    tagline:
+      "Your partner for printing solutions and equipment for the advertising industry.",
     description:
-      "A Moroccan manufacturer of printing machines and large-format solutions, PelmelTech supports professionals with reliable, precise equipment adapted to market requirements.",
+      "PEL MEL TECH is a leading importer specializing in machinery for the advertising industry. Our mission is to make reliable, high-performance equipment offering the best value for money accessible to visual communication professionals.",
     exploreWork: "Explore Our Work",
     requestQuote: "Request a Quote",
     scrollToExplore: "Scroll to explore",

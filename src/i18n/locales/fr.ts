@@ -14,8 +14,10 @@ const fr: Translations = {
 
   hero: {
     headline: ["Des impressions", "d'exception", "conçues pour", "les marques."],
+    tagline:
+      "Votre partenaire en solutions d’impression et équipements pour l’industrie publicitaire.",
     description:
-      "Fabricant marocain de machines d’impression et de solutions grand format, PelmelTech accompagne les professionnels avec des équipements fiables, précis et adaptés aux exigences du marché.",
+      "PEL MEL TECH est un importateur de référence spécialisé dans les machines dédiées à l’industrie publicitaire. Notre mission : rendre accessibles aux professionnels de la communication visuelle des équipements fiables, performants et au meilleur rapport qualité-prix.",
     exploreWork: "Découvrir nos réalisations",
     requestQuote: "Demander un devis",
     scrollToExplore: "Défiler pour explorer",

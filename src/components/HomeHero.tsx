@@ -36,7 +36,7 @@ export default function HomeHero() {
   return (
     <section className="relative isolate overflow-hidden">
       {/* ── Mobile: immersive "press proof" hero ── */}
-      <div className="relative flex min-h-[calc(100dvh-4rem)] flex-col justify-end bg-[#150a10] lg:hidden">
+      <div className="relative flex min-h-[calc(100dvh-4rem)] flex-col justify-end overflow-hidden bg-[#150a10] [contain:paint] lg:hidden">
         <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0"
@@ -92,7 +92,16 @@ export default function HomeHero() {
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease }}
-            className="mt-4 max-w-[46ch] text-[13.5px] leading-6 text-white/70"
+            className="mt-4 max-w-[44ch] text-sm font-semibold leading-6 text-white"
+          >
+            {t.hero.tagline}
+          </motion.p>
+
+          <motion.p
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5, ease }}
+            className="mt-3 max-w-[46ch] text-[13.5px] leading-6 text-white/70"
           >
             {t.hero.description}
           </motion.p>
@@ -137,7 +146,7 @@ export default function HomeHero() {
       </div>
 
       {/* ── Mobile: swipeable machine reel ── */}
-      <div className="relative bg-[#150a10] pb-9 pt-2 lg:hidden">
+      <div className="relative overflow-hidden bg-[#150a10] pb-9 pt-2 [contain:paint] lg:hidden">
         <div className="mb-4 flex items-center gap-3 px-5">
           <span className="h-1.5 w-1.5 rounded-full bg-magenta" />
           <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-white/50">
@@ -182,7 +191,16 @@ export default function HomeHero() {
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.42, ease }}
-              className="mt-6 max-w-[52ch] text-[15px] leading-7 text-on-surface-variant sm:text-base lg:mt-7"
+              className="mt-6 max-w-[48ch] text-sm font-semibold leading-6 text-on-surface sm:text-[15px] lg:mt-7"
+            >
+              {t.hero.tagline}
+            </motion.p>
+
+            <motion.p
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.5, ease }}
+              className="mt-4 max-w-[52ch] text-[15px] leading-7 text-on-surface-variant sm:text-base"
             >
               {t.hero.description}
             </motion.p>

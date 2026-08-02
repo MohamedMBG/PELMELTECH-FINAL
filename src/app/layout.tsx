@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" dir="ltr" className={`scroll-smooth antialiased ${manrope.variable} ${cairo.variable}`}>
-      <body className={`min-h-screen flex flex-col bg-background text-on-surface ${manrope.className}`}>
+      <body className={`min-h-screen flex flex-col overflow-x-hidden bg-background text-on-surface ${manrope.className}`}>
         <LanguageProvider>
           {children}
         </LanguageProvider>
