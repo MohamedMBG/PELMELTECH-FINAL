@@ -18,7 +18,7 @@ const fr: Translations = {
       "Votre partenaire en solutions d’impression et équipements pour l’industrie publicitaire.",
     description:
       "PEL MEL TECH est un importateur de référence spécialisé dans les machines dédiées à l’industrie publicitaire. Notre mission : rendre accessibles aux professionnels de la communication visuelle des équipements fiables, performants et au meilleur rapport qualité-prix.",
-    exploreWork: "Découvrir nos réalisations",
+    exploreWork: "Découvrir nos produits",
     requestQuote: "Demander un devis",
     scrollToExplore: "Défiler pour explorer",
     machineMoments: {

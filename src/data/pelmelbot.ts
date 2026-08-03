@@ -15,6 +15,15 @@ export type PelmelBotStep = {
 
 export type PelmelBotUi = {
   onlineStatus: string;
+  assistantLabel: string;
+  progressNeed: string;
+  progressDetails: string;
+  progressResult: string;
+  progressStepWord: string;
+  progressLabel: string;
+  chooseOptionStatus: string;
+  imageUnavailableLabel: string;
+  openLabel: string;
   closeLabel: string;
   messagesLabel: string;
   typingLabel: string;
@@ -163,6 +172,15 @@ function buildContent(
 
 const enUi: PelmelBotUi = {
   onlineStatus: "Online - PelmelTech Assistant",
+  assistantLabel: "PelmelTech Assistant",
+  progressNeed: "Your need",
+  progressDetails: "Details",
+  progressResult: "Recommendation",
+  progressStepWord: "of",
+  progressLabel: "Guided selection progress",
+  chooseOptionStatus: "Choose an option to continue",
+  imageUnavailableLabel: "Image unavailable",
+  openLabel: "Open the PelmelTech assistant",
   closeLabel: "Close PelmelBot chat",
   messagesLabel: "Chat messages",
   typingLabel: "PelmelBot is typing",
@@ -187,6 +205,15 @@ const enUi: PelmelBotUi = {
 
 const frUi: PelmelBotUi = {
   onlineStatus: "En ligne - Assistant PelmelTech",
+  assistantLabel: "Assistant PelmelTech",
+  progressNeed: "Votre besoin",
+  progressDetails: "Précisions",
+  progressResult: "Recommandation",
+  progressStepWord: "sur",
+  progressLabel: "Progression de la sélection guidée",
+  chooseOptionStatus: "Choisissez une option pour continuer",
+  imageUnavailableLabel: "Image indisponible",
+  openLabel: "Ouvrir l'assistant PelmelTech",
   closeLabel: "Fermer le chat PelmelBot",
   messagesLabel: "Messages du chat",
   typingLabel: "PelmelBot écrit",
@@ -211,6 +238,15 @@ const frUi: PelmelBotUi = {
 
 const arUi: PelmelBotUi = {
   onlineStatus: "متصل - مساعد PelmelTech",
+  assistantLabel: "مساعد PelmelTech",
+  progressNeed: "احتياجك",
+  progressDetails: "التفاصيل",
+  progressResult: "التوصية",
+  progressStepWord: "من",
+  progressLabel: "تقدم الاختيار الموجّه",
+  chooseOptionStatus: "اختر خيارًا للمتابعة",
+  imageUnavailableLabel: "الصورة غير متوفرة",
+  openLabel: "فتح مساعد PelmelTech",
   closeLabel: "إغلاق محادثة PelmelBot",
   messagesLabel: "رسائل المحادثة",
   typingLabel: "PelmelBot يكتب",

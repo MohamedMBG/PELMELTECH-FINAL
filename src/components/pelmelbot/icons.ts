@@ -1,0 +1,36 @@
+import {
+  Shirt, Box, Maximize2, Gift, Scissors, Tag, Flame, Package, Layers,
+  ThumbsUp, HelpCircle, RotateCcw, Phone, Mail, MessageCircle,
+  Printer, Ruler, Factory, Wrench, Zap, ScanLine, Droplet, PenLine,
+  CheckCircle2, Send,
+  type LucideIcon,
+} from "lucide-react";
+
+/** Maps the string icon keys used in the decision tree to Lucide components. */
+export const ICON_MAP: Record<string, LucideIcon> = {
+  shirt: Shirt,
+  box: Box,
+  maximize: Maximize2,
+  gift: Gift,
+  scissors: Scissors,
+  tag: Tag,
+  flame: Flame,
+  package: Package,
+  layers: Layers,
+  thumbsUp: ThumbsUp,
+  helpCircle: HelpCircle,
+  rotateCcw: RotateCcw,
+  phone: Phone,
+  mail: Mail,
+  messageCircle: MessageCircle,
+  printer: Printer,
+  ruler: Ruler,
+  factory: Factory,
+  wrench: Wrench,
+  zap: Zap,
+  scanLine: ScanLine,
+  droplet: Droplet,
+  penLine: PenLine,
+  checkCircle: CheckCircle2,
+  send: Send,
+};

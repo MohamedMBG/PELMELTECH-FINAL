@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/i18n";
+import { PELMELBOT_CONTENT } from "@/data/pelmelbot";
 import ChatPanel from "./ChatPanel";
+import PelmelBotLauncher from "./pelmelbot/PelmelBotLauncher";
 import styles from "./PelmelBot.module.css";
 
 export default function PelmelBot() {
   const pathname = usePathname();
+  const { locale, dir } = useLanguage();
+  const ui = PELMELBOT_CONTENT[locale].ui;
   const [isOpen, setIsOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const windowRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
@@ -17,6 +22,7 @@ export default function PelmelBot() {
   const openChat = () => {
     setIsOpen(true);
     setShowBadge(false);
+    setHasInteracted(true);
   };
 
   const closeChat = () => {
@@ -72,37 +78,26 @@ export default function PelmelBot() {
   if (pathname === "/chat") return null;
 
   return (
-    <div className={styles.widget} dir="ltr">
+    <div className={styles.widget} dir={dir}>
       <div
         ref={windowRef}
         className={`${styles.window} ${isOpen ? styles.windowOpen : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Assistant PelmelTech"
+        aria-label={ui.assistantLabel}
+        aria-hidden={!isOpen}
       >
         <ChatPanel variant="floating" active={isOpen} onClose={closeChat} />
       </div>
 
-      <button
+      <PelmelBotLauncher
         ref={launcherRef}
-        type="button"
-        className={styles.launcher}
+        isOpen={isOpen}
+        showGreeting={!isOpen && !hasInteracted}
+        showBadge={showBadge}
+        label={isOpen ? ui.closeLabel : ui.openLabel}
         onClick={isOpen ? closeChat : openChat}
-        aria-label={isOpen ? "Fermer l'assistant PelmelTech" : "Ouvrir l'assistant PelmelTech"}
-        aria-expanded={isOpen}
-      >
-        <Image
-          src={isOpen ? "/images/pelmeltech/activated_bot.png" : "/images/pelmeltech/not_activated_bot.png"}
-          alt=""
-          width={66}
-          height={66}
-          aria-hidden="true"
-          className={styles.launcherImage}
-        />
-        <span className={`${styles.badge} ${showBadge && !isOpen ? styles.badgeVisible : ""}`}>
-          1
-        </span>
-      </button>
+      />
     </div>
   );
 }

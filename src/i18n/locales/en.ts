@@ -16,7 +16,7 @@ const en = {
       "Your partner for printing solutions and equipment for the advertising industry.",
     description:
       "PEL MEL TECH is a leading importer specializing in machinery for the advertising industry. Our mission is to make reliable, high-performance equipment offering the best value for money accessible to visual communication professionals.",
-    exploreWork: "Explore Our Work",
+    exploreWork: "Explore Our Products",
     requestQuote: "Request a Quote",
     scrollToExplore: "Scroll to explore",
     machineMoments: {
