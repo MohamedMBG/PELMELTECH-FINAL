@@ -145,7 +145,7 @@ export default function ServicesPreview() {
             </div>
           </motion.div>
 
-          <div className="relative flex-1 min-h-[440px] md:min-h-[420px] rounded-3xl overflow-hidden bg-white border border-black/5 shadow-2xl shadow-black/8 ring-1 ring-black/[0.03]">
+          <div className="relative flex-1 min-h-[460px] md:min-h-[480px] lg:min-h-[540px] rounded-3xl overflow-hidden bg-white border border-black/5 shadow-2xl shadow-black/8 ring-1 ring-black/[0.03]">
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
                 key={current}
@@ -195,9 +195,9 @@ export default function ServicesPreview() {
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-center p-8 md:p-12 lg:p-16 bg-white">
+                <div className="flex flex-col justify-center min-h-0 p-8 md:p-9 lg:p-12 bg-white">
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.12, ease }}>
-                    <div className="items-center gap-3 mb-8 hidden md:flex">
+                    <div className="items-center gap-3 mb-5 lg:mb-6 hidden md:flex">
                       <div className="w-12 h-[2px] rounded-full bg-gradient-to-r from-cyan to-cyan/40" />
                       <span className="text-cyan-dark text-[11px] font-bold tracking-[0.2em] uppercase">
                         {String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
@@ -210,7 +210,7 @@ export default function ServicesPreview() {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.18, ease }}
-                    className="text-2xl md:text-[2rem] lg:text-4xl font-extrabold text-on-surface mb-5 tracking-tight leading-[1.15]"
+                    className="text-2xl md:text-[1.75rem] lg:text-[2.125rem] font-extrabold text-on-surface mb-4 tracking-tight leading-[1.15]"
                   >
                     {service.title}
                   </motion.h3>
@@ -220,7 +220,7 @@ export default function ServicesPreview() {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.25, ease }}
-                    className="text-[15px] md:text-base text-on-surface-variant leading-relaxed mb-10 max-w-md"
+                    className="text-[15px] md:text-[15px] text-on-surface-variant leading-relaxed mb-6 lg:mb-8 max-w-md"
                   >
                     {service.desc}
                   </motion.p>
