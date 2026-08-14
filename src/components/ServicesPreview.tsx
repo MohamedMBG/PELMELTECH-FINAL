@@ -145,7 +145,9 @@ export default function ServicesPreview() {
             </div>
           </motion.div>
 
-          <div className="relative flex-1 min-h-[460px] md:min-h-[480px] lg:min-h-[540px] rounded-3xl overflow-hidden bg-white border border-black/5 shadow-2xl shadow-black/8 ring-1 ring-black/[0.03]">
+          {/* grid stacking (not absolute overlay) so the card grows to fit the
+              tallest slide — no clipped CTA on narrow screens */}
+          <div className="relative flex-1 grid grid-cols-1 grid-rows-1 min-h-[420px] md:min-h-[480px] lg:min-h-[540px] rounded-3xl overflow-hidden bg-white border border-black/5 shadow-2xl shadow-black/8 ring-1 ring-black/[0.03]">
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
               <motion.div
                 key={current}
@@ -162,9 +164,9 @@ export default function ServicesPreview() {
                   if (info.offset.x < -DRAG_THRESHOLD || info.velocity.x < -DRAG_VELOCITY) paginate(1);
                   else if (info.offset.x > DRAG_THRESHOLD || info.velocity.x > DRAG_VELOCITY) paginate(-1);
                 }}
-                className="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.15fr_1fr] cursor-grab active:cursor-grabbing"
+                className="[grid-area:1/1] grid grid-cols-1 md:grid-cols-[1.15fr_1fr] cursor-grab active:cursor-grabbing"
               >
-                <div className="relative h-64 md:h-full overflow-hidden">
+                <div className="relative h-52 sm:h-60 md:h-full overflow-hidden">
                   <motion.div
                     key={`img-${current}`}
                     initial={{ scale: 1.08 }}
@@ -195,7 +197,7 @@ export default function ServicesPreview() {
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-center min-h-0 p-8 md:p-9 lg:p-12 bg-white">
+                <div className="flex flex-col justify-center min-h-0 p-6 sm:p-8 md:p-9 lg:p-12 bg-white">
                   <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.12, ease }}>
                     <div className="items-center gap-3 mb-5 lg:mb-6 hidden md:flex">
                       <div className="w-12 h-[2px] rounded-full bg-gradient-to-r from-cyan to-cyan/40" />
